@@ -32,7 +32,7 @@ public final class Irr {
     ANALYTIC_DERIVATIVE,
     /** phi coordinate, one exp per flow, brackets and starts mapped by log1p. */
     PHI_DIRECT,
-    /** Gap recurrence with FMA; plain square-and-multiply integer powers. */
+    /** Gap recurrence and reverse path; plain square-and-multiply integer powers. */
     INCREMENTAL,
     /** Written-out integer powers 0 to 7. */
     SMALL_POWERS,
@@ -40,8 +40,17 @@ public final class Irr {
     ANALYTIC_BOUNDS,
     /** Newton first, seeded by the linear guess; Brent as fallback on the guaranteed path. */
     NEWTON_FIRST,
-    /** Pade(1,1) guess waterfall: the optimized solver. */
-    OPTIMIZED
+    /** Pade(1,1) guess waterfall: the optimized solver as originally designed. */
+    OPTIMIZED,
+    /** Extension: integer powers from a table built once per evaluation. */
+    POWER_TABLE,
+    /** Extension: the Pade guess and the Newton root are used whatever the search direction. */
+    TRUSTED_GUESS,
+    /**
+     * Extension: when a Newton step leaves the analytic bounds, the iteration continues on log(P /
+     * N), the ratio of positive to negative discounted sums.
+     */
+    LOG_NEWTON
   }
 
   /** Stage-specific prepared input: the historical problem for L0, a digest otherwise. */
@@ -64,7 +73,13 @@ public final class Irr {
 
   public static IrrResult solve(List<Cashflow> flows, SolverStrategy strategy) {
     if (strategy == null) throw new IllegalArgumentException("Null strategy");
-    return solve(flows, strategy == SolverStrategy.HISTORICAL ? Stage.HISTORICAL : Stage.OPTIMIZED);
+    return solve(
+        flows,
+        switch (strategy) {
+          case HISTORICAL -> Stage.HISTORICAL;
+          case REVISED -> Stage.OPTIMIZED;
+          case EXTENDED -> Stage.LOG_NEWTON;
+        });
   }
 
   public static IrrResult solve(Prepared p) {
@@ -115,6 +130,9 @@ public final class Irr {
     final Digest d;
     int values, derivatives, iterations;
 
+    /** Power table of the extension stages; null selects the recurrence with intPower. */
+    double[] powers;
+
     Run(Digest d) {
       this.d = d;
     }
@@ -131,8 +149,11 @@ public final class Irr {
         case INCREMENTAL -> phiCascade(Npv.Phi.INCREMENTAL_GENERIC);
         case SMALL_POWERS -> phiCascade(Npv.Phi.INCREMENTAL);
         case ANALYTIC_BOUNDS -> bounded();
-        case NEWTON_FIRST -> planned(false);
-        case OPTIMIZED -> planned(true);
+        case NEWTON_FIRST -> planned(false, false, false, false);
+        case OPTIMIZED -> planned(true, false, false, false);
+        case POWER_TABLE -> planned(true, true, false, false);
+        case TRUSTED_GUESS -> planned(true, true, true, false);
+        case LOG_NEWTON -> planned(true, true, true, true);
         case HISTORICAL -> throw new IllegalStateException();
       };
     }
@@ -308,24 +329,41 @@ public final class Irr {
 
     // ------------------------------------------------------- L7, L8: Newton-first plans
 
-    IrrResult planned(boolean usePade) {
-      Npv.Phi evaluator = Npv.Phi.INCREMENTAL;
+    /**
+     * usePade: Pade guess in the waterfall. table: power-table evaluator unless every gap is at
+     * most one day. trust: no direction condition on the Pade guess or on the Newton root.
+     * logNewton: switch to log(P / N) when a step leaves the analytic bounds.
+     */
+    IrrResult planned(boolean usePade, boolean table, boolean trust, boolean logNewton) {
       Analysis a = Analysis.of(d);
       IrrResult direct = directive(a);
       if (direct != null) return direct;
+      if (table && d.maxGap() > 1) powers = Npv.newTable(d);
+      // No root lies outside the widened analytic bounds; a zero bound means none on that side.
+      double low = logNewton ? Analysis.WIDENING * a.phiLower() : Double.NaN;
+      double high = logNewton ? Analysis.WIDENING * a.phiUpper() : Double.NaN;
       int direction = a.directive() == Analysis.Directive.POSITIVE ? 1 : -1;
       boolean bracketed =
           a.guaranteed() && Double.isFinite(a.bracketLow()) && Double.isFinite(a.bracketHigh());
+      Digest.Moments m = d.moments();
       if (!bracketed) {
         // Heuristic plan: one Newton attempt, no Brent.
-        IrrResult r = newton(evaluator, Guess.heuristic(d.moments(), usePade), MAX_EVALUATIONS);
+        IrrResult r = newton(Guess.heuristic(m, usePade), MAX_EVALUATIONS, low, high);
         return r != null ? r : failed();
       }
-      double guess = Guess.waterfall(d, d.moments(), direction, usePade);
-      IrrResult r = newton(evaluator, guess, GUARANTEED_NEWTON_ITERATIONS);
+      double guess =
+          trust ? Guess.trusted(d, m, direction) : Guess.waterfall(d, m, direction, usePade);
+      IrrResult r = newton(guess, GUARANTEED_NEWTON_ITERATIONS, low, high);
       // Direction gate: reject a root on the wrong side that also disagrees with the return.
-      if (r != null && !(r.phi() * direction < 0 && r.phi() * d.totalReturn() < 0)) return r;
-      r = brent(evaluator, a.bracketLow(), a.bracketHigh(), inBracket(a, guess), true);
+      if (r != null && (trust || !(r.phi() * direction < 0 && r.phi() * d.totalReturn() < 0)))
+        return r;
+      r =
+          brent(
+              table ? null : Npv.Phi.INCREMENTAL,
+              a.bracketLow(),
+              a.bracketHigh(),
+              inBracket(a, guess),
+              true);
       return r != null ? r : failed();
     }
 
@@ -354,7 +392,11 @@ public final class Irr {
                     MAX_EVALUATIONS,
                     x -> {
                       values++;
-                      return evaluator.value(d, x);
+                      return evaluator != null
+                          ? evaluator.value(d, x)
+                          : powers != null
+                              ? Npv.tableValue(d, x, powers)
+                              : Npv.Phi.INCREMENTAL.value(d, x);
                     },
                     lo,
                     hi,
@@ -368,17 +410,31 @@ public final class Irr {
       }
     }
 
-    /** Converges on step size. One combined value-and-derivative evaluation per iteration. */
-    IrrResult newton(Npv.Phi evaluator, double phi, int maxIterations) {
+    /**
+     * Converges on step size, one combined evaluation per iteration. With finite bounds, a step
+     * that lands beyond a non-zero bound has overshot every possible root: that step is discarded
+     * and the iteration continues from the same point on log(P / N), which is nearly linear where
+     * the NPV is nearly exponential. NaN bounds disable the switch.
+     */
+    IrrResult newton(double phi, int maxIterations, double low, double high) {
       if (!Double.isFinite(phi)) return null;
+      boolean logForm = false;
       for (int k = 0; k < maxIterations; k++) {
         derivatives++;
         iterations++;
-        Npv.Evaluation e = evaluator.both(d, phi);
+        Npv.Evaluation e =
+            logForm
+                ? Npv.tableLog(d, phi, powers)
+                : powers != null ? Npv.tableBoth(d, phi, powers) : Npv.Phi.INCREMENTAL.both(d, phi);
         double slope = e.derivative();
         if (slope == 0 || !Double.isFinite(slope) || !Double.isFinite(e.value())) return null;
         double next = phi - e.value() / slope;
         if (!Double.isFinite(next)) return null;
+        if (!logForm && ((next < low && low < 0) || (next > high && high > 0))) {
+          logForm = true;
+          if (powers == null) powers = Npv.newTable(d);
+          continue;
+        }
         // The step vanished in rounding while the value is not zero.
         if (next == phi && e.value() != 0) return null;
         if (Math.abs(next - phi) <= TOLERANCE) return phiRoot(next, IrrResult.Path.NEWTON);

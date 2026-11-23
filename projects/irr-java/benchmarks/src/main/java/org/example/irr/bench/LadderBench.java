@@ -39,7 +39,10 @@ public class LadderBench {
       "SMALL_POWERS",
       "ANALYTIC_BOUNDS",
       "NEWTON_FIRST",
-      "OPTIMIZED"
+      "OPTIMIZED",
+      "POWER_TABLE",
+      "TRUSTED_GUESS",
+      "LOG_NEWTON"
     })
     public Irr.Stage stage;
 

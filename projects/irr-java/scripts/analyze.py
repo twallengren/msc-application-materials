@@ -17,19 +17,25 @@ from matplotlib.patches import Patch
 ROOT=Path(__file__).resolve().parents[1]
 # Expected number of JMH records per file (derived from scripts/study.sh).
 FULL_FILES={'kernel-size':5*5,           # 5 daily sizes x 5 calls
-            'kernel-schedule':4*9,       # 4 schedules x 9 calls
+            'kernel-schedule':4*12,      # 4 schedules x 12 calls
+            'kernel-gaps':2*4,           # fixed 37-day gap and sorted irregular gaps x 4 calls
             'prep':4*2,                  # 4 schedules x {HISTORICAL, DIGEST}
-            'ladder':7*9,                # 7 families x 9 stages, prepared
-            'ladder-schedule':3*9,       # 3 schedules x 9 stages, standard, prepared
-            'overall-dated':7*2,         # 7 families x 2 ends, dated
-            'overall-seeds':2*2,         # 2 seeds x 2 ends, standard, prepared
-            'overall-size':2*2}          # 2 sizes x 2 ends, standard, prepared
-SMOKE_FILES={'smoke-kernel':9,'smoke-prep':2,'smoke-ladder':7*9*2}
-# LadderDiagnostics.java: 7 families, 2 further seeds, 3 further schedules, 2 further sizes; 9 stages; 64 inputs.
-DIAG_ROWS=(7+2+3+2)*9*64
-STAGES=['HISTORICAL','PRIMITIVE_ARRAYS','ANALYTIC_DERIVATIVE','PHI_DIRECT','INCREMENTAL','SMALL_POWERS','ANALYTIC_BOUNDS','NEWTON_FIRST','OPTIMIZED']
+            'ladder':7*12,               # 7 families x 12 stages, prepared
+            'ladder-schedule':3*12,      # 3 schedules x 12 stages, standard, prepared
+            'overall-dated':7*3,         # 7 families x 3 ends, dated
+            'overall-seeds':2*3,         # 2 seeds x 3 ends, standard, prepared
+            'overall-size':2*3}          # 2 sizes x 3 ends, standard, prepared
+SMOKE_FILES={'smoke-kernel':12,'smoke-prep':2,'smoke-ladder':7*12*2}
+# Thread-scaling files hold throughput (ops/s), read separately: 2 families x 2 ends per thread count.
+THREADS=[2] if '--smoke' in sys.argv else [1,2,4,8,16]
+SCALING_FILES={t:('smoke-scaling' if '--smoke' in sys.argv else f'scaling-t{t}') for t in THREADS}
+# LadderDiagnostics.java: 7 families, 2 further seeds, 3 further schedules, 2 further sizes; 12 stages; 64 inputs.
+DIAG_ROWS=(7+2+3+2)*12*64
+STAGES=['HISTORICAL','PRIMITIVE_ARRAYS','ANALYTIC_DERIVATIVE','PHI_DIRECT','INCREMENTAL','SMALL_POWERS','ANALYTIC_BOUNDS','NEWTON_FIRST','OPTIMIZED',
+        'POWER_TABLE','TRUSTED_GUESS','LOG_NEWTON']
 LABELS=['L0 Historical','L1 Primitive arrays','L2 Analytic derivative','L3 Phi, direct exp','L4 Incremental recurrence',
-        'L5 Small-power cases','L6 Analytic bounds','L7 Newton first','L8 Optimized']
+        'L5 Small-power cases','L6 Analytic bounds','L7 Newton first','L8 Optimized','L9 Power table','L10 Ungated guess','L11 Log-form step']
+LAST='LOG_NEWTON'
 FAMILIES=['standard','wide','jcurve','signflips','extreme-positive','extreme-negative','dominance']
 CAMEL={'standard':'Standard','wide':'Wide','jcurve':'Jcurve','signflips':'Signflips','extreme-positive':'ExtremePositive',
        'extreme-negative':'ExtremeNegative','dominance':'Dominance'}
@@ -41,12 +47,15 @@ KSIZE_CALLS=['OLD_POW_VALUE','OLD_AUTODIFF','PHI_DIRECT_VALUE','PHI_INCREMENTAL_
 KSIZE_LABEL={'OLD_POW_VALUE':'Historical pow','OLD_AUTODIFF':'Historical autodiff','PHI_DIRECT_VALUE':'Phi direct value',
              'PHI_INCREMENTAL_VALUE':'Phi incr. value','PHI_INCREMENTAL_BOTH':'Phi incr. both'}
 CALLS=['OLD_POW_VALUE','OLD_AUTODIFF','ARRAY_POW_VALUE','ARRAY_ANALYTIC_BOTH','PHI_DIRECT_VALUE','PHI_DIRECT_BOTH',
-       'PHI_GENERIC_VALUE','PHI_INCREMENTAL_VALUE','PHI_INCREMENTAL_BOTH']
+       'PHI_GENERIC_VALUE','PHI_INCREMENTAL_VALUE','PHI_INCREMENTAL_BOTH','PHI_TABLE_VALUE','PHI_TABLE_BOTH','PHI_TABLE_LOG']
+GAP_CALLS=['PHI_DIRECT_VALUE','PHI_GENERIC_VALUE','PHI_INCREMENTAL_VALUE','PHI_TABLE_VALUE']
 CALL_LABEL={'OLD_POW_VALUE':'Historical pow, value (boxed)','OLD_AUTODIFF':'Historical automatic differentiation (boxed)',
             'ARRAY_POW_VALUE':'Pow, value (arrays)','ARRAY_ANALYTIC_BOTH':'Pow, value and analytic derivative (arrays)',
             'PHI_DIRECT_VALUE':'Phi direct, value','PHI_DIRECT_BOTH':'Phi direct, value and derivative',
             'PHI_GENERIC_VALUE':'Phi incremental, generic powers, value','PHI_INCREMENTAL_VALUE':'Phi incremental, small powers, value',
-            'PHI_INCREMENTAL_BOTH':'Phi incremental, small powers, value and derivative'}
+            'PHI_INCREMENTAL_BOTH':'Phi incremental, small powers, value and derivative',
+            'PHI_TABLE_VALUE':'Phi incremental, power table, value','PHI_TABLE_BOTH':'Phi incremental, power table, value and derivative',
+            'PHI_TABLE_LOG':'Log form $\\log(P/N)$ and derivative, power table'}
 SCHEDULES=[('DAILY','Daily'),('WEEKLY','Weekly'),('MONTHLY','Monthly'),('IRREGULAR','Irregular')]
 PARAMS=['configuration','frequency','seed','family','stage','call','preparation']
 
@@ -185,12 +194,20 @@ for c in CALLS:
 table('kernel-schedule.tex','lrrrrr','Call & Daily (ns) & Weekly (ns) & Monthly (ns) & Irregular (ns) & Daily B/op',body)
 
 # ---------- 3. kernel ratios ----------
-RATIOS=[('OLD_POW_VALUE','PHI_INCREMENTAL_VALUE'),('OLD_AUTODIFF','PHI_INCREMENTAL_BOTH'),('PHI_GENERIC_VALUE','PHI_INCREMENTAL_VALUE'),('OLD_POW_VALUE','ARRAY_POW_VALUE')]
+RATIOS=[('OLD_POW_VALUE','PHI_INCREMENTAL_VALUE'),('OLD_AUTODIFF','PHI_INCREMENTAL_BOTH'),('PHI_GENERIC_VALUE','PHI_INCREMENTAL_VALUE'),('OLD_POW_VALUE','ARRAY_POW_VALUE'),
+        ('PHI_INCREMENTAL_VALUE','PHI_TABLE_VALUE'),('OLD_POW_VALUE','PHI_TABLE_VALUE')]
 body=[]
 for f,label in SCHEDULES:
     if not have('KernelBench.evaluate',**{**base,'frequency':f},call='OLD_POW_VALUE'):continue
     body.append(f"{label} & "+' & '.join(rt(kern(a,frequency=f),kern(b,frequency=f)) for a,b in RATIOS))
-table('kernel-ratios.tex','lrrrr','Schedule & Pow/incr.\\ value & Autodiff/incr.\\ both & Generic/small-power incr. & Boxed/array pow',body)
+table('kernel-ratios.tex','lrrrrrr','Schedule & Pow/incr.\\ value & Autodiff/incr.\\ both & Generic/small-power & Boxed/array pow & Small-power/table & Pow/table value',body)
+
+# ---------- 3b. gap-order experiment: same kernel calls on a fixed gap, sorted gaps and random gaps ----------
+GAPS=[('EVERY_37_DAYS','Fixed gap of 37 days'),('IRREGULAR_SORTED','Gaps 1--40, ascending'),('IRREGULAR','Gaps 1--40, random order')]
+if have('KernelBench.evaluate',**{**base,'frequency':'IRREGULAR_SORTED'},call='PHI_TABLE_VALUE'):
+    body=[f"{label} & "+' & '.join(tm(kern(c,frequency=f),1) for c in GAP_CALLS) for f,label in GAPS]
+    table('kernel-gaps.tex','lrrrr','Gap pattern & Direct exp (ns) & Generic powers (ns) & Small-power cases (ns) & Power table (ns)',body)
+elif not SMOKE:raise SystemExit('Missing kernel-gaps records')
 
 # ---------- 4. preparation (layer 2) ----------
 body=[]
@@ -220,52 +237,81 @@ for stage,label in zip(STAGES,LABELS):
     body.append(f"{label} & "+' & '.join(cells))
 table('ladder-schedule.tex','lrrrr',r'Stage & Daily ($\mu$s) & Weekly ($\mu$s) & Monthly ($\mu$s) & Irregular ($\mu$s)',body)
 
-# ---------- 7. overall ----------
-body=[];pairs={}  # (method,family)->(H,O) for 64/64 pairs on both sides
+# ---------- 7. overall: historical, optimized (L8), extended (L11) ----------
+body=[];pairs={}  # (kind,family,end)->(H,X) where both sides return 64/64 roots
 def overall(label,method,family,**over):
-    h=lad(method,family,'HISTORICAL',**over);o=lad(method,family,'OPTIMIZED',**over);ch,co=rows_for(h),rows_for(o)
-    good=roots(ch)==64 and roots(co)==64
-    cell=rt(h,o) if good else f'{phrase(ch)} $\\to$ {phrase(co)}'
-    body.append(f"{label} & {tm(h)} & {tm(o)} & {cell} & {roots(ch)}/{roots(co)}")
-    return h,o,good
+    h=lad(method,family,'HISTORICAL',**over);o=lad(method,family,'OPTIMIZED',**over);e=lad(method,family,LAST,**over)
+    ch,co,ce=rows_for(h),rows_for(o),rows_for(e)
+    go=roots(ch)==64 and roots(co)==64;ge=roots(ch)==64 and roots(ce)==64
+    body.append(f"{label} & {tm(h)} & {tm(o)} & {tm(e)} & {rt(h,o,go)} & {rt(h,e,ge)} & {roots(ch)}/{roots(co)}/{roots(ce)}")
+    return h,o,e,go,ge
 for kind,method in (('Prepared','prepared'),('Dated','dated')):
     for family in FAMILIES:
-        h,o,good=overall(f'{kind}, {fam(family)}',method,family)
-        if good:pairs[(kind,family)]=(h,o)
+        h,o,e,go,ge=overall(f'{kind}, {fam(family)}',method,family)
+        if go:pairs[(kind,family,'Optimized')]=(h,o)
+        if ge:pairs[(kind,family,'Extended')]=(h,e)
+schedule_pairs={}
 def opt(label,method,family,**over):
-    if have('LadderBench.'+method,**{**base,**over},family=family,stage='HISTORICAL'):overall(label,method,family,**over)
+    if have('LadderBench.'+method,**{**base,**over},family=family,stage='HISTORICAL'):return overall(label,method,family,**over)
     elif not SMOKE:raise SystemExit(f'Missing overall row {label}')
 for seed in ('20261122','8675309'):opt(f'Prepared, standard, seed {seed}','prepared','standard',seed=seed)
-for f,label in SCHEDULES[1:]:opt(f'Prepared, standard, {label.lower()}','prepared','standard',frequency=f)
+for f,label in SCHEDULES[1:]:
+    got=opt(f'Prepared, standard, {label.lower()}','prepared','standard',frequency=f)
+    if got:schedule_pairs[label]=got
 for cfg in ('n16','n4096'):
     if cfg!=BASE:opt(f'Prepared, standard, {cfg}','prepared','standard',configuration=cfg)
-table('overall.tex','lrrrr',r'Configuration & Historical ($\mu$s) & Optimized ($\mu$s) & Speedup [envelope] & Roots H/O',body)
+table('overall.tex','lrrrrrr',r'Configuration & Historical ($\mu$s) & Optimized L8 ($\mu$s) & Extended L11 ($\mu$s) & H/L8 [envelope] & H/L11 [envelope] & Roots H/L8/L11',body)
 
-# ---------- 8. accuracy ----------
+# ---------- 8. accuracy: historical against each of the two optimized ends ----------
 def agree(h,o):
     ph,po=float(h['phi']),float(o['phi'])
     if max(abs(ph),abs(po))>5:return abs(ph-po)<=1e-5
     rh,ro=float(h['rate']),float(o['rate'])
     return abs(rh-ro)<=1e-5*max(1,abs(rh))
-body=[];acc={}
-for family in FAMILIES:
-    hs=sorted(diag[('DAILY','n256','42',family,'HISTORICAL')],key=lambda c:int(c['index']))
-    os_=sorted(diag[('DAILY','n256','42',family,'OPTIMIZED')],key=lambda c:int(c['index']))
-    k=Counter()
-    for h,o in zip(hs,os_):
-        assert h['index']==o['index']
-        rh,ro=is_root(h),is_root(o)
-        if h['status']=='MINUS_ONE_FALLBACK':k['fallback']+=1
-        elif rh and ro:k['agree' if agree(h,o) else 'disagree']+=1
-        elif rh:k['onlyh']+=1
-        elif ro:k['onlyo']+=1
-        else:k['neither']+=1
-    assert sum(k.values())==64
-    resh=max([float(c['residual']) for c in hs if is_root(c)],default=math.nan);reso=max([float(c['residual']) for c in os_ if is_root(c)],default=math.nan)
-    acc[family]=(k,resh,reso)
-    body.append(f"{fam(family).capitalize()} & {k['agree']} & {k['disagree']} & {k['onlyh']} & {k['onlyo']} & {k['fallback']} & {k['neither']} & {sci(resh)} & {sci(reso)}")
-table('accuracy.tex','lrrrrrrrr',r'Class & Agree & Disagree & Only H & Only O & H $-$100\% fallback & Neither & Max residual H & Max residual O',body)
+acc={}
+def accuracy(stage,path,letter):
+    body=[]
+    for family in FAMILIES:
+        hs=sorted(diag[('DAILY','n256','42',family,'HISTORICAL')],key=lambda c:int(c['index']))
+        os_=sorted(diag[('DAILY','n256','42',family,stage)],key=lambda c:int(c['index']))
+        k=Counter()
+        for h,o in zip(hs,os_):
+            assert h['index']==o['index']
+            rh,ro=is_root(h),is_root(o)
+            if h['status']=='MINUS_ONE_FALLBACK':k['fallback']+=1
+            elif rh and ro:k['agree' if agree(h,o) else 'disagree']+=1
+            elif rh:k['onlyh']+=1
+            elif ro:k['onlyo']+=1
+            else:k['neither']+=1
+        assert sum(k.values())==64
+        resh=max([float(c['residual']) for c in hs if is_root(c)],default=math.nan);reso=max([float(c['residual']) for c in os_ if is_root(c)],default=math.nan)
+        acc[(stage,family)]=(k,resh,reso)
+        body.append(f"{fam(family).capitalize()} & {k['agree']} & {k['disagree']} & {k['onlyh']} & {k['onlyo']} & {k['fallback']} & {k['neither']} & {sci(resh)} & {sci(reso)}")
+    table(path,'lrrrrrrrr',rf'Class & Agree & Disagree & Only H & Only {letter} & H $-$100\% fallback & Neither & Max residual H & Max residual {letter}',body)
+accuracy('OPTIMIZED','accuracy.tex','L8')
+accuracy(LAST,'accuracy-extended.tex','L11')
 
+# ---------- 8b. thread scaling (throughput of independent solves) ----------
+scaling={}  # (threads,family,stage)->(ops/s, error, B/op)
+for t,name in SCALING_FILES.items():
+    data=json.loads((ROOT/'results'/f'{name}.json').read_text())
+    assert len(data)==4,(name,len(data))
+    for item in data:
+        m=item['primaryMetric'];assert m['scoreUnit']=='ops/s' and item['threads']==t,(name,m['scoreUnit'],item['threads'])
+        if not SMOKE:assert item['forks']==3 and len(m['rawData'])==3 and all(len(x)==5 for x in m['rawData']),name
+        p=item['params'];assert p['configuration']==BASE and p['frequency']=='DAILY' and p['seed']=='42',p
+        scaling[(t,p['family'],p['stage'])]=(float(m['score']),float(m['scoreError']),float(item['secondaryMetrics']['gc.alloc.rate.norm']['score']))
+SERIES=[('standard','HISTORICAL','Historical, standard'),('standard',LAST,'Extended, standard'),('wide','HISTORICAL','Historical, wide'),('wide',LAST,'Extended, wide')]
+t0=THREADS[0]
+body=[]
+for t in THREADS:
+    cells=[]
+    for family,stage,_ in SERIES:
+        v=scaling[(t,family,stage)][0];cells.append(f"{v/1000:,.0f} & {v/scaling[(t0,family,stage)][0]:.2f}")
+    body.append(f"{t} & "+' & '.join(cells))
+head=(' & '+' & '.join(rf'\multicolumn{{2}}{{c}}{{{label}}}' for _,_,label in SERIES)+r' \\'+'\n'+r'\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}'+'\n'
+      'Threads & '+' & '.join([r'$10^3$/s & $\times$']*4))
+table('scaling.tex','r'*9,head,body)
 # ---------- 9. figures ----------
 shades=['#0b3a4a',HUE,'#3f93ad','#5fa3ba','#86b8c9']
 fig,ax=plt.subplots(figsize=(6.7,3.0))
@@ -291,14 +337,39 @@ for ax,family in zip(axes.flat,FIG_FAMILIES):
         ax.bar(i,v-ymin,bottom=ymin,width=.7,color=HUE,alpha=1 if full else .35,hatch=None if full else '////',edgecolor='none' if full else HUE,linewidth=.6)
         ax.errorbar(i,v,yerr=[[min(e,v*.999)],[e]],fmt='none',color='black',capsize=2,lw=.8)
         if not full:ax.text(i,(v+e)*1.15,f'{n}/64',ha='center',va='bottom',fontsize=7)
-    ax.set_xticks(range(9),[f'L{i}' for i in range(9)]);ax.set_ylim(ymin,ymax);ax.set_title(fam(family).capitalize(),fontsize=9)
+    ax.set_xticks(range(len(STAGES)),[str(i) for i in range(len(STAGES))]);ax.tick_params(axis='x',labelsize=7);ax.set_ylim(ymin,ymax)
+    ax.axvline(8.5,color='0.5',lw=.6,ls=':');ax.set_title(fam(family).capitalize(),fontsize=9)
     ax.grid(axis='y',alpha=.2,which='major');ax.set_axisbelow(True)
 for ax in axes[:,0]:ax.set_ylabel(r'$\mu$s per solve')
+for ax in axes[-1,:]:ax.set_xlabel('Stage (extensions right of the dotted line)',fontsize=8)
 fig.legend(handles=[Patch(facecolor=HUE,label='all 64 roots returned'),Patch(facecolor=HUE,alpha=.35,hatch='////',edgecolor=HUE,label='not all roots returned (roots count above bar)')],
            loc='lower center',ncol=2,frameon=False,fontsize=8)
 save(fig,'ladder',rect=(0,.05,1,1))
 
+fig,ax=plt.subplots(figsize=(4.6,3.0))
+for (family,stage,label),shade,mk,ls in zip(SERIES,['#0b3a4a','#3f93ad','#0b3a4a','#3f93ad'],'osD^',['-','-','--','--']):
+    ax.plot(THREADS,[scaling[(t,family,stage)][0]/scaling[(t0,family,stage)][0] for t in THREADS],color=shade,marker=mk,ms=4,lw=1.2,ls=ls,label=label)
+ax.plot(THREADS,[t/t0 for t in THREADS],color='0.6',lw=.8,ls=':',label='Linear')
+ax.axvline(8,color='0.8',lw=.6);ax.set_xscale('log',base=2);ax.set_yscale('log',base=2)
+ax.set_xticks(THREADS,[str(t) for t in THREADS]);ax.set_yticks(THREADS,[str(t) for t in THREADS]);ax.minorticks_off()
+ax.set_xlabel('Threads (8 cores, 16 hardware threads)');ax.set_ylabel('Throughput relative to one thread')
+ax.grid(alpha=.2);ax.set_axisbelow(True);ax.legend(frameon=False,fontsize=7)
+save(fig,'scaling')
+
 # ---------- 10. metrics, measurements.csv, summary.json ----------
+NUMBER={1:'One',2:'Two',4:'Four',8:'Eight',16:'Sixteen'}
+for family,stage,_ in SERIES:
+    tag=('Historical' if stage=='HISTORICAL' else 'Extended')+CAMEL[family]
+    for t in THREADS:
+        if t!=t0:macro(f'Scaling{tag}{NUMBER[t]}',scaling[(t,family,stage)][0]/scaling[(t0,family,stage)][0],f'throughput on {t} threads / on {t0}, {stage}, {family}')
+    macro(f'Throughput{tag}Max',max(scaling[(t,family,stage)][0] for t in THREADS)/1e6,f'highest throughput, million solves per second, {stage}, {family}',3)
+for label,(h,o,e,go,ge) in schedule_pairs.items():
+    if go:macro_ratio(f'Speedup{label}Optimized',h,o,f'prepared historical/OPTIMIZED time ratio, standard, {label.lower()}')
+    if ge:macro_ratio(f'Speedup{label}Extended',h,e,f'prepared historical/{LAST} time ratio, standard, {label.lower()}')
+if have('KernelBench.evaluate',**{**base,'frequency':'IRREGULAR_SORTED'},call='PHI_INCREMENTAL_VALUE'):
+    macro_ratio('GapRandomOverSorted',kern('PHI_INCREMENTAL_VALUE',frequency='IRREGULAR'),kern('PHI_INCREMENTAL_VALUE',frequency='IRREGULAR_SORTED'),'small-power kernel time, random gap order / ascending gap order')
+    macro_ratio('GapTableGainIrregular',kern('PHI_INCREMENTAL_VALUE',frequency='IRREGULAR'),kern('PHI_TABLE_VALUE',frequency='IRREGULAR'),'small-power kernel time / power-table kernel time, irregular gaps')
+    macro_ratio('GapDirectOverTableIrregular',kern('PHI_DIRECT_VALUE',frequency='IRREGULAR'),kern('PHI_TABLE_VALUE',frequency='IRREGULAR'),'direct-exp kernel time / power-table kernel time, irregular gaps')
 msizes={'Year':16 if SMOKE else 365,'Decade':16 if SMOKE else 3650}
 for tag,n in msizes.items():
     macro_ratio(f'KernelPowIncr{tag}',ksize(n,'OLD_POW_VALUE'),ksize(n,'PHI_INCREMENTAL_VALUE'),f'kernel time ratio OLD_POW_VALUE/PHI_INCREMENTAL_VALUE, daily n={n}')
@@ -306,13 +377,19 @@ for tag,n in msizes.items():
 macro_ratio('PrepRatioDaily',prep_h,prep_d,f'three-pass preparation time / digest time, daily {BASE}')
 macro('PrepHistoricalTime',prep_h['ns']/1000,f'microseconds per three-pass preparation, daily {BASE}',3)
 macro('PrepDigestTime',prep_d['ns']/1000,f'microseconds per digest, daily {BASE}',3)
-for (kind,family),(h,o) in pairs.items():
+for (kind,family,end),(h,o) in pairs.items():
     if family=='dominance':continue
-    macro_ratio(f'Speedup{kind}{CAMEL[family]}',h,o,f'{kind.lower()} historical/optimized time ratio, {fam(family)} (64/64 roots both sides)')
+    macro_ratio(f"Speedup{kind}{CAMEL[family]}{'' if end=='Optimized' else end}",h,o,f'{kind.lower()} historical/{end.lower()} time ratio, {fam(family)} (64/64 roots both sides)')
 for family in FAMILIES:
     macro(f'RootsHistorical{CAMEL[family]}',roots(rows_for(lad('prepared',family,'HISTORICAL'))),f'roots returned of 64 by HISTORICAL, {fam(family)}')
     macro(f'RootsOptimized{CAMEL[family]}',roots(rows_for(lad('prepared',family,'OPTIMIZED'))),f'roots returned of 64 by OPTIMIZED, {fam(family)}')
-for stage,tag in (('HISTORICAL','Historical'),('OPTIMIZED','Optimized')):
+for family in FAMILIES:
+    macro(f'RootsExtended{CAMEL[family]}',roots(rows_for(lad('prepared',family,LAST))),f'roots returned of 64 by {LAST}, {fam(family)}')
+for family in ('extreme-negative','extreme-positive','wide'):
+    for stage,tag in (('OPTIMIZED','Optimized'),(LAST,'Extended')):
+        cs=rows_for(lad('prepared',family,stage))
+        macro(f'MeanEvaluations{CAMEL[family]}{tag}',mean(cs,'values')+mean(cs,'derivatives'),f'mean evaluations per solve, {stage}, {fam(family)}',1)
+for stage,tag in (('HISTORICAL','Historical'),('OPTIMIZED','Optimized'),(LAST,'Extended')):
     cs=rows_for(lad('prepared','standard',stage))
     macro(f'MeanValuesStandard{tag}',mean(cs,'values'),f'mean value-only evaluations per solve, {stage}, standard',1)
     macro(f'MeanDerivativesStandard{tag}',mean(cs,'derivatives'),f'mean value-plus-derivative evaluations per solve, {stage}, standard',1)

@@ -959,4 +959,137 @@ class IrrTest {
     assertTrue(r.hasRoot());
     assertEquals(expected, r.phi(), 1e-4, stage + " " + r);
   }
+
+  // ------------------------------------------------------------------------ extension stages
+
+  /** The power table reproduces the recurrence, including gaps above the table limit. */
+  @ParameterizedTest
+  @EnumSource(Synthetic.Frequency.class)
+  void tableEvaluatorsMatchTheRecurrence(Synthetic.Frequency frequency) {
+    var cases = new ArrayList<List<Cashflow>>();
+    cases.add(schedule(frequency, 60, 5, true));
+    // One gap far above TABLE_CAP and a table limited by the flow count.
+    cases.add(pairs(0, -100, 3, 20, 5000, 30, 5007, 90));
+    for (var flows : cases) {
+      Digest d = Irr.digest(flows);
+      double[] table = Npv.newTable(d);
+      assertTrue(table.length - 1 <= Npv.TABLE_CAP && table.length - 1 <= d.maxGap());
+      for (double phi : PHIS) {
+        Npv.Evaluation expected = Npv.Phi.INCREMENTAL.both(d, phi);
+        double tol = 1e-12 * Direct.of(flows).scale(phi, phi < 0);
+        assertEquals(expected.value(), Npv.tableValue(d, phi, table), tol, frequency + " " + phi);
+        Npv.Evaluation both = Npv.tableBoth(d, phi, table);
+        assertEquals(Npv.tableValue(d, phi, table), both.value());
+        assertEquals(expected.derivative(), both.derivative(), tol, frequency + " " + phi);
+      }
+    }
+  }
+
+  @Test
+  void maxGapIsTheLargestGapBetweenNonZeroFlows() {
+    assertEquals(40, Irr.digest(pairs(0, -1, 3, 0, 40, 1, 47, 1)).maxGap());
+    assertEquals(1, Irr.digest(schedule(Synthetic.Frequency.DAILY, 20, 1, false)).maxGap());
+  }
+
+  /** log(P / N) is zero at the root, linear for two flows, and its derivative is consistent. */
+  @Test
+  void logFormHasTheRootsOfTheNpv() {
+    for (double target : new double[] {-25, -1, 0.3, 25}) {
+      Digest two = Irr.digest(twoFlowsWithPhi(target));
+      double[] table = Npv.newTable(two);
+      for (double phi : new double[] {-30, -2, 0, 2, 30}) {
+        Npv.Evaluation e = Npv.tableLog(two, phi, table);
+        // One Newton step from anywhere lands on the root of a two-flow schedule.
+        assertEquals(
+            target, phi - e.value() / e.derivative(), 1e-9 * Math.max(1, Math.abs(target)));
+      }
+    }
+    for (var frequency : Synthetic.Frequency.values()) {
+      var flows = Synthetic.corpusCase(frequency, 64, 0, 7, 3, "signflips");
+      double target = Synthetic.targetPhi(frequency, 64, 0, 7, 3, "signflips");
+      Digest d = Irr.digest(flows);
+      double[] table = Npv.newTable(d);
+      assertEquals(0, Npv.tableLog(d, target, table).value(), 1e-10);
+      for (double phi : new double[] {-1.5, -0.2, 0.4, 1.5}) {
+        double h = 1e-5;
+        double numeric =
+            (Npv.tableLog(d, phi + h, table).value() - Npv.tableLog(d, phi - h, table).value())
+                / (2 * h);
+        double analytic = Npv.tableLog(d, phi, table).derivative();
+        assertEquals(numeric, analytic, 1e-6 * Math.max(1, Math.abs(analytic)), frequency + "");
+      }
+    }
+  }
+
+  /** Far-negative roots: plain Newton exhausts its 30 iterations, the log form converges. */
+  @Test
+  void logNewtonConvergesOnFarNegativeRoots() {
+    for (int i = 0; i < 16; i++) {
+      var flows =
+          Synthetic.corpusCase(Synthetic.Frequency.DAILY, 256, 0, 42, i, "extreme-negative");
+      double target =
+          Synthetic.targetPhi(Synthetic.Frequency.DAILY, 256, 0, 42, i, "extreme-negative");
+      IrrResult before = Irr.solve(flows, Irr.Stage.TRUSTED_GUESS);
+      assertEquals(IrrResult.Path.BRENT, before.path());
+      assertEquals(Irr.GUARANTEED_NEWTON_ITERATIONS, before.newtonIterations());
+      IrrResult after = Irr.solve(flows, Irr.Stage.LOG_NEWTON);
+      assertEquals(IrrResult.Path.NEWTON, after.path());
+      assertTrue(after.newtonIterations() <= 8, after.toString());
+      assertEquals(target, after.phi(), 1e-6 * Math.abs(target));
+    }
+  }
+
+  /**
+   * The input on which the direction gate sends the optimized solver to a remote root: without the
+   * gate Newton's root, the one the historical solver returns, is kept.
+   */
+  @Test
+  void trustedGuessKeepsTheNearRoot() {
+    var flows = Synthetic.corpusCase(Synthetic.Frequency.DAILY, 256, 0, 42, 23, "signflips");
+    IrrResult historical = Irr.solve(flows, Irr.Stage.HISTORICAL);
+    IrrResult gated = Irr.solve(flows, Irr.Stage.POWER_TABLE);
+    assertEquals(IrrResult.Path.BRENT, gated.path());
+    assertTrue(gated.phi() > 200);
+    for (Irr.Stage s : new Irr.Stage[] {Irr.Stage.TRUSTED_GUESS, Irr.Stage.LOG_NEWTON}) {
+      IrrResult r = Irr.solve(flows, s);
+      assertEquals(IrrResult.Path.NEWTON, r.path());
+      assertEquals(historical.rate(), r.rate(), 1e-5);
+    }
+  }
+
+  /** The table changes arithmetic only: same path and counts as the optimized stage. */
+  @Test
+  void powerTableStageFollowsTheOptimizedStage() {
+    for (var frequency : Synthetic.Frequency.values())
+      for (String family : new String[] {"standard", "wide", "signflips", "extreme-negative"})
+        for (int i = 0; i < 8; i++) {
+          var flows = Synthetic.corpusCase(frequency, 64, 0, 11, i, family);
+          IrrResult o = Irr.solve(flows, Irr.Stage.OPTIMIZED);
+          IrrResult t = Irr.solve(flows, Irr.Stage.POWER_TABLE);
+          assertEquals(o.path(), t.path(), frequency + " " + family + " " + i);
+          assertEquals(o.phi(), t.phi(), 1e-6 * Math.max(1, Math.abs(o.phi())));
+        }
+  }
+
+  @Test
+  void extendedStrategyIsTheLastStage() {
+    var flows = pairs(0, -100, 180, 20, 365, 95);
+    assertEquals(Irr.solve(flows, Irr.Stage.LOG_NEWTON), Irr.solve(flows, SolverStrategy.EXTENDED));
+  }
+
+  /** IRREGULAR_SORTED has exactly the gaps of IRREGULAR for the same seed, in ascending order. */
+  @Test
+  void sortedScheduleHasTheSameGaps() {
+    Digest a = Irr.digest(schedule(Synthetic.Frequency.IRREGULAR, 200, 3, false));
+    Digest b = Irr.digest(schedule(Synthetic.Frequency.IRREGULAR_SORTED, 200, 3, false));
+    int[] ga = new int[a.size()], gb = new int[b.size()];
+    for (int i = 0; i < ga.length; i++) ga[i] = a.gap(i);
+    for (int i = 0; i < gb.length; i++) gb[i] = b.gap(i);
+    for (int i = 2; i < gb.length; i++) assertTrue(gb[i - 1] <= gb[i]);
+    Arrays.sort(ga);
+    Arrays.sort(gb);
+    assertTrue(Arrays.equals(ga, gb));
+    assertEquals(
+        37, Irr.digest(schedule(Synthetic.Frequency.EVERY_37_DAYS, 20, 3, false)).maxGap());
+  }
 }

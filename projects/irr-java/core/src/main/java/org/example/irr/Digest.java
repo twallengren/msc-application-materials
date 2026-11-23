@@ -27,6 +27,7 @@ public final class Digest {
   private final double dayFraction, totalReturn, positiveTotal, negativeTotal, firstFlow, lastFlow;
   private final double dietzWeight;
   private final long firstOpposingGap, lastOpposingGap;
+  private final int maxGap;
   private final Terminal terminal;
 
   Digest(List<Cashflow> flows) {
@@ -49,7 +50,7 @@ public final class Digest {
     long firstOpposing = 0, lastOpposingDay = -1;
     boolean opposingFirstSeen = false;
     double first = 0, total = 0, positive = 0, negative = 0, weighted = 0;
-    int count = 0;
+    int count = 0, largestGap = 0;
     long days = 0;
     for (int i = 0; i <= lastIndex; i++) {
       Cashflow f = checked(flows.get(i));
@@ -71,6 +72,7 @@ public final class Digest {
       amounts[count] = a;
       times[count] = days == 0 ? 0 : (double) offset / days;
       gaps[count] = count == 0 ? 0 : (int) (day - previousFlowDay);
+      largestGap = Math.max(largestGap, gaps[count]);
       previousFlowDay = day;
       total += a;
       if (a > 0) positive += a;
@@ -93,6 +95,7 @@ public final class Digest {
     lastFlow = last;
     // sum(C * (end - day) / D) = sum(C) - sum((day - start) * C) / D
     dietzWeight = days == 0 ? 0 : total - weighted / days;
+    maxGap = largestGap;
     firstOpposingGap = firstOpposing;
     lastOpposingGap = lastOpposingDay < 0 ? 0 : days - lastOpposingDay;
     terminal =
@@ -134,6 +137,11 @@ public final class Digest {
 
   public int gap(int i) {
     return gaps[i];
+  }
+
+  /** Largest gap in days between consecutive flows. */
+  public int maxGap() {
+    return maxGap;
   }
 
   public double totalReturn() {

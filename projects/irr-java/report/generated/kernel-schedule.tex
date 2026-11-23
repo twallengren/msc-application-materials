@@ -2,14 +2,17 @@
 \toprule
 Call & Daily (ns) & Weekly (ns) & Monthly (ns) & Irregular (ns) & Daily B/op \\
 \midrule
-Historical pow, value (boxed) & 4505 $\pm$ 18 & 4507 $\pm$ 17 & 4498 $\pm$ 14 & 4520 $\pm$ 29 & 0.0309 \\
-Historical automatic differentiation (boxed) & 38820 $\pm$ 164 & 39086 $\pm$ 350 & 39090 $\pm$ 376 & 38953 $\pm$ 154 & 53712 \\
-Pow, value (arrays) & 3940 $\pm$ 7 & 3940 $\pm$ 11 & 3946 $\pm$ 29 & 3934 $\pm$ 13 & 0.0270 \\
-Pow, value and analytic derivative (arrays) & 4122 $\pm$ 31 & 4119 $\pm$ 17 & 4119 $\pm$ 30 & 4113 $\pm$ 20 & 32.03 \\
-Phi direct, value & 1748 $\pm$ 6 & 1751 $\pm$ 10 & 1755 $\pm$ 7 & 1748 $\pm$ 7 & 0.0120 \\
-Phi direct, value and derivative & 1864 $\pm$ 17 & 1858 $\pm$ 7 & 1866 $\pm$ 14 & 1860 $\pm$ 8 & 32.01 \\
-Phi incremental, generic powers, value & 309.0 $\pm$ 5.0 & 726.1 $\pm$ 2.9 & 899.4 $\pm$ 45.5 & 4163 $\pm$ 16 & 0.0021 \\
-Phi incremental, small powers, value & 278.4 $\pm$ 1.6 & 288.9 $\pm$ 0.9 & 917.2 $\pm$ 21.7 & 4221 $\pm$ 8 & 0.0019 \\
-Phi incremental, small powers, value and derivative & 326.8 $\pm$ 2.2 & 335.4 $\pm$ 1.1 & 946.5 $\pm$ 17.7 & 4265 $\pm$ 16 & 32.00 \\
+Historical pow, value (boxed) & 4582 $\pm$ 86 & 4563 $\pm$ 57 & 4561 $\pm$ 12 & 4572 $\pm$ 46 & 0.0315 \\
+Historical automatic differentiation (boxed) & 39388 $\pm$ 314 & 39744 $\pm$ 364 & 39271 $\pm$ 212 & 39364 $\pm$ 429 & 53712 \\
+Pow, value (arrays) & 3980 $\pm$ 10 & 3985 $\pm$ 36 & 3976 $\pm$ 11 & 3985 $\pm$ 41 & 0.0273 \\
+Pow, value and analytic derivative (arrays) & 4153 $\pm$ 16 & 4149 $\pm$ 13 & 4154 $\pm$ 22 & 4147 $\pm$ 13 & 32.03 \\
+Phi direct, value & 1767 $\pm$ 8 & 1767 $\pm$ 6 & 1764 $\pm$ 3 & 1781 $\pm$ 25 & 0.0121 \\
+Phi direct, value and derivative & 1881 $\pm$ 4 & 1886 $\pm$ 19 & 1882 $\pm$ 12 & 1884 $\pm$ 35 & 32.01 \\
+Phi incremental, generic powers, value & 307.4 $\pm$ 2.0 & 733.5 $\pm$ 2.9 & 900.5 $\pm$ 40.3 & 4205 $\pm$ 16 & 0.0021 \\
+Phi incremental, small powers, value & 282.1 $\pm$ 3.6 & 291.6 $\pm$ 0.5 & 925.4 $\pm$ 21.8 & 4270 $\pm$ 11 & 0.0019 \\
+Phi incremental, small powers, value and derivative & 328.9 $\pm$ 1.8 & 338.4 $\pm$ 0.8 & 974.2 $\pm$ 28.9 & 4331 $\pm$ 38 & 32.00 \\
+Phi incremental, power table, value & 283.6 $\pm$ 4.9 & 289.0 $\pm$ 0.5 & 307.8 $\pm$ 2.8 & 313.4 $\pm$ 1.7 & 0.0019 \\
+Phi incremental, power table, value and derivative & 334.0 $\pm$ 0.8 & 342.0 $\pm$ 1.8 & 354.7 $\pm$ 1.4 & 361.5 $\pm$ 1.5 & 32.00 \\
+Log form $\log(P/N)$ and derivative, power table & 413.4 $\pm$ 5.5 & 416.2 $\pm$ 2.3 & 443.2 $\pm$ 8.1 & 457.6 $\pm$ 3.6 & 32.00 \\
 \bottomrule
 \end{tabular}

@@ -3,6 +3,7 @@
 #   kernel   one NPV evaluation, no solving
 #   prep     preparation only
 #   solve    complete solves at every ladder stage, per input class
+# and a thread-scaling group (independent solves on 1 to 16 threads).
 # Each group waits for an idle machine and records the load average. Named outputs are replaced.
 set -eu
 cd "$(dirname "$0")/.."
@@ -34,21 +35,25 @@ assert json.loads(Path(f'results/{sys.argv[1]}.json').read_text()),sys.argv[1]
 PY
 }
 base='-p configuration=n256 -p frequency=DAILY -p seed=42'
-ends='-p stage=HISTORICAL,OPTIMIZED'
+ends='-p stage=HISTORICAL,OPTIMIZED,LOG_NEWTON'
+four='-p frequency=DAILY,WEEKLY,MONTHLY,IRREGULAR'
 case "$mode" in
  smoke)
   quick='-p configuration=n16 -p frequency=DAILY -p seed=42 -f 1 -wi 1 -i 1 -w 100ms -r 100ms'
   run smoke-kernel '.*KernelBench.evaluate' $quick
   run smoke-prep '.*PrepBench.prepare' $quick
   run smoke-ladder '.*LadderBench.*' $quick
+  run smoke-scaling '.*ScalingBench.solve' $quick -t 2
   java -Xmx512m -cp "$jar" org.example.irr.bench.LadderDiagnostics > results/diagnostics.csv
   ;;
  full)
   # Layer 1: kernel by size (daily) and by schedule (256 flows).
   run kernel-size '.*KernelBench.evaluate' -p configuration=n100,n365,n1000,n3650,n10000 -p frequency=DAILY -p seed=42 -p call=OLD_POW_VALUE,OLD_AUTODIFF,PHI_DIRECT_VALUE,PHI_INCREMENTAL_VALUE,PHI_INCREMENTAL_BOTH
-  run kernel-schedule '.*KernelBench.evaluate' -p configuration=n256 -p seed=42
+  run kernel-schedule '.*KernelBench.evaluate' -p configuration=n256 -p seed=42 $four
+  # Same gaps in random and ascending order, and one fixed gap: isolates branch predictability.
+  run kernel-gaps '.*KernelBench.evaluate' -p configuration=n256 -p seed=42 -p frequency=EVERY_37_DAYS,IRREGULAR_SORTED -p call=PHI_DIRECT_VALUE,PHI_GENERIC_VALUE,PHI_INCREMENTAL_VALUE,PHI_TABLE_VALUE
   # Layer 2: preparation.
-  run prep '.*PrepBench.prepare' -p configuration=n256 -p seed=42
+  run prep '.*PrepBench.prepare' -p configuration=n256 -p seed=42 $four
   # Layer 3: every stage on every class; then schedules where integer powers matter.
   run ladder '.*LadderBench.prepared' $base
   run ladder-schedule '.*LadderBench.prepared' -p configuration=n256 -p frequency=WEEKLY,MONTHLY,IRREGULAR -p seed=42 -p family=standard
@@ -56,6 +61,10 @@ case "$mode" in
   run overall-dated '.*LadderBench.dated' $base $ends
   run overall-seeds '.*LadderBench.prepared' -p configuration=n256 -p frequency=DAILY -p seed=20261122,8675309 -p family=standard $ends
   run overall-size '.*LadderBench.prepared' -p configuration=n16,n4096 -p frequency=DAILY -p seed=42 -p family=standard $ends
+  # Independent solves on 1 to 16 threads (8 cores, 16 hardware threads on the study machine).
+  for threads in 1 2 4 8 16; do
+   run scaling-t$threads '.*ScalingBench.solve' $base -t $threads
+  done
   # Untimed outcomes last, so they never compete with a timed run.
   java -Xmx512m -cp "$jar" org.example.irr.bench.LadderDiagnostics > results/diagnostics.csv
   ;;

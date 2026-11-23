@@ -32,6 +32,12 @@ public final class Guess {
     return direction > 0 ? Math.log(1.1) : Math.log(0.9);
   }
 
+  /** The Pade guess whenever its guard accepts it, whatever the direction; else the waterfall. */
+  public static double trusted(Digest d, Moments m, int direction) {
+    double p = pade(m);
+    return Double.isFinite(p) ? p : waterfall(d, m, direction, false);
+  }
+
   /** Guess when no root is guaranteed. */
   public static double heuristic(Moments m, boolean usePade) {
     if (usePade) {

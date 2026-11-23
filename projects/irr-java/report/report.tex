@@ -19,25 +19,28 @@
 \newcommand{\code}[1]{\texttt{#1}}
 \input{generated/metrics.tex}
 \title{Understanding IRR performance in Java\protect\\From a historical solver to an optimized one, one change at a time}
+\newcommand{\todo}[1]{\textcolor{red!60!black}{\itshape [To write: #1]}}
 \author{MSc application technical portfolio}
 \date{23 November 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-This study rebuilds two period-IRR solvers and measures the path between them. The historical solver stores boxed pairs, evaluates net present value with one fractional \code{Math.pow} per cashflow, searches with Brent's method and falls back to Newton with automatic differentiation. The optimized solver digests the input once into primitive arrays, evaluates in a logarithmic coordinate with a multiplicative recurrence, derives analytic bounds that can prove a root exists or that none does, and runs Newton first from a rational initial guess. Eight cumulative changes (nine stages, L0 to L8) connect them, and each stage is timed on seven classes of input.
+This study rebuilds two period-IRR solvers and measures the path between them. The historical solver stores boxed pairs, evaluates net present value with one fractional \code{Math.pow} per cashflow, searches with Brent's method and falls back to Newton with automatic differentiation. The optimized solver digests the input once into primitive arrays, evaluates in a logarithmic coordinate with a multiplicative recurrence, derives analytic bounds that can prove a root exists or that none does, and runs Newton first from a rational initial guess. Eight cumulative changes (stages L0 to L8) connect them. Three further changes (L9 to L11) respond to weaknesses that the first measurements exposed. Each of the twelve stages is timed on seven classes of input.
 
-Measurement has three layers. One NPV evaluation of 365 daily flows is $\KernelPowIncrYear\times$ faster for the value and $\KernelAutodiffIncrYear\times$ faster for the value with its derivative. Preparation is $\PrepRatioDaily\times$ faster. A complete solve of standard flows on prepared input is $\SpeedupPreparedStandard\times$ faster, and $\SpeedupDatedStandard\times$ faster when preparation is timed too. On inputs whose root lies outside the historical bracket the result is a change of outcome: the historical solver returns \RootsHistoricalExtremePositive{} of 64 roots above the bracket and \RootsHistoricalExtremeNegative{} below it, and the optimized solver returns all 64 in both cases. The gain depends strongly on the schedule: with irregular gaps the recurrence is slower than direct exponentials and the solve speedup falls to $2.7\times$.
+One NPV evaluation of 365 daily flows is $\KernelPowIncrYear\times$ faster for the value and $\KernelAutodiffIncrYear\times$ faster for the value with its derivative. Preparation is $\PrepRatioDaily\times$ faster. A complete solve of standard flows on prepared input is $\SpeedupPreparedStandard\times$ faster, and $\SpeedupDatedStandard\times$ faster when preparation is timed too. Where the root lies outside the historical bracket the result is a change of outcome: the historical solver returns \RootsHistoricalExtremePositive{} of 64 roots above the bracket and \RootsHistoricalExtremeNegative{} below it, and the optimized solver returns all 64 in both cases. The optimized solver as designed has two measured weaknesses. On irregular gaps its recurrence is slower than direct exponentials and the solve speedup falls to $\SpeedupIrregularOptimized\times$; an experiment that reorders the same gaps attributes about two thirds of that cost to unpredictable branches, and a branch-free power table restores $\SpeedupIrregularExtended\times$. On far-negative roots Newton wastes 30 iterations; a logarithmic form of the equation cuts \MeanEvaluationsExtremeNegativeOptimized{} evaluations to \MeanEvaluationsExtremeNegativeExtended. On 8 cores and 16 hardware threads the extended solver reaches \ThroughputExtendedStandardMax{} million solves per second, $\ScalingExtendedStandardSixteen\times$ its single-thread rate.
 \end{abstract}
 
-\section*{Headline: historical versus optimized}
+\section*{Headline: historical, optimized and extended}
 \begin{center}
 \small
-\resizebox{0.93\linewidth}{!}{\input{generated/overall.tex}}
+\resizebox{\linewidth}{!}{\input{generated/overall.tex}}
 \end{center}
-Times are per input, mean $\pm$ JMH 99.9\% half-width, 64 identical inputs for both solvers, 256 flows unless stated. ``Prepared'' times the search on a prepared input; ``dated'' also times preparation from \code{LocalDate} flows. A speedup is printed only when both solvers return a root for all 64 inputs; brackets are envelopes from the confidence bounds.
+Times are per input, mean $\pm$ JMH 99.9\% half-width, 64 identical inputs for every solver, 256 daily flows unless stated. ``Prepared'' times the search on a prepared input; ``dated'' also times preparation from \code{LocalDate} flows. L8 is the optimized solver as originally designed and L11 adds the three extensions of Section~\ref{sec:extensions}. A speedup is printed only when both solvers return a root for all 64 inputs; brackets are envelopes from the confidence bounds.
+
+\input{author-statement}
 
 \section{Scope and provenance}
-The two solvers reproduce the structure of a solver before and after an optimization effort the author carried out: the data layouts, arithmetic, constants and control flow, under names chosen for this repository. Neither is the original code, and no original binary was timed. The specification that fixes both designs, the stages and the measurement rules is retained in the repository \cite{plan}. Remembered figures from earlier informal timing of the original work are not evidence here and are not quoted; every number in this report comes from the retained measurements.
+The historical and optimized solvers reproduce the structure of a solver before and after an optimization effort the author carried out: the data layouts, arithmetic, constants and control flow, under names chosen for this repository. Neither is the original code, and no original binary was timed. Three further changes (stages L9 to L11, Section~\ref{sec:extensions}) were made during this study in response to its first measurements; they are not part of the original work, and results are reported both for the optimized solver as designed (L8) and for the extended one (L11). The specification that fixes both designs, the stages and the measurement rules is retained in the repository \cite{plan}. Remembered figures from earlier informal timing of the original work are not evidence here and are not quoted; every number in this report comes from the retained measurements.
 
 \section{Problem and conventions}
 \begin{lstlisting}[language=Java]
@@ -124,8 +127,30 @@ each set to zero when the logarithm is not positive. A bound with $|\phi|\le10^{
 \subsection{Plans and Newton}\label{sec:plans}
 With a guarantee and a finite bracket, Newton runs from the waterfall guess for at most 30 iterations. A \emph{direction gate} rejects its root when it lies on the wrong side and its sign also disagrees with $M_0$. If Newton fails or is rejected, Commons Brent runs on $[0,1.001\,\phi_{\mathrm{upper}}]$ or $[1.001\,\phi_{\mathrm{lower}},0]$. Without a guarantee, Newton runs alone for at most 200 iterations. Newton converges when $|\Delta\phi|\le10^{-6}$ and fails on a non-finite value, a zero or non-finite derivative, a non-finite iterate, or a step that vanishes in rounding while $F\ne0$. Each iteration is one combined evaluation.
 
+\section{Three extensions}\label{sec:extensions}
+The first full measurement of L0 to L8 exposed three weaknesses of the optimized solver: on irregular gaps the recurrence was slower than direct exponentials; on far-negative roots Newton spent its 30 iterations before Brent ran; and with several roots the direction gate could discard a nearby root for a remote one. Each extension addresses one.
+
+\subsection{Power table (L9)}
+\code{intPower} decides by branches which multiplications to perform, and the branches depend on the gap. The table removes them. Once per evaluation,
+\begin{equation}
+ p_0=1,\quad p_1=c,\quad p_g=p_{\lfloor g/2\rfloor}^2\cdot c^{\,g \bmod 2}\qquad (2\le g\le L),\qquad L=\min(g_{\max},\,256,\,4n),
+ \label{eq:table}
+\end{equation}
+and each flow then costs a lookup and one multiplication, \code{k *= p[gaps[i]]}. Building by squaring keeps the rounding error of $p_g$ proportional to $\log g$. A gap above $L$ falls back to \code{intPower}. The digest records the largest gap $g_{\max}$; when it is one day there is nothing to tabulate and the L8 evaluator is used unchanged. The table is scratch space allocated once per solve.
+
+\subsection{Ungated guess (L10)}
+The Pad\'e guess is used whenever its denominator guard accepts it, with no condition on the search direction, and the root Newton converges to is returned without the direction gate. The direction now only chooses the bracket for the Brent fallback.
+
+\subsection{Log-form step (L11)}
+Split the NPV into the discounted sums of its positive and negative amounts, $F=P-N$, and let
+\begin{equation}
+ h(\phi)=\log\frac{P(\phi)}{N(\phi)},\qquad h'(\phi)=\frac{N_t}{N}-\frac{P_t}{P},\qquad P_t=\sum_{C_i>0}C_it_ie^{-t_i\phi},\quad N_t=\sum_{C_i<0}|C_i|t_ie^{-t_i\phi}.
+ \label{eq:log}
+\end{equation}
+$h$ has exactly the roots of $F$. For two flows it is linear in $\phi$, so one Newton step on $h$ lands on the root from any start, whereas far from the root $F$ behaves like a single exponential: a Newton step on $F$ taken where the eventual dominant term is still small overshoots by orders of magnitude, and from the far side the iteration returns by about $1/t$ per step. Every root lies within the widened analytic bounds of Equation~\eqref{eq:bounds}, so a step that lands beyond a non-zero bound is known to have overshot. That step is discarded and the iteration continues from the same point on $h$, within the same cap. One loop accumulates $P$, $N$, $P_t$ and $N_t$; each amount is split without a branch as $\tfrac12(C+|C|)$ and its complement. The common scaling of the reverse path cancels in the ratios. A common case never triggers the switch and pays one comparison per iteration.
+
 \section{The ladder between them}\label{sec:ladder}
-\code{Irr.Stage} exposes nine cumulative stages. Each changes one thing; where a change unavoidably brings another with it, the bundle is stated.
+\code{Irr.Stage} exposes twelve cumulative stages. Each changes one thing; where a change unavoidably brings another with it, the bundle is stated. L0 to L8 lead from the historical solver to the optimized solver as originally designed; L9 to L11 are the extensions.
 
 \begin{center}\small
 \begin{tabular}{@{}lp{0.74\linewidth}@{}}
@@ -141,6 +166,10 @@ L5 Small powers & \code{intPower} with written-out cases 0 to 7. \\
 L6 Analytic bounds & Existence analysis; Brent on the analytic bracket; zero and no-solution directives. Bundled: without a guarantee Brent is skipped. \\
 L7 Newton first & Plans of Section~\ref{sec:plans}, guess waterfall without Pad\'e. Bundled: the guarded Newton replaces Commons Newton, with the direction gate; Brent starts from the waterfall guess and an exhausted Brent budget becomes a failure; the unguaranteed plan starts from the linear guess. \\
 L8 Optimized & Pad\'e(1,1) guess: Section~\ref{sec:optimized} exactly. \\
+\midrule
+L9 Power table & Integer powers from the table of Equation~\eqref{eq:table}, except on daily schedules. \\
+L10 Ungated guess & Pad\'e guess and Newton root used whatever the direction. \\
+L11 Log-form step & A Newton step beyond the analytic bounds is replaced by steps on $h$, Equation~\eqref{eq:log}. \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -167,7 +196,7 @@ dominance & no root: one side of the flows dominates at every rate \\
 Schedules are daily, weekly, calendar-monthly and irregular (gaps of 1 to 40 days).
 
 \subsection{Tests}
-The build runs 126 tests (73 test methods, parameterized cases counted individually). They cover each step of the historical cascade and each terminal case; every stage on every class, schedule and size; an old-versus-new parity suite; and an independent residual check. The check recomputes
+The build runs 158 tests (81 test methods, parameterized cases counted individually). They cover each step of the historical cascade and each terminal case; every stage on every class, schedule and size; agreement of the table and log-form evaluators with the recurrence; an old-versus-new parity suite; and an independent residual check. The check recomputes
 \begin{equation}
  \rho(\phi)=\frac{\left|\sum_i C_iw_i\right|}{\sum_i|C_i|w_i},\qquad w_i=e^{-t_i\phi}\text{ scaled so that }\max_i w_i=1,
  \label{eq:residual}
@@ -175,16 +204,16 @@ The build runs 126 tests (73 test methods, parameterized cases counted individua
 in 60-digit decimal arithmetic that shares no evaluation code with the solvers. The diagnostics below compute the same quantity in double precision with direct exponentials. Residuals are never computed inside a solve. An early stage failing on a hard class is a recorded outcome, not a test failure.
 
 \subsection{Measurement}
-The benchmarks use JMH \cite{jmh}: three forks, five one-second warmup and five one-second measurement iterations, allocation profiling, and 64 inputs per invocation normalized to one. The \JmhRecords{} configurations ran on one machine (Intel Xeon W-2140B at 3.2\,GHz, macOS, Temurin JDK 21.0.9). Each group started only when the one-minute load average was below 3; the worst recorded value is 2.43. The benchmark jar is copied before the run, so a rebuild cannot change it mid-study. An untimed pass writes \DiagnosticRows{} rows, one per input and stage, with status, path, evaluation counts and the residual of Equation~\eqref{eq:residual}; a script checks them and the run settings before any table is generated.
+The benchmarks use JMH \cite{jmh}: three forks, five one-second warmup and five one-second measurement iterations, allocation profiling, and 64 inputs per invocation normalized to one. The \JmhRecords{} timing configurations and 20 throughput configurations ran on one machine (Intel Xeon W-2140B at 3.2\,GHz, 8 cores and 16 hardware threads, macOS, Temurin JDK 21.0.9). Each group started only when the one-minute load average was below 3; the worst recorded value is 2.86. The benchmark jar is copied before the run, so a rebuild cannot change it mid-study. An untimed pass writes \DiagnosticRows{} rows, one per input and stage, with status, path, evaluation counts and the residual of Equation~\eqref{eq:residual}; a script checks them and the run settings before any table is generated.
 
-The three layers are: (1) \emph{kernel}, one NPV evaluation with no solving, on the wide class with one $\phi\in[-2,2)$ per input, the rate-space calls receiving the equivalent rate; (2) \emph{preparation} from dated flows of the wide class; (3) \emph{solve}, all nine stages on prepared input, and the two endpoints on dated input.
+The three layers are: (1) \emph{kernel}, one NPV evaluation with no solving, on the wide class with one $\phi\in[-2,2)$ per input, the rate-space calls receiving the equivalent rate; (2) \emph{preparation} from dated flows of the wide class; (3) \emph{solve}, all twelve stages on prepared input, and L0, L8 and L11 on dated input. A fourth measurement runs independent solves on 1 to 16 threads, each thread with its own copy of the inputs, and reports throughput (Section~\ref{sec:scaling}).
 
 \section{Results}
 \subsection{Layer 1: one NPV evaluation}\label{sec:kernel}
 \begin{center}\small
 \resizebox{\linewidth}{!}{\input{generated/kernel-size.tex}}
 \end{center}
-On a daily schedule the incremental value is 16 to 22 times faster than the historical \code{Math.pow} loop, and the incremental value with derivative is 114 to 142 times faster than automatic differentiation. Both ratios rise broadly with size (Figure~\ref{fig:kernel}). The second table separates the contributions at 256 flows.
+On a daily schedule the incremental value is 16 to 22 times faster than the historical \code{Math.pow} loop, and the incremental value with derivative is 114 to 135 times faster than automatic differentiation. Both ratios rise broadly with size (Figure~\ref{fig:kernel}). The second table separates the contributions at 256 flows.
 
 \begin{figure}[t]
 \centering
@@ -194,32 +223,41 @@ On a daily schedule the incremental value is 16 to 22 times faster than the hist
 \end{figure}
 
 \begin{center}\small
-\resizebox{0.93\linewidth}{!}{\input{generated/kernel-schedule.tex}}
+\resizebox{0.9\linewidth}{!}{\input{generated/kernel-schedule.tex}}
 \end{center}
 \begin{center}\small
-\input{generated/kernel-ratios.tex}
+\resizebox{\linewidth}{!}{\input{generated/kernel-ratios.tex}}
 \end{center}
 Reading down the daily column:
 \begin{itemize}\setlength{\itemsep}{0pt}
-\item \textbf{Boxing} costs little on its own: arrays are $1.14\times$ faster for the same \code{Math.pow} loop.
-\item \textbf{Automatic differentiation} is the expensive call: 38.8\,$\mu$s against 4.1\,$\mu$s for the analytic value and derivative on arrays, a factor of 9.4 (8.6 against one historical value), with \AllocAutodiff{} bytes allocated per evaluation.
+\item \textbf{Boxing} costs little on its own: arrays are $1.15\times$ faster for the same \code{Math.pow} loop.
+\item \textbf{Automatic differentiation} is the expensive call: 39.4\,$\mu$s against 4.2\,$\mu$s for the analytic value and derivative on arrays, a factor of 9.5 (8.6 against one historical value), with \AllocAutodiff{} bytes allocated per evaluation.
 \item \textbf{\code{exp} for \code{pow}}: the direct $\phi$ value is $2.25\times$ faster than the array \code{pow} value.
 \item \textbf{The recurrence} is the largest single step: $5.7\times$ over direct exponentials on daily gaps, $6.3\times$ with the small-power cases.
-\item \textbf{Small-power cases} matter where gaps fall in 2 to 7: $2.51\times$ on weekly gaps, $1.11\times$ on daily, nothing on monthly or irregular.
+\item \textbf{Small-power cases} matter where gaps fall in 2 to 7: $2.52\times$ on weekly gaps, $1.09\times$ on daily, nothing on monthly or irregular.
 \end{itemize}
-The recurrence depends on the schedule. On monthly gaps (28 to 31 days) each flow needs a square-and-multiply power and the advantage over \code{pow} falls to $4.9\times$. On irregular gaps the incremental value takes 4.2\,$\mu$s, which is $2.4\times$ \emph{slower} than direct exponentials (1.7\,$\mu$s) barely faster than the historical \code{pow} loop ($1.07\times$) and slower than \code{pow} on arrays. A likely cause is branch misprediction on exponents that change unpredictably from flow to flow; this was not profiled. The optimized solver always takes the incremental path, so this carries into its solve times (Section~\ref{sec:schedule}).
+The recurrence as designed (L8) depends on the schedule. On monthly gaps (28 to 31 days) each flow needs a square-and-multiply power and the advantage over \code{pow} falls to $4.9\times$. On irregular gaps the incremental value takes 4.3\,$\mu$s: $2.4\times$ \emph{slower} than direct exponentials (1.8\,$\mu$s) and barely faster than the historical \code{pow} loop ($1.07\times$).
+
+\subsubsection*{Why irregular gaps are slow: a gap-order experiment}
+Two explanations are possible: the multiplications themselves, or branches in \code{intPower} that the processor cannot predict when the exponent changes from flow to flow. They are separated by evaluating three schedules of 256 flows with the same code.
+\begin{center}\small
+\resizebox{0.95\linewidth}{!}{\input{generated/kernel-gaps.tex}}
+\end{center}
+The second and third rows hold the \emph{same} gaps for each input, sorted ascending or in random order, so the multiplications performed are identical and only the predictability of the branch sequence differs. Sorted, the recurrence takes 1.4\,$\mu$s; in random order, 4.3\,$\mu$s, a factor of $\GapRandomOverSorted$. A fixed gap of 37 days, with fully predictable branches, takes 1.7\,$\mu$s. So about 1.4 to 1.7\,$\mu$s is the arithmetic of the powers and the remaining 2.9\,$\mu$s, two thirds of the total, appears only when the order is unpredictable. This is the signature of branch misprediction; hardware counters were not read, so the attribution rests on this experiment alone. Direct exponentials have no data-dependent branch and take the same time in every row.
+
+The power table (L9) removes both costs. It takes 0.31 to 0.32\,$\mu$s in all three rows: $\GapTableGainIrregular\times$ faster than \code{intPower} on irregular gaps, $\GapDirectOverTableIrregular\times$ faster than direct exponentials, and within 11\% of the daily schedule. On daily and weekly gaps it equals the small-power cases to within 1\%, and on monthly gaps it is $3.0\times$ faster. With the table the advantage over the historical \code{pow} loop is between 14.6 and 16.2 on every schedule. The log-form evaluation, which accumulates four sums where the value and derivative need two, costs 22 to 27\% more than the table evaluation with derivative.
 
 \subsection{Layer 2: preparation}
 \begin{center}\small
 \input{generated/prep.tex}
 \end{center}
-The single-pass digest is 2.7 to 3.1 times faster than the three-pass boxed preparation and allocates a fifth of the memory. It also does more: the quantities for the existence analysis are gathered in the same pass.
+The single-pass digest is 2.7 to 3.0 times faster than the three-pass boxed preparation and allocates a fifth of the memory. It also does more: the quantities for the existence analysis are gathered in the same pass.
 
 \subsection{Layer 3: the ladder, class by class}\label{sec:classes}
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.86\linewidth]{generated/ladder.pdf}
-\caption{Solve time per input at each stage, prepared input, 256 daily flows. Hatched bars mark stages that did not return all 64 roots, with the count above.}
+\caption{Solve time per input at each stage, prepared input, 256 daily flows. Hatched bars mark stages that did not return all 64 roots, with the count above. The dotted line separates the original design (L0 to L8) from the extensions.}
 \label{fig:ladder}
 \end{figure}
 
@@ -227,13 +265,13 @@ The single-pass digest is 2.7 to 3.1 times faster than the three-pass boxed prep
 \begin{center}\small
 \resizebox{\linewidth}{!}{\input{generated/ladder-standard.tex}}
 \end{center}
-The historical solver stays on its Brent path for all 64 inputs: \MeanValuesStandardHistorical{} value evaluations and no derivative. Its time is the evaluation count times the kernel cost ($5.5\times4.5\,\mu$s). So L2 changes nothing here, because Newton never runs. The gains come from cheaper evaluations (L3 and L4, $2.5\times$ and $4.1\times$) and then from fewer of them: Newton first needs 2.8 combined evaluations instead of 5.5 values (L7, $1.57\times$), and the Pad\'e guess brings that to \MeanDerivativesStandardOptimized{} (L8, $1.24\times$). The analytic bracket alone (L6) costs about 1.5\%. At L8 two evaluations cost about 0.65\,$\mu$s of the 1.10\,$\mu$s; the remainder is moments, analysis and dispatch, so further kernel work would return little. The \emph{jcurve} class behaves the same at every stage and ends at $\SpeedupPreparedJcurve\times$.
+The historical solver stays on its Brent path for all 64 inputs: \MeanValuesStandardHistorical{} value evaluations and no derivative. Its time is close to the evaluation count times the kernel cost ($5.5\times4.6\,\mu$s). So L2 changes nothing here, because Newton never runs. The gains come from cheaper evaluations (L3 and L4, $2.5\times$ and $4.1\times$) and then from fewer of them: Newton first needs 2.8 combined evaluations instead of 5.5 values (L7, $1.61\times$), and the Pad\'e guess brings that to \MeanDerivativesStandardOptimized{} (L8, $1.24\times$). The analytic bracket alone (L6) costs about 1\%, within the envelope. At L8 two evaluations cost about 0.66\,$\mu$s of the 1.12\,$\mu$s; the remainder is moments, analysis and dispatch, so further kernel work would return little on daily schedules. The extensions change nothing here: daily gaps bypass the table, the guess is the same and no step leaves the bounds, so L9 to L11 stay within 2\% of L8. The \emph{jcurve} class behaves the same at every stage and ends at $\SpeedupPreparedJcurve\times$.
 
 \textbf{Wide.}
 \begin{center}\small
 \resizebox{\linewidth}{!}{\input{generated/ladder-wide.tex}}
 \end{center}
-Nine of the 64 historical solves leave Brent and fall back to automatic-differentiation Newton. The mean is only one derivative evaluation per input, yet replacing it (L2) halves the time, because each such evaluation costs as much as 8.6 historical values. The overall speedup is $\SpeedupPreparedWide\times$. \emph{Signflips} is similar: seven historical solves use Newton, L2 gives $1.74\times$, and the total is $\SpeedupPreparedSignflips\times$.
+Nine of the 64 historical solves leave Brent and fall back to automatic-differentiation Newton. The mean is only one derivative evaluation per input, yet replacing it (L2) halves the time, because each such evaluation costs as much as 8.6 historical values. The overall speedup is $\SpeedupPreparedWide\times$. \emph{Signflips} is similar: seven historical solves use Newton, L2 gives $1.71\times$, and the total is $\SpeedupPreparedSignflips\times$ at L8. The ungated guess (L10) adds $1.11\times$ there, because the solves that the direction gate sent on to Brent now finish on Newton; it also changes one returned root (Section~\ref{sec:accuracy}).
 
 \textbf{Extreme positive.}
 \begin{center}\small
@@ -245,36 +283,46 @@ The root lies above the rate bracket and the Dietz guess falls below it, so hist
 \begin{center}\small
 \resizebox{\linewidth}{!}{\input{generated/ladder-extreme-negative.tex}}
 \end{center}
-Here the historical solver spends 200 automatic-differentiation evaluations and then returns its $-100\%$ fallback for every input: 2.6\,ms for no root. Stages L3 to L5 fail after 200 Newton evaluations, because the mapped bracket still excludes the root and the fallback step is gone. The analytic bracket (L6) is the change that matters: Brent finds all 64 roots in 10.5 evaluations and 3.2\,$\mu$s. Newton first then makes this class \emph{slower}. In all 64 cases Newton uses its 30 iterations without converging before Brent runs, and L7 and L8 take 15 to 16\,$\mu$s, five times L6. The cap of 30 bounds that cost; choosing Brent directly for a far-negative bound would remove it.
+Here the historical solver spends 200 automatic-differentiation evaluations and then returns its $-100\%$ fallback for every input: 2.6\,ms for no root. Stages L3 to L5 fail after 200 Newton evaluations, because the mapped bracket still excludes the root and the fallback step is gone. The analytic bracket (L6) is the change that matters: Brent finds all 64 roots in 10.5 evaluations and 3.2\,$\mu$s. Newton first then makes this class \emph{slower}. In all 64 cases Newton uses its 30 iterations without converging before Brent runs, and L7 and L8 take 15 to 16\,$\mu$s, five times L6. The Pad\'e guess is not the cause, and ungating it (L10) changes nothing: the guess is about $-3$ for roots between $-7.5$ and $-30$, the first Newton step from there overshoots by orders of magnitude, and the iteration returns too slowly to arrive within the cap. The log-form step (L11) detects the overshoot from the analytic bound and finishes on Newton for all 64 inputs in \MeanEvaluationsExtremeNegativeExtended{} evaluations where L8 needs \MeanEvaluationsExtremeNegativeOptimized: 2.7\,$\mu$s, $6.1\times$ faster than L10 and faster than Brent alone at L6.
 
-\textbf{Dominance.} No root exists. Stages L0 to L5 run 200 Newton evaluations and fail (2.7\,ms at L0, 0.2\,ms at L5). From L6 the analysis returns ``no solution'' with zero evaluations in 13\,ns.
+\textbf{Dominance.} No root exists. Stages L0 to L5 run 200 Newton evaluations and fail (2.7\,ms at L0, 0.2\,ms at L5). From L6 the analysis returns ``no solution'' with zero evaluations in 13 to 17\,ns.
 
 \subsection{Schedule, size and seed}\label{sec:schedule}
 \begin{center}\small
 \input{generated/ladder-schedule.tex}
 \end{center}
-The standard class on four schedules shows which stages depend on the schedule. Everything up to L3 does not: \code{pow} and \code{exp} do not care about gaps. The recurrence (L4) gains $4.1\times$ on daily gaps, $2.2\times$ on weekly, $1.6\times$ on monthly, and on irregular gaps it \emph{loses} a factor of 2.4, returning to the cost of L1. Small-power cases (L5) recover the weekly schedule. The overall speedup is therefore $22.8\times$ weekly, $9.5\times$ monthly and $2.7\times$ irregular (headline table). An optimized solver that chose the direct path for irregular schedules would be faster there.
+The standard class on four schedules shows which stages depend on the schedule. Everything up to L3 does not: \code{pow} and \code{exp} do not care about gaps. The recurrence (L4) gains $4.1\times$ on daily gaps, $2.2\times$ on weekly, $1.8\times$ on monthly, and on irregular gaps it \emph{loses} a factor of 2.4, returning to the cost of L1. Small-power cases (L5) recover the weekly schedule. At L8 the overall speedup is therefore $\SpeedupWeeklyOptimized\times$ weekly, $\SpeedupMonthlyOptimized\times$ monthly and $\SpeedupIrregularOptimized\times$ irregular. The power table (L9) makes the solve nearly independent of the schedule: 1.13 to 1.22\,$\mu$s on all four, $2.1\times$ faster than L8 on monthly gaps and $8.1\times$ on irregular ones, for speedups of $\SpeedupMonthlyExtended\times$ and $\SpeedupIrregularExtended\times$ at L11. It costs 3\% on weekly gaps, where filling a seven-entry table is slightly dearer than the written-out cases.
 
-Two further seeds give $22.5\times$ and $22.9\times$ for the standard class. With 16 flows the speedup is $10.5\times$, since fixed work dominates a 0.16\,$\mu$s solve; with 4{,}096 flows it is $25.9\times$.
+Two further seeds give $23.1\times$ and $23.1\times$ for the standard class at L8. With 16 flows the speedup is $10.1\times$, since fixed work dominates a 0.17\,$\mu$s solve; with 4{,}096 flows it is $26.3\times$.
+
+\subsection{Thread scaling}\label{sec:scaling}
+IRR is usually computed for many independent inputs, so throughput on all cores matters more than one solve. Each thread solves its own copy of the 64 inputs; the solvers share no mutable state.
+\begin{center}\small
+\resizebox{0.9\linewidth}{!}{\input{generated/scaling.tex}}
+\end{center}
+Throughput is in thousands of solves per second and $\times$ is relative to one thread. The extended solver scales linearly to four threads and reaches $\ScalingExtendedStandardEight\times$ (standard) and $\ScalingExtendedWideEight\times$ (wide) on the eight cores. The second hardware thread per core adds a further $1.7\times$, for \ThroughputExtendedStandardMax{} million standard solves per second. The historical solver scales less well: $\ScalingHistoricalStandardEight\times$ and $\ScalingHistoricalWideEight\times$ on eight cores, and only $1.3\times$ more from the second hardware threads. Its wide-class solves allocate 53\,kB each, which is 7.4\,GB/s on 16 threads against 1.0\,GB/s for the extended solver, but the standard class allocates almost nothing and scales no better, so allocation is not the whole explanation; the cause was not investigated further. The consequence is that the gap widens with parallelism: the standard-class ratio of 22 on one thread is 33 on 16. Scaling was measured for daily schedules and two classes only, and no vectorized (SIMD) kernel was attempted; the recurrence carries a dependency from each flow to the next, which the table form shortens to one multiplication but does not remove.
 
 \subsection{Preparation included}
-With dated input the standard speedup is $\SpeedupDatedStandard\times$ rather than $\SpeedupPreparedStandard\times$. The difference between dated and prepared solves is 9.8 of 34.6\,$\mu$s for the historical solver and 3.9 of 5.0\,$\mu$s for the optimized one: after the search has been reduced to about 1\,$\mu$s, the digest is the larger part of the work, and it is the next thing to optimize for callers that solve each input once.
+With dated input the standard speedup is $\SpeedupDatedStandard\times$ rather than $\SpeedupPreparedStandard\times$. The difference between dated and prepared solves is 8.0 of 34.4\,$\mu$s for the historical solver and 3.9 of 5.0\,$\mu$s for the optimized one: after the search has been reduced to about 1\,$\mu$s, the digest is the larger part of the work, and it is the next thing to optimize for callers that solve each input once. The extensions do not touch it. One dated result is unexplained: the wide class is 5\% slower at L11 than at L8 on dated input, although the two are equal on prepared input.
 
 \subsection{Accuracy}\label{sec:accuracy}
 \begin{center}\small
 \resizebox{0.9\linewidth}{!}{\input{generated/accuracy.tex}}
 \end{center}
-The table compares the two endpoints on the 64 inputs of each class (256 daily flows, seed 42); roots agree when the rates differ by at most $10^{-5}$ (relative to the rate above 1, and in $\phi$ when $|\phi|>5$). On the standard, wide and jcurve classes all roots agree, as do the 48 joint roots of the extreme-positive class. Historical residuals reach $10^{-7}$ to $10^{-6}$ because Brent results are rounded down to six decimals; the optimized Newton result is not rounded and its residuals stay below $10^{-13}$. The optimized residual on the extreme-negative class is larger because those roots come from Brent.
+The table compares L0 and L8 on the 64 inputs of each class (256 daily flows, seed 42); roots agree when the rates differ by at most $10^{-5}$ (relative to the rate above 1, and in $\phi$ when $|\phi|>5$). On the standard, wide and jcurve classes all roots agree, as do the 48 joint roots of the extreme-positive class. Historical residuals reach $10^{-7}$ to $10^{-6}$ because Brent results are rounded down to six decimals; the optimized Newton result is not rounded and its residuals stay below $10^{-13}$. The optimized residual on the extreme-negative class is larger because those roots come from Brent.
 
 One signflips input disagrees. The historical solver returns $-5.8\%$, the constructed root. The optimized solver is directed to the positive side, where a root is guaranteed, and the diagnostics record five Newton iterations followed by Brent. Replaying the case shows Newton converging to the negative root, which the direction gate rejects. Brent then returns a second, remote root at a rate near $3\times10^{107}$ with residual $1.1\times10^{-10}$. Both are roots of Equation~\eqref{eq:rate}. The analysis guarantees existence, not uniqueness or economic relevance.
+
+With the ungated guess (L10 and L11) Newton's root is kept, and all 64 signflips inputs agree with the historical solver; every other count in the table is unchanged. At L11 the largest signflips residual is $5.5\times10^{-14}$, and on the extreme-negative class it falls from $6.4\times10^{-7}$ to $8.7\times10^{-15}$ because those roots now come from Newton and are not rounded. Agreement on this input is not a rule for choosing among several roots: each solver still returns the first root its search reaches.
 
 \section{Limitations and disclosures}
 \begin{itemize}\setlength{\itemsep}{1pt}
 \item \textbf{Evidence base.} Synthetic inputs, one machine, one JDK. Both solvers are reconstructions of documented designs. The reconstruction builds no diagnostic messages on failure, so historical times on failing classes are, if anything, understated.
 \item \textbf{Bundled changes.} L3, L4, L6 and L7 each carry the side effects listed in Section~\ref{sec:ladder}. The step from L3 to L4 on negative roots, and from L6 to L7, should be read with that in mind.
-\item \textbf{Schedule dependence.} The recurrence is slower than direct exponentials on irregular gaps, and the optimized solver does not switch paths (Sections~\ref{sec:kernel} and~\ref{sec:schedule}).
-\item \textbf{Newton first on far-negative roots.} It costs 30 wasted iterations per solve (Section~\ref{sec:classes}).
-\item \textbf{Multiple roots.} With several roots the two solvers can return different ones, including roots far outside any plausible range (Section~\ref{sec:accuracy}). At L6, five signflips solves return a valid, strongly negative $\phi$ whose rate rounds to $-100\%$ in double precision; they are counted as roots.
+\item \textbf{Schedule dependence.} At L8 the recurrence is slower than direct exponentials on irregular gaps (Sections~\ref{sec:kernel} and~\ref{sec:schedule}). The power table removes this for gaps up to 256 days; larger gaps fall back to \code{intPower} and were not measured. The attribution to branch misprediction rests on the gap-order experiment, not on hardware counters.
+\item \textbf{Newton first on far-negative roots.} At L8 it costs 30 wasted iterations per solve (Section~\ref{sec:classes}). The log-form step removes them on this corpus. It is not guaranteed to converge when signs change many times or when one side underflows; Brent remains the fallback. Taking logarithms of an exponential equation is a standard device and no novelty is claimed.
+\item \textbf{Multiple roots.} With several roots the solvers can return different ones, including roots far outside any plausible range (Section~\ref{sec:accuracy}). No stage selects among roots. At L6, five signflips solves return a valid, strongly negative $\phi$ whose rate rounds to $-100\%$ in double precision; they are counted as roots.
+\item \textbf{Parallelism.} Thread scaling covers independent solves only, on one 8-core machine. The lower scaling of the historical solver is reported without an established cause. No SIMD kernel was written.
 \item \textbf{Brent's function-value threshold.} Brent is constructed with a coordinate tolerance only, which leaves the Commons default absolute function threshold of $10^{-15}$. With extremely small amounts it can accept an unrefined point. A disabled test records this for stages L3 to L6.
 \item \textbf{Unguarded Newton before L7.} The Commons Newton used at L0 to L6 accepts a vanishing step as convergence and can report a spurious root. This occurred on one no-root input in the stress suite (at L4 and L5) and on none of the \DiagnosticRows{} diagnostic rows.
 \item \textbf{Not timed.} The terminal cases are decided before any search and are not benchmarked. Same-day opposing flows give an infinite analytic bound and are not in the corpus.
@@ -286,12 +334,13 @@ One signflips input disagrees. The historical solver returns $-5.8\%$, the const
 \item \textbf{Evaluation cost dominates the common case.} On standard flows the historical solver never computes a derivative, so its cost is five or six \code{Math.pow} sweeps. Replacing \code{pow} with \code{exp} and then with a recurrence accounts for a factor of 10 of the 23; Newton first with a Pad\'e guess supplies the remaining factor of two by cutting evaluations from 5.5 to 2.0.
 \item \textbf{Automatic differentiation dominates the uncommon case.} One such evaluation costs nine value evaluations and allocates 54\,kB. Wherever the historical solver leaves Brent, it pays for this up to 200 times.
 \item \textbf{The analytic bracket changes outcomes, not speed.} It does nothing for standard inputs. Below the historical bracket it turns failures (80\,$\mu$s at L5, 2.6\,ms at L0) into roots in 3\,$\mu$s, and where no root exists it replaces 200 evaluations with a 13\,ns proof.
-\item \textbf{Two changes cost time on some inputs.} The recurrence loses to direct exponentials on irregular gaps, and Newton first loses to Brent on far-negative roots. Both are measured here and both have a simple remedy: choose the evaluation path by schedule and the first method by bound.
-\item \textbf{End to end, preparation is next.} Once the search takes 1\,$\mu$s, the 3.6 to 3.9\,$\mu$s digest limits the dated speedup to about 7.
+\item \textbf{Two changes cost time on some inputs, and measuring them paid.} At L8 the recurrence loses to direct exponentials on irregular gaps and Newton first loses to Brent on far-negative roots. Reordering the gaps showed that two thirds of the first cost is unpredictable branching, which pointed to a table and away from switching to direct exponentials; the table is then $5.7\times$ faster than the direct path. Tracing the second showed that the guess was not at fault, and a logarithmic form of the same equation removed 38 of 43 evaluations.
+\item \textbf{End to end, preparation is next.} Once the search takes 1\,$\mu$s, the 3.6 to 3.8\,$\mu$s digest limits the dated speedup to about 7.
+\item \textbf{Independent solves scale across cores.} The extended solver reaches $\ScalingExtendedStandardSixteen\times$ its single-thread throughput on 8 cores with 16 hardware threads, and the historical solver $\ScalingHistoricalStandardSixteen\times$.
 \end{enumerate}
 
 \section*{Reproducibility}
-\code{./mvnw -B clean verify} builds and tests; \code{scripts/study.sh full} runs the study (about 95 minutes); \code{scripts/verify\_evidence.py} and \code{scripts/analyze.py} check the evidence and regenerate every table, figure and number above from the raw JMH output and diagnostics retained under \code{results/}.
+\code{./mvnw -B clean verify} builds and tests; \code{scripts/study.sh full} runs the study (about two hours); \code{scripts/verify\_evidence.py} and \code{scripts/analyze.py} check the evidence and regenerate every table, figure and number above from the raw JMH output and diagnostics retained under \code{results/}.
 
 \bibliographystyle{plain}
 \bibliography{references}

@@ -13,29 +13,25 @@
 
 # Run progress: 0.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 2840.581 ns/op
-Iteration   1: 1383.635 ns/op
-                 gc.alloc.rate:      1191.431 MB/sec
-                 gc.alloc.rate.norm: 1732.104 B/op
-                 gc.count:           1.000 counts
-                 gc.time:            3.000 ms
+# Warmup Iteration   1: 2884.644 ns/op
+Iteration   1: 1331.336 ns/op
+                 gc.alloc.rate:      1239.398 MB/sec
+                 gc.alloc.rate.norm: 1734.869 B/op
+                 gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.PrepBench.prepare":
-  1383.635 ns/op
+  1331.336 ns/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate":
-  1191.431 MB/sec
+  1239.398 MB/sec
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate.norm":
-  1732.104 B/op
+  1734.869 B/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
-  1.000 counts
-
-Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
-  3.000 ms
+  ≈ 0 counts
 
 
 # JMH version: 1.37
@@ -53,23 +49,23 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # Run progress: 50.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 387.427 ns/op
-Iteration   1: 321.488 ns/op
-                 gc.alloc.rate:      1421.316 MB/sec
-                 gc.alloc.rate.norm: 480.021 B/op
+# Warmup Iteration   1: 407.835 ns/op
+Iteration   1: 334.908 ns/op
+                 gc.alloc.rate:      1386.993 MB/sec
+                 gc.alloc.rate.norm: 488.021 B/op
                  gc.count:           1.000 counts
                  gc.time:            3.000 ms
 
 
 
 Result "org.example.irr.bench.PrepBench.prepare":
-  321.488 ns/op
+  334.908 ns/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate":
-  1421.316 MB/sec
+  1386.993 MB/sec
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate.norm":
-  480.021 B/op
+  488.021 B/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
   1.000 counts
@@ -93,14 +89,13 @@ different JVMs are already problematic, the performance difference caused by dif
 modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
 
 Benchmark                             (configuration)  (frequency)  (preparation)  (seed)  Mode  Cnt     Score   Error   Units
-PrepBench.prepare                                 n16        DAILY     HISTORICAL      42  avgt       1383.635           ns/op
-PrepBench.prepare:gc.alloc.rate                   n16        DAILY     HISTORICAL      42  avgt       1191.431          MB/sec
-PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY     HISTORICAL      42  avgt       1732.104            B/op
-PrepBench.prepare:gc.count                        n16        DAILY     HISTORICAL      42  avgt          1.000          counts
-PrepBench.prepare:gc.time                         n16        DAILY     HISTORICAL      42  avgt          3.000              ms
-PrepBench.prepare                                 n16        DAILY         DIGEST      42  avgt        321.488           ns/op
-PrepBench.prepare:gc.alloc.rate                   n16        DAILY         DIGEST      42  avgt       1421.316          MB/sec
-PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY         DIGEST      42  avgt        480.021            B/op
+PrepBench.prepare                                 n16        DAILY     HISTORICAL      42  avgt       1331.336           ns/op
+PrepBench.prepare:gc.alloc.rate                   n16        DAILY     HISTORICAL      42  avgt       1239.398          MB/sec
+PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY     HISTORICAL      42  avgt       1734.869            B/op
+PrepBench.prepare:gc.count                        n16        DAILY     HISTORICAL      42  avgt            ≈ 0          counts
+PrepBench.prepare                                 n16        DAILY         DIGEST      42  avgt        334.908           ns/op
+PrepBench.prepare:gc.alloc.rate                   n16        DAILY         DIGEST      42  avgt       1386.993          MB/sec
+PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY         DIGEST      42  avgt        488.021            B/op
 PrepBench.prepare:gc.count                        n16        DAILY         DIGEST      42  avgt          1.000          counts
 PrepBench.prepare:gc.time                         n16        DAILY         DIGEST      42  avgt          3.000              ms
 

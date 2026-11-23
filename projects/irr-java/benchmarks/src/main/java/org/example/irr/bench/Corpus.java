@@ -9,7 +9,7 @@ import org.openjdk.jmh.annotations.*;
 public class Corpus {
   public static final int SIZE = 64;
 
-  @Param({"DAILY", "WEEKLY", "MONTHLY", "IRREGULAR"})
+  @Param({"DAILY", "WEEKLY", "MONTHLY", "IRREGULAR", "EVERY_37_DAYS", "IRREGULAR_SORTED"})
   public Synthetic.Frequency frequency;
 
   /** nK = K flows; y1 = a fixed one-year horizon. */

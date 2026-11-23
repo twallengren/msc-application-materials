@@ -34,7 +34,12 @@ public class KernelBench {
     /** Recurrence with plain square-and-multiply integer powers. */
     PHI_GENERIC_VALUE,
     PHI_INCREMENTAL_VALUE,
-    PHI_INCREMENTAL_BOTH
+    PHI_INCREMENTAL_BOTH,
+    /** Recurrence with the per-evaluation power table. */
+    PHI_TABLE_VALUE,
+    PHI_TABLE_BOTH,
+    /** log(P / N) and its derivative, with the power table. */
+    PHI_TABLE_LOG
   }
 
   @State(Scope.Thread)
@@ -48,7 +53,10 @@ public class KernelBench {
       "PHI_DIRECT_BOTH",
       "PHI_GENERIC_VALUE",
       "PHI_INCREMENTAL_VALUE",
-      "PHI_INCREMENTAL_BOTH"
+      "PHI_INCREMENTAL_BOTH",
+      "PHI_TABLE_VALUE",
+      "PHI_TABLE_BOTH",
+      "PHI_TABLE_LOG"
     })
     public Call call;
 
@@ -56,16 +64,21 @@ public class KernelBench {
     public Digest[] digests;
     public double[] rates;
 
+    /** Scratch table per input, allocated once as a solve allocates it once. */
+    public double[][] tables;
+
     @Setup(Level.Trial)
     public void setup() {
       generate("wide");
       historical = new HistoricalNpv[SIZE];
       digests = new Digest[SIZE];
       rates = new double[SIZE];
+      tables = new double[SIZE][];
       for (int i = 0; i < SIZE; i++) {
         historical[i] = HistoricalIrr.prepare(dated.get(i)).npv();
         digests[i] = Irr.digest(dated.get(i));
         rates[i] = Math.expm1(phis[i]);
+        tables[i] = Npv.newTable(digests[i]);
       }
     }
   }
@@ -87,6 +100,9 @@ public class KernelBench {
         case PHI_GENERIC_VALUE -> bh.consume(Npv.Phi.INCREMENTAL_GENERIC.value(d, phi));
         case PHI_INCREMENTAL_VALUE -> bh.consume(Npv.Phi.INCREMENTAL.value(d, phi));
         case PHI_INCREMENTAL_BOTH -> bh.consume(Npv.Phi.INCREMENTAL.both(d, phi));
+        case PHI_TABLE_VALUE -> bh.consume(Npv.tableValue(d, phi, s.tables[i]));
+        case PHI_TABLE_BOTH -> bh.consume(Npv.tableBoth(d, phi, s.tables[i]));
+        case PHI_TABLE_LOG -> bh.consume(Npv.tableLog(d, phi, s.tables[i]));
       }
     }
   }

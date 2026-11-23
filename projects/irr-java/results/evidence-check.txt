@@ -1,2 +1,2 @@
-Validated 181 JMH records in 8 files (full) and 8064 diagnostic rows. Worst recorded 1-minute load average 2.43.
-7056 returned roots have finite phi and residual < 1e-4 (< 1e-8 on NEWTON); 6480 match their target phi; 192 dominance outcomes at ANALYTIC_BOUNDS/NEWTON_FIRST/OPTIMIZED are NO_SOLUTION with zero evaluations; 896 inputs agree between HISTORICAL and PRIMITIVE_ARRAYS.
+Validated 262 JMH records in 14 files (full) and 10752 diagnostic rows. Worst recorded 1-minute load average 2.86.
+9552 returned roots have finite phi and residual < 1e-4 (< 1e-8 on NEWTON); 8784 match their target phi; 384 dominance outcomes from ANALYTIC_BOUNDS on are NO_SOLUTION with zero evaluations; 64 extreme-negative solves at LOG_NEWTON finish on Newton within 10 iterations; 896 inputs agree between HISTORICAL and PRIMITIVE_ARRAYS.

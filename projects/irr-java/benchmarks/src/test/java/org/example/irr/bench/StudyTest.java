@@ -41,6 +41,9 @@ class StudyTest {
         assertEquals(expected, Npv.Phi.DIRECT.value(d, phi), tolerance);
         // For phi < 0 the incremental evaluators return exp(phi * T) times the NPV.
         double factor = phi < 0 ? Math.exp(phi * d.time(d.size() - 1)) : 1;
+        double[] table = Npv.newTable(d);
+        assertEquals(expected * factor, Npv.tableValue(d, phi, table), tolerance * factor);
+        assertEquals(Npv.tableValue(d, phi, table), Npv.tableBoth(d, phi, table).value(), 0);
         for (var e : new Npv.Phi[] {Npv.Phi.INCREMENTAL_GENERIC, Npv.Phi.INCREMENTAL}) {
           assertEquals(expected * factor, e.value(d, phi), tolerance * factor);
           assertEquals(e.value(d, phi), e.both(d, phi).value(), 0);

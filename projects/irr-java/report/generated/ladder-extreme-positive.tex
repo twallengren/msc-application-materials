@@ -2,14 +2,17 @@
 \toprule
 Stage & Time ($\mu$s) & Previous/current & L0/current & Roots/64 & Mean value evals & Mean deriv. evals \\
 \midrule
-L0 Historical & 2540 $\pm$ 33 & --- & --- & 48 (failed 16) & 0.0 & 63.7 \\
-L1 Primitive arrays & 2472 $\pm$ 36 & --- & --- & 48 (failed 16) & 0.0 & 63.7 \\
-L2 Analytic derivative & 272.8 $\pm$ 2.4 & --- & --- & 48 (failed 16) & 0.0 & 63.5 \\
-L3 Phi, direct exp & 19.69 $\pm$ 0.33 & --- & --- & 64 & 0.0 & 9.3 \\
-L4 Incremental recurrence & 5.446 $\pm$ 0.054 & 3.62 [3.52, 3.71] & --- & 64 & 0.0 & 9.3 \\
-L5 Small-power cases & 5.364 $\pm$ 0.098 & 1.02 [0.99, 1.04] & --- & 64 & 0.0 & 9.3 \\
-L6 Analytic bounds & 4.331 $\pm$ 0.010 & 1.24 [1.21, 1.26] & --- & 64 & 13.3 & 0.0 \\
-L7 Newton first & 3.668 $\pm$ 0.042 & 1.18 [1.16, 1.20] & --- & 64 & 0.0 & 8.4 \\
-L8 Optimized & 3.237 $\pm$ 0.024 & 1.13 [1.11, 1.15] & --- & 64 & 0.0 & 7.2 \\
+L0 Historical & 2521 $\pm$ 23 & --- & --- & 48 (failed 16) & 0.0 & 63.7 \\
+L1 Primitive arrays & 2470 $\pm$ 23 & --- & --- & 48 (failed 16) & 0.0 & 63.7 \\
+L2 Analytic derivative & 276.6 $\pm$ 3.1 & --- & --- & 48 (failed 16) & 0.0 & 63.5 \\
+L3 Phi, direct exp & 19.53 $\pm$ 0.12 & --- & --- & 64 & 0.0 & 9.3 \\
+L4 Incremental recurrence & 5.392 $\pm$ 0.048 & 3.62 [3.57, 3.68] & --- & 64 & 0.0 & 9.3 \\
+L5 Small-power cases & 5.287 $\pm$ 0.040 & 1.02 [1.00, 1.04] & --- & 64 & 0.0 & 9.3 \\
+L6 Analytic bounds & 4.277 $\pm$ 0.015 & 1.24 [1.22, 1.25] & --- & 64 & 13.3 & 0.0 \\
+L7 Newton first & 3.629 $\pm$ 0.034 & 1.18 [1.16, 1.19] & --- & 64 & 0.0 & 8.4 \\
+L8 Optimized & 3.177 $\pm$ 0.030 & 1.14 [1.12, 1.16] & --- & 64 & 0.0 & 7.2 \\
+L9 Power table & 3.171 $\pm$ 0.019 & 1.00 [0.99, 1.02] & --- & 64 & 0.0 & 7.2 \\
+L10 Ungated guess & 3.177 $\pm$ 0.027 & 1.00 [0.98, 1.01] & --- & 64 & 0.0 & 7.2 \\
+L11 Log-form step & 3.180 $\pm$ 0.015 & 1.00 [0.99, 1.01] & --- & 64 & 0.0 & 7.2 \\
 \bottomrule
 \end{tabular}

@@ -8,21 +8,26 @@ from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 # Expected number of JMH records per file (derived from scripts/study.sh).
 FULL_FILES={'kernel-size':5*5,           # 5 daily sizes x 5 calls
-            'kernel-schedule':4*9,       # 4 schedules x 9 calls
+            'kernel-schedule':4*12,      # 4 schedules x 12 calls
+            'kernel-gaps':2*4,           # fixed 37-day gap and sorted irregular gaps x 4 calls
             'prep':4*2,                  # 4 schedules x {HISTORICAL, DIGEST}
-            'ladder':7*9,                # 7 families x 9 stages, prepared
-            'ladder-schedule':3*9,       # 3 schedules x 9 stages, standard, prepared
-            'overall-dated':7*2,         # 7 families x 2 ends, dated
-            'overall-seeds':2*2,         # 2 seeds x 2 ends, standard, prepared
-            'overall-size':2*2}          # 2 sizes x 2 ends, standard, prepared
-SMOKE_FILES={'smoke-kernel':9,'smoke-prep':2,'smoke-ladder':7*9*2}
-# LadderDiagnostics.java main(): the matrix of (frequency, configuration, seed, family) cases, each with 9 stages and 64 inputs.
+            'ladder':7*12,               # 7 families x 12 stages, prepared
+            'ladder-schedule':3*12,      # 3 schedules x 12 stages, standard, prepared
+            'overall-dated':7*3,         # 7 families x 3 ends, dated
+            'overall-seeds':2*3,         # 2 seeds x 3 ends, standard, prepared
+            'overall-size':2*3,          # 2 sizes x 3 ends, standard, prepared
+            **{f'scaling-t{t}':2*2 for t in (1,2,4,8,16)}}  # 2 families x 2 ends, t threads
+SMOKE_FILES={'smoke-kernel':12,'smoke-prep':2,'smoke-ladder':7*12*2,'smoke-scaling':2*2}
+# LadderDiagnostics.java main(): the matrix of (frequency, configuration, seed, family) cases, each with 12 stages and 64 inputs.
 FAMILIES=['standard','wide','jcurve','signflips','extreme-positive','extreme-negative','dominance']
 CASES=({('DAILY','n256','42',f) for f in FAMILIES}
        |{('DAILY','n256',s,'standard') for s in ('20261122','8675309')}
        |{(f,'n256','42','standard') for f in ('WEEKLY','MONTHLY','IRREGULAR')}
        |{('DAILY',c,'42','standard') for c in ('n16','n4096')})
-STAGES=['HISTORICAL','PRIMITIVE_ARRAYS','ANALYTIC_DERIVATIVE','PHI_DIRECT','INCREMENTAL','SMALL_POWERS','ANALYTIC_BOUNDS','NEWTON_FIRST','OPTIMIZED']
+STAGES=['HISTORICAL','PRIMITIVE_ARRAYS','ANALYTIC_DERIVATIVE','PHI_DIRECT','INCREMENTAL','SMALL_POWERS','ANALYTIC_BOUNDS','NEWTON_FIRST','OPTIMIZED',
+        'POWER_TABLE','TRUSTED_GUESS','LOG_NEWTON']
+ANALYSED=STAGES[6:]  # stages with the existence analysis
+PLANNED=STAGES[8:]   # OPTIMIZED and the extensions
 DIAG_ROWS=len(CASES)*len(STAGES)*64
 ROOT_STATUS=('CONVERGED','RATE_UNREPRESENTABLE')
 TARGET_FAMILIES=('standard','wide','jcurve','extreme-positive','extreme-negative')
@@ -39,7 +44,9 @@ for name,count in (SMOKE_FILES if smoke else FULL_FILES).items():
         assert load<3,(name,'1-minute load average',load)
     for row in data:
         m=row['primaryMetric'];score=float(m['score'])
-        assert m['scoreUnit']=='ns/op' and math.isfinite(score) and score>0,(name,row['benchmark'])
+        scaling='scaling' in name
+        assert m['scoreUnit']==('ops/s' if scaling else 'ns/op') and math.isfinite(score) and score>0,(name,row['benchmark'])
+        if scaling and not smoke:assert row['threads']==int(name.rsplit('t',1)[1]),(name,row['threads'])
         alloc=row['secondaryMetrics']['gc.alloc.rate.norm']
         assert alloc['scoreUnit']=='B/op' and math.isfinite(float(alloc['score'])),(name,row['benchmark'])
         if not smoke:
@@ -48,7 +55,7 @@ for name,count in (SMOKE_FILES if smoke else FULL_FILES).items():
             assert len(m['rawData'])==3 and all(len(x)==5 for x in m['rawData']),(name,row['benchmark'])
     records+=len(data);groups+=1
 
-n=0;returned=0;target_checked=0;no_solution=0;paired=0
+n=0;returned=0;target_checked=0;no_solution=0;paired=0;far_negative=0
 by_input={};stages_seen=defaultdict(set)
 with (root/'results/diagnostics.csv').open() as f:
     for r in csv.DictReader(f):
@@ -65,8 +72,10 @@ with (root/'results/diagnostics.csv').open() as f:
             if r['path']=='NEWTON':assert residual<1e-8,r
             if family in TARGET_FAMILIES:
                 target=float(r['target_phi']);assert abs(phi-target)<=1e-4*max(1,abs(target)),r;target_checked+=1
-        if stage=='OPTIMIZED' and family!='dominance':assert got,r
-        if family=='dominance' and stage in ('ANALYTIC_BOUNDS','NEWTON_FIRST','OPTIMIZED'):
+        if stage in PLANNED and family!='dominance':assert got,r
+        if stage=='LOG_NEWTON' and family=='extreme-negative':
+            assert r['path']=='NEWTON' and int(r['newton_iterations'])<=10,r;far_negative+=1
+        if family=='dominance' and stage in ANALYSED:
             assert r['status']=='NO_SOLUTION' and r['values']=='0' and r['derivatives']=='0',r;no_solution+=1
         assert int(r['newton_iterations'])<=200,r
         if stage in ('HISTORICAL','PRIMITIVE_ARRAYS'):by_input.setdefault(key,{})[stage]=tuple(r[k] for k in ('status','path','values','derivatives'))
@@ -78,5 +87,6 @@ for key,pair in by_input.items():
 print(f"Validated {records} JMH records in {groups} files ({'smoke' if smoke else 'full'}) and {n} diagnostic rows."
       +('' if smoke else f' Worst recorded 1-minute load average {worst_load:.2f}.'))
 print(f'{returned} returned roots have finite phi and residual < 1e-4 (< 1e-8 on NEWTON); {target_checked} match their target phi; '
-      f'{no_solution} dominance outcomes at ANALYTIC_BOUNDS/NEWTON_FIRST/OPTIMIZED are NO_SOLUTION with zero evaluations; '
+      f'{no_solution} dominance outcomes from ANALYTIC_BOUNDS on are NO_SOLUTION with zero evaluations; '
+      f'{far_negative} extreme-negative solves at LOG_NEWTON finish on Newton within 10 iterations; '
       f'{paired} inputs agree between HISTORICAL and PRIMITIVE_ARRAYS.')

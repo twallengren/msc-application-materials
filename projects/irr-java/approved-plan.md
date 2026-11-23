@@ -176,7 +176,7 @@ phiLower = -(D / g_l) * log(S_l / |lastFlow|)         (0 if S_l <= |lastFlow|)
 
 ## 5. Optimization ladder
 
-`Irr.Stage` exposes nine cumulative stages. Each changes one thing relative to the stage before it. `SolverStrategy.HISTORICAL` and `SolverStrategy.REVISED` are the first and last.
+`Irr.Stage` exposes twelve cumulative stages. Each changes one thing relative to the stage before it. L0 to L8 reconstruct the original work; `SolverStrategy.HISTORICAL` and `SolverStrategy.REVISED` are L0 and L8. L9 to L11 are extensions made in this study (section 5.1); `SolverStrategy.EXTENDED` is L11.
 
 | Stage | Change from the previous stage |
 |---|---|
@@ -189,6 +189,19 @@ phiLower = -(D / g_l) * log(S_l / |lastFlow|)         (0 if S_l <= |lastFlow|)
 | L6 `ANALYTIC_BOUNDS` | Existence analysis; Brent on the analytic bracket, started at the mapped Dietz guess or the midpoint when that is outside; ZERO and NO_SOLUTION directives. Without a guarantee Brent is skipped and Commons Newton runs alone |
 | L7 `NEWTON_FIRST` | Plans of section 4.5 with the guess waterfall minus Padé. Bundled: the guarded step-converging Newton replaces Commons Newton, with the direction gate; Brent starts from the waterfall guess and an exhausted Brent budget becomes a failure; the unguaranteed plan starts from the linear guess |
 | L8 `OPTIMIZED` | Padé(1,1) guess waterfall: section 4 exactly |
+| L9 `POWER_TABLE` | Extension: integer powers from a table built once per evaluation |
+| L10 `TRUSTED_GUESS` | Extension: the Padé guess and the Newton root are used whatever the search direction |
+| L11 `LOG_NEWTON` | Extension: a Newton step that leaves the analytic bounds is replaced by steps on log(P/N) |
+
+### 5.1 Extensions
+
+These respond to three weaknesses the first full measurement of L0 to L8 exposed. They are not part of the original work.
+
+**Power table (L9).** With `c = exp(-phi/D)` (or `exp(phi/D)` on the reverse path), the evaluator fills `p[g] = c^g` for `g = 0 .. limit` once per evaluation, by `p[g] = p[g/2]^2` (times `c` for odd `g`), and each flow then costs one lookup and one multiplication: `K *= p[gap]`. `limit = min(maxGap, 256, 4n)`; a larger gap falls back to `intPower`. The digest records `maxGap`. When every gap is at most one day there is nothing to tabulate and the L8 evaluator is used. The table is scratch space allocated once per solve. Reason: on irregular gaps the data-dependent branches of `intPower` made the recurrence slower than one `exp` per flow.
+
+**Ungated guess (L10).** On the guaranteed plan the Padé guess is used whenever its denominator guard accepts it, without the direction condition, and the root Newton finds is returned without the direction gate. Reason: with several roots the gate rejected a nearby root and Brent then returned a remote one from the analytic bracket.
+
+**Log-form step (L11).** Let `P(phi)` and `N(phi)` be the discounted sums of the positive and of the negative amounts, so `NPV = P - N`, and let `h = log(P/N)`. `h` has the roots of the NPV and is exactly linear for two flows. Every root lies inside the widened analytic bounds `[1.001 phiLower, 1.001 phiUpper]`. If a Newton step on the NPV lands beyond a non-zero bound, that step is discarded and the iteration continues from the same point with `phi <- phi - h/h'`, `h' = N'/N - P'/P`, within the same iteration cap. One loop accumulates `P`, `N` and their time-weighted sums with the amounts split without branches. Reason: far from the root the NPV is nearly exponential, so a Newton step overshoots by orders of magnitude and then returns about one unit per iteration; on far-negative roots L8 spent its 30 iterations and fell back to Brent.
 
 ## 6. Input classes
 
@@ -217,13 +230,14 @@ Failure of an early stage on a hard class is a recorded outcome, not a test fail
 
 ## 7. Measurement
 
-Three layers, each on identical inputs within a comparison.
+Three layers and a scaling measurement, each on identical inputs within a comparison.
 
-1. **Kernel: one NPV evaluation.** Historical `Math.pow` value; historical automatic differentiation; phi direct; phi incremental; value-only and value-plus-derivative. Daily schedules with n = 100, 365, 1,000, 3,650, 10,000, plus weekly, monthly and irregular schedules.
+1. **Kernel: one NPV evaluation.** Historical `Math.pow` value; historical automatic differentiation; phi direct; phi incremental; power table; log form; value-only and value-plus-derivative. Daily schedules with n = 100, 365, 1,000, 3,650, 10,000, plus weekly, monthly and irregular schedules. A gap-order experiment times the same calls on a fixed 37-day gap, on irregular gaps in ascending order, and on the same gaps in random order, to separate the arithmetic of an integer power from the predictability of its branches.
 2. **Preparation.** Three-pass boxed preparation against the single-pass digest.
-3. **Solve.** All nine stages per input class on prepared input, with evaluation counts per solve; the historical and optimized endpoints also on dated input (preparation included).
+3. **Solve.** All twelve stages per input class on prepared input, with evaluation counts per solve; the historical, optimized (L8) and extended (L11) ends also on dated input (preparation included).
+4. **Thread scaling.** Throughput of independent solves on 1, 2, 4, 8 and 16 threads, each thread with its own prepared inputs, for the historical and extended ends.
 
-An accuracy table accompanies the timings: agreement between historical and optimized roots, and outcomes where they differ.
+Accuracy tables accompany the timings: agreement between historical roots and those of L8 and of L11, and outcomes where they differ.
 
 Rules:
 

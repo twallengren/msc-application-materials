@@ -8,5 +8,8 @@ SMALL_POWERS: IrrResult[rate=0.11085390126650616, phi=0.105129, status=CONVERGED
 ANALYTIC_BOUNDS: IrrResult[rate=0.11085390126650616, phi=0.105129, status=CONVERGED, path=BRENT, valueEvaluations=5, derivativeEvaluations=0, newtonIterations=0]
 NEWTON_FIRST: IrrResult[rate=0.11085474546781031, phi=0.10512975995680657, status=CONVERGED, path=NEWTON, valueEvaluations=0, derivativeEvaluations=3, newtonIterations=3]
 OPTIMIZED: IrrResult[rate=0.11085474546777317, phi=0.10512975995677314, status=CONVERGED, path=NEWTON, valueEvaluations=0, derivativeEvaluations=2, newtonIterations=2]
+POWER_TABLE: IrrResult[rate=0.11085474546777317, phi=0.10512975995677314, status=CONVERGED, path=NEWTON, valueEvaluations=0, derivativeEvaluations=2, newtonIterations=2]
+TRUSTED_GUESS: IrrResult[rate=0.11085474546777317, phi=0.10512975995677314, status=CONVERGED, path=NEWTON, valueEvaluations=0, derivativeEvaluations=2, newtonIterations=2]
+LOG_NEWTON: IrrResult[rate=0.11085474546777317, phi=0.10512975995677314, status=CONVERGED, path=NEWTON, valueEvaluations=0, derivativeEvaluations=2, newtonIterations=2]
 No contributions: IrrResult[rate=Infinity, phi=Infinity, status=TERMINAL, path=TERMINAL, valueEvaluations=0, derivativeEvaluations=0, newtonIterations=0]
 No root: IrrResult[rate=NaN, phi=NaN, status=NO_SOLUTION, path=NONE, valueEvaluations=0, derivativeEvaluations=0, newtonIterations=0]

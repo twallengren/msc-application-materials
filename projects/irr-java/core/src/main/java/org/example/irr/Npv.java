@@ -196,6 +196,156 @@ public final class Npv {
     public abstract Evaluation both(Digest d, double phi);
   }
 
+  // -------------------------------------------------------------------------- power table
+
+  /** Largest power table built per evaluation; larger gaps use {@link #intPower}. */
+  public static final int TABLE_CAP = 256;
+
+  /** Highest exponent the table of a digest holds: bounded by the cap and by the work saved. */
+  public static int tableLimit(Digest d) {
+    return (int) Math.min(d.maxGap(), Math.min(TABLE_CAP, 4L * d.size()));
+  }
+
+  /** Scratch space for the table evaluators of one digest; one per solve or per thread. */
+  public static double[] newTable(Digest d) {
+    return new double[tableLimit(d) + 1];
+  }
+
+  /** p[g] = c^g for g up to the table length, by squaring so the error grows with log g. */
+  static void fillPowers(double[] p, double c) {
+    p[0] = 1;
+    if (p.length > 1) p[1] = c;
+    for (int g = 2; g < p.length; g++) {
+      double half = p[g >> 1];
+      p[g] = (g & 1) == 0 ? half * half : half * half * c;
+    }
+  }
+
+  /**
+   * The gap recurrence with the powers c^1 .. c^limit computed once per evaluation, so each flow
+   * costs a lookup and a multiplication whatever its gap. Same scaling for phi &lt; 0 as {@link
+   * Phi#INCREMENTAL}.
+   */
+  public static double tableValue(Digest d, double phi, double[] p) {
+    int n = d.size(), limit = p.length - 1;
+    if (n == 0) return 0;
+    int[] gaps = d.gaps;
+    double[] amounts = d.amounts;
+    double k = 1, npv;
+    if (phi >= 0) {
+      double c = Math.exp(-phi * d.dayFraction());
+      fillPowers(p, c);
+      k = Math.exp(-phi * d.times[0]);
+      npv = amounts[0] * k;
+      for (int i = 1; i < n; i++) {
+        int g = gaps[i];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        npv = Math.fma(amounts[i], k, npv);
+      }
+    } else {
+      double c = Math.exp(phi * d.dayFraction());
+      fillPowers(p, c);
+      npv = amounts[n - 1];
+      for (int i = n - 2; i >= 0; i--) {
+        int g = gaps[i + 1];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        npv = Math.fma(amounts[i], k, npv);
+      }
+    }
+    return npv;
+  }
+
+  /**
+   * Value and derivative with the power table; derivative convention of {@link Phi#INCREMENTAL}.
+   */
+  public static Evaluation tableBoth(Digest d, double phi, double[] p) {
+    int n = d.size(), limit = p.length - 1;
+    if (n == 0) return new Evaluation(0, 0);
+    int[] gaps = d.gaps;
+    double[] amounts = d.amounts, times = d.times;
+    double k = 1, npv, dn;
+    if (phi >= 0) {
+      double c = Math.exp(-phi * d.dayFraction());
+      fillPowers(p, c);
+      k = Math.exp(-phi * times[0]);
+      npv = amounts[0] * k;
+      dn = amounts[0] * times[0] * k;
+      for (int i = 1; i < n; i++) {
+        int g = gaps[i];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        npv = Math.fma(amounts[i], k, npv);
+        dn = Math.fma(amounts[i] * times[i], k, dn);
+      }
+    } else {
+      double c = Math.exp(phi * d.dayFraction());
+      fillPowers(p, c);
+      npv = amounts[n - 1];
+      dn = amounts[n - 1] * times[n - 1];
+      for (int i = n - 2; i >= 0; i--) {
+        int g = gaps[i + 1];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        npv = Math.fma(amounts[i], k, npv);
+        dn = Math.fma(amounts[i] * times[i], k, dn);
+      }
+    }
+    return new Evaluation(npv, -dn);
+  }
+
+  /**
+   * The log form h(phi) = log(P / N) and its derivative, where P and N are the discounted sums of
+   * the positive and the negative amounts. h has the roots of the NPV and is exactly linear for two
+   * flows, so Newton on h does not overshoot where the NPV is nearly exponential. The common
+   * scaling of the reverse path cancels in the ratio. Non-finite when either sum vanishes.
+   */
+  public static Evaluation tableLog(Digest d, double phi, double[] p) {
+    int n = d.size(), limit = p.length - 1;
+    if (n == 0) return new Evaluation(Double.NaN, Double.NaN);
+    int[] gaps = d.gaps;
+    double[] amounts = d.amounts, times = d.times;
+    // Branch-free split of each amount: up = max(a, 0) and down = max(-a, 0), both exact.
+    double k, pos, neg, dPos, dNeg;
+    if (phi >= 0) {
+      double c = Math.exp(-phi * d.dayFraction());
+      fillPowers(p, c);
+      k = Math.exp(-phi * times[0]);
+      double up = 0.5 * (amounts[0] + Math.abs(amounts[0])), down = up - amounts[0];
+      pos = up * k;
+      neg = down * k;
+      dPos = up * times[0] * k;
+      dNeg = down * times[0] * k;
+      for (int i = 1; i < n; i++) {
+        int g = gaps[i];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        up = 0.5 * (amounts[i] + Math.abs(amounts[i]));
+        down = up - amounts[i];
+        pos = Math.fma(up, k, pos);
+        neg = Math.fma(down, k, neg);
+        dPos = Math.fma(up * times[i], k, dPos);
+        dNeg = Math.fma(down * times[i], k, dNeg);
+      }
+    } else {
+      double c = Math.exp(phi * d.dayFraction());
+      fillPowers(p, c);
+      k = 1;
+      double up = 0.5 * (amounts[n - 1] + Math.abs(amounts[n - 1])), down = up - amounts[n - 1];
+      pos = up;
+      neg = down;
+      dPos = up * times[n - 1];
+      dNeg = down * times[n - 1];
+      for (int i = n - 2; i >= 0; i--) {
+        int g = gaps[i + 1];
+        k *= g <= limit ? p[g] : intPower(c, g);
+        up = 0.5 * (amounts[i] + Math.abs(amounts[i]));
+        down = up - amounts[i];
+        pos = Math.fma(up, k, pos);
+        neg = Math.fma(down, k, neg);
+        dPos = Math.fma(up * times[i], k, dPos);
+        dNeg = Math.fma(down * times[i], k, dNeg);
+      }
+    }
+    return new Evaluation(Math.log(pos / neg), dNeg / neg - dPos / pos);
+  }
+
   /** Straight-line multiplications for exponents 0 to 7; square-and-multiply above. */
   public static double intPower(double c, int g) {
     switch (g) {

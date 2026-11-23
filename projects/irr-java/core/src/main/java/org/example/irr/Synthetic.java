@@ -21,7 +21,12 @@ public final class Synthetic {
     DAILY,
     WEEKLY,
     MONTHLY,
-    IRREGULAR
+    /** Random gaps of 1 to 40 days. */
+    IRREGULAR,
+    /** One fixed gap of 37 days: a square-and-multiply exponent that never changes. */
+    EVERY_37_DAYS,
+    /** The gaps of IRREGULAR for the same seed, in ascending order: same work, predictable. */
+    IRREGULAR_SORTED
   }
 
   private Synthetic() {}
@@ -29,32 +34,27 @@ public final class Synthetic {
   public static List<LocalDate> dates(Frequency frequency, int count, int years, Random random) {
     var out = new ArrayList<LocalDate>();
     out.add(ANCHOR);
-    if (years == 0) {
-      for (int i = 1; i < count; i++)
-        out.add(
-            switch (frequency) {
-              case DAILY -> ANCHOR.plusDays(i);
-              case WEEKLY -> ANCHOR.plusWeeks(i);
-              case MONTHLY -> ANCHOR.plusMonths(i);
-              case IRREGULAR -> out.getLast().plusDays(1 + random.nextInt(40));
-            });
-    } else {
-      LocalDate end = ANCHOR.plusYears(years);
-      int i = 1;
-      while (true) {
-        LocalDate next =
-            switch (frequency) {
-              case DAILY -> ANCHOR.plusDays(i);
-              case WEEKLY -> ANCHOR.plusWeeks(i);
-              case MONTHLY -> ANCHOR.plusMonths(i);
-              case IRREGULAR -> out.getLast().plusDays(1 + random.nextInt(40));
-            };
-        if (!next.isBefore(end)) break;
-        out.add(next);
-        i++;
-      }
-      out.add(end); // Explicit endpoint preserves the common horizon.
+    LocalDate end = years == 0 ? null : ANCHOR.plusYears(years);
+    for (int i = 1; years != 0 || i < count; i++) {
+      LocalDate next =
+          switch (frequency) {
+            case DAILY -> ANCHOR.plusDays(i);
+            case WEEKLY -> ANCHOR.plusWeeks(i);
+            case MONTHLY -> ANCHOR.plusMonths(i);
+            case EVERY_37_DAYS -> ANCHOR.plusDays(37L * i);
+            case IRREGULAR, IRREGULAR_SORTED -> out.getLast().plusDays(1 + random.nextInt(40));
+          };
+      if (end != null && !next.isBefore(end)) break;
+      out.add(next);
     }
+    if (frequency == Frequency.IRREGULAR_SORTED) {
+      long[] gaps = new long[out.size() - 1];
+      for (int i = 0; i < gaps.length; i++)
+        gaps[i] = ChronoUnit.DAYS.between(out.get(i), out.get(i + 1));
+      Arrays.sort(gaps);
+      for (int i = 0; i < gaps.length; i++) out.set(i + 1, out.get(i).plusDays(gaps[i]));
+    }
+    if (end != null) out.add(end); // Explicit endpoint preserves the common horizon.
     return List.copyOf(out);
   }
 
