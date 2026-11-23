@@ -1,0 +1,94 @@
+Rc files read (in order):
+  ./latexmkrc
+Latexmk: This is Latexmk, John Collins, 9 March 2026. Version 4.88.
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  report.tex
+Category 'changed_user':
+  report.tex
+
+------------
+Run number 1 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex -interaction=nonstopmode -halt-on-error  -interaction=nonstopmode -halt-on-error -recorder  "report.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./report.tex
+LaTeX2e <2026-06-01>
+L3 programming layer <2026-09-09>
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/size11.clo)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/tools/array.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/listings.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty))) (./generated/metrics.tex) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def) (./report.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg) (./report.out) (./report.out) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg) (./generated/overall.tex) [1{/private/tmp/irr-tex/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty) [2{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [3] [4] (./generated/kernel-size.tex) (./generated/kernel-schedule.tex) [5] (./generated/kernel-ratios.tex) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd) (./generated/prep.tex) [6{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc} <./generated/kernel.pdf>] (./generated/ladder-standard.tex) [7 <./generated/ladder.pdf>] (./generated/ladder-wide.tex) (./generated/ladder-extreme-positive.tex) (./generated/ladder-extreme-negative.tex) [8] (./generated/ladder-schedule.tex) (./generated/accuracy.tex) [9] (./report.bbl [10]) [11] (./report.aux) )</private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on report.pdf (11 pages, 390007 bytes).
+Transcript written on report.log.
+Latexmk: Getting log file 'report.log'
+Latexmk: Examining 'report.fls'
+Latexmk: Examining 'report.log'
+Latexmk: Found input bbl file 'report.bbl'
+Latexmk: Log file says output to 'report.pdf'
+Latexmk: Using bibtex to make bibliography file(s).
+  ===Source file 'report.bbl' for 'pdflatex'
+Latexmk: Found bibliography file(s):
+  ./references.bib
+Latexmk: applying rule 'bibtex report'...
+Rule 'bibtex report':  Reasons for rerun
+Changed files or newly in use/created:
+  report.aux
+
+------------
+Run number 1 of rule 'bibtex report'
+------------
+------------
+Running 'bibtex  "report.aux"'
+------------
+This is BibTeX, Version 0.99e (TeX Live 2026)
+The top-level auxiliary file: report.aux
+The style file: plain.bst
+Database file #1: references.bib
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  report.aux
+
+------------
+Run number 2 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex -interaction=nonstopmode -halt-on-error  -interaction=nonstopmode -halt-on-error -recorder  "report.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./report.tex
+LaTeX2e <2026-06-01>
+L3 programming layer <2026-09-09>
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/size11.clo)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/tools/array.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/listings.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty))) (./generated/metrics.tex) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def) (./report.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg) (./report.out) (./report.out) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg) (./generated/overall.tex) [1{/private/tmp/irr-tex/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty) [2{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [3] [4] (./generated/kernel-size.tex) (./generated/kernel-schedule.tex) [5] (./generated/kernel-ratios.tex) (/private/tmp/irr-tex/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd) (./generated/prep.tex) [6{/private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc} <./generated/kernel.pdf>] (./generated/ladder-standard.tex) [7 <./generated/ladder.pdf>] (./generated/ladder-wide.tex) (./generated/ladder-extreme-positive.tex) (./generated/ladder-extreme-negative.tex) [8] (./generated/ladder-schedule.tex) (./generated/accuracy.tex) [9] (./report.bbl [10]) [11] (./report.aux) )</private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></private/tmp/irr-tex/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on report.pdf (11 pages, 390007 bytes).
+Transcript written on report.log.
+Latexmk: Getting log file 'report.log'
+Latexmk: Examining 'report.fls'
+Latexmk: Examining 'report.log'
+Latexmk: Found input bbl file 'report.bbl'
+Latexmk: Log file says output to 'report.pdf'
+Latexmk: Using bibtex to make bibliography file(s).
+  ===Source file 'report.bbl' for 'pdflatex'
+Latexmk: Found bibliography file(s):
+  ./references.bib
+Latexmk: All targets (report.pdf) are up-to-date
+

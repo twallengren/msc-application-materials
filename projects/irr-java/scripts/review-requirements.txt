@@ -1,0 +1,2 @@
+# Optional dependency for rendering and inspecting the built report.
+PyMuPDF==1.26.7

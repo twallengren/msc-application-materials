@@ -22,3 +22,22 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Java IRR build and report intermediates
+**/target/
+**/.venv/
+**/.mpl-cache/
+**/__pycache__/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.synctex.gz
+!projects/irr-java/results/*.log
+
+# IntelliJ local project model (Maven is authoritative)
+.idea/
+*.iml

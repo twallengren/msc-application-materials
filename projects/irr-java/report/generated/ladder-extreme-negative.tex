@@ -1,0 +1,15 @@
+\begin{tabular}{lrrrrrr}
+\toprule
+Stage & Time ($\mu$s) & Previous/current & L0/current & Roots/64 & Mean value evals & Mean deriv. evals \\
+\midrule
+L0 Historical & 2644 $\pm$ 23 & --- & --- & 0 ($-$100\% fallback 64) & 0.1 & 200.0 \\
+L1 Primitive arrays & 2513 $\pm$ 16 & --- & --- & 0 ($-$100\% fallback 64) & 0.1 & 200.0 \\
+L2 Analytic derivative & 328.8 $\pm$ 9.8 & --- & --- & 0 ($-$100\% fallback 64) & 0.1 & 200.0 \\
+L3 Phi, direct exp & 244.5 $\pm$ 2.8 & --- & --- & 0 (failed 64) & 0.1 & 200.0 \\
+L4 Incremental recurrence & 91.47 $\pm$ 0.42 & --- & --- & 0 (failed 64) & 0.1 & 200.0 \\
+L5 Small-power cases & 79.72 $\pm$ 0.50 & --- & --- & 0 (failed 64) & 0.1 & 200.0 \\
+L6 Analytic bounds & 3.172 $\pm$ 0.026 & --- & --- & 64 & 10.5 & 0.0 \\
+L7 Newton first & 15.10 $\pm$ 0.05 & 0.21 [0.21, 0.21] & --- & 64 & 11.8 & 30.0 \\
+L8 Optimized & 15.88 $\pm$ 0.11 & 0.95 [0.94, 0.96] & --- & 64 & 13.3 & 30.0 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,71 @@
+pdflatex --version
+pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)
+kpathsea version 6.4.2
+Copyright 2026 Han The Thanh (pdfTeX) et al.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the pdfTeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the pdfTeX source.
+Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.
+Compiled with libpng 1.6.55; using libpng 1.6.55
+Compiled with zlib 1.3.2; using zlib 1.3.2
+Compiled with xpdf version 4.06
+
+bibtex --version
+BibTeX 0.99e (TeX Live 2026)
+kpathsea version 6.4.2
+Copyright 2026 Oren Patashnik.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the BibTeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the BibTeX source.
+Primary author of BibTeX: Oren Patashnik.
+
+latexmk -v
+Latexmk, John Collins, 9 March 2026. Version 4.88
+
+tlmgr info --only-installed listings microtype latexmk
+package:     listings
+category:    Package
+shortdesc:   Typeset source code listings using LaTeX
+longdesc:    The package enables the user to typeset programs (programming code) within LaTeX; the source code is read directly by TeX - no front-end processor is needed. Keywords, comments and strings can be typeset using different styles (default is bold for keywords, italic for comments and no special style for strings). Support for hyperref is provided. To use, \usepackage{listings}, identify the language of the object to typeset, using a construct like: \lstset{language=Python}, then use environment lstlisting for inline code. External files may be formatted using \lstinputlisting to process a given file in the form appropriate for the current language. Short (in-line) listings are also available, using either \lstinline|...| or |...| (after defining the | token with the \lstMakeShortInline command).
+installed:   Yes
+revision:    77682
+sizes:       run: 613k
+relocatable: No
+cat-version: 1.11b
+cat-license: lppl1.3c
+cat-topics:  listing macro-demo synt-hlt tagged-pdf-incompatible verbatim
+cat-related: listing
+
+package:     microtype
+category:    Package
+shortdesc:   Subliminal refinements towards typographical perfection
+longdesc:    The package provides a LaTeX interface to the micro-typographic extensions that were introduced by pdfTeX and have since also propagated to XeTeX and LuaTeX: most prominently, character protrusion and font expansion, furthermore the adjustment of interword spacing and additional kerning, as well as hyphenatable letterspacing (tracking) and the possibility to disable all or selected ligatures. These features may be applied to customisable sets of fonts, and all micro-typographic aspects of the fonts can be configured in a straight-forward and flexible way. Settings for various fonts are provided. Note that character protrusion requires pdfTeX, LuaTeX, or XeTeX. Font expansion works with pdfTeX or LuaTeX. The package will by default enable protrusion and expansion if they can safely be assumed to work. Disabling ligatures requires pdfTeX or LuaTeX, while the adjustment of interword spacing and of kerning only works with pdfTeX. Letterspacing is available with pdfTeX, LuaTeX or XeTeX. The alternative package letterspace, which also works with plain TeX, provides the user commands for letterspacing only, omitting support for all other extensions.
+installed:   Yes
+revision:    78228
+sizes:       run: 537k
+relocatable: No
+cat-version: 3.2d
+cat-license: lppl1.3c
+cat-topics:  letterspace micro-layout tagged-pdf
+cat-related: pdfcprot
+cat-contact-repository: https://github.com/schlcht/microtype/
+cat-contact-bugs: https://github.com/schlcht/microtype/issues
+
+package:     latexmk
+category:    Package
+shortdesc:   Fully automated LaTeX document generation
+longdesc:    Latexmk completely automates the process of generating a LaTeX document. Given the source files for a document, latexmk issues the appropriate sequence of commands to generate a .dvi, .ps, .pdf or hardcopy version of the document. An important feature is the preview continuous mode, where the script watches all of the source files (primary file and included TeX and graphics files), and reruns LaTeX, etc., whenever a source file has changed. Thus a previewer can offer a display of the document's latest state.
+installed:   Yes
+revision:    78335
+sizes:       run: 557k, bin: 5k
+relocatable: No
+cat-version: 4.88
+cat-license: gpl2
+cat-topics:  compilation
+cat-related: latexn prv arara
+cat-contact-home: https://www.cantab.net/users/johncollins/latexmk/index.html
+

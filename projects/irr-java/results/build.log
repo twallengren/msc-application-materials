@@ -1,0 +1,255 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] irr-java                                                           [pom]
+[INFO] irr-core                                                           [jar]
+[INFO] irr-benchmarks                                                     [jar]
+[INFO] MSc application materials                                          [pom]
+[INFO] 
+[INFO] ------------------------< org.example:irr-java >------------------------
+[INFO] Building irr-java 1.0.0                                            [1/4]
+[INFO]   from projects/irr-java/pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ irr-java ---
+[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/target
+[INFO] 
+[INFO] --- spotless:2.43.0:check (format-check) @ irr-java ---
+[INFO] Index file does not exist. Fallback to an empty index
+[INFO] 
+[INFO] ------------------------< org.example:irr-core >------------------------
+[INFO] Building irr-core 1.0.0                                            [2/4]
+[INFO]   from projects/irr-java/core/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ irr-core ---
+[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/target
+[INFO] 
+[INFO] --- spotless:2.43.0:check (format-check) @ irr-core ---
+[INFO] Index file does not exist. Fallback to an empty index
+[INFO] Spotless.Java is keeping 18 files clean - 0 needs changes to be clean, 18 were already clean, 0 were skipped because caching determined they were already clean
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ irr-core ---
+[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ irr-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 13 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ irr-core ---
+[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ irr-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ irr-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.irr.IrrTest
+[WARNING] Tests run: 84, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.524 s -- in org.example.irr.IrrTest
+[INFO] Running org.example.irr.historical.HistoricalIrrTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in org.example.irr.historical.HistoricalIrrTest
+[INFO] Running org.example.irr.ParityTest
+
+Parity, historical vs optimized (cases per outcome)
+family                       agree        disagree  onlyHistorical   onlyOptimized         neither    histMinusOne
+dominance                        0               0               0               0            1536               0
+excluded                         0               0               0               0            1536               0
+extreme-negative                 0               0               0            1536               0            1536
+extreme-positive              1144               0               0             392               0               0
+jcurve                        1536               0               0               0               0               0
+signflips                     1410              92               0              34               0              11
+standard                      1536               0               0               0               0               0
+wide                          1536               0               0               0               0               0
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.497 s -- in org.example.irr.ParityTest
+[INFO] Running org.example.irr.StressTest
+
+Stress outcomes by family and stage (status/path=count)
+dominance
+  ANALYTIC_BOUNDS      NO_SOLUTION/NONE=216
+  ANALYTIC_DERIVATIVE  FAILED/NONE=216
+  HISTORICAL           FAILED/NONE=216
+  INCREMENTAL          FAILED/NONE=215 RATE_UNREPRESENTABLE/NEWTON=1
+  NEWTON_FIRST         NO_SOLUTION/NONE=216
+  OPTIMIZED            NO_SOLUTION/NONE=216
+  PHI_DIRECT           FAILED/NONE=216
+  PRIMITIVE_ARRAYS     FAILED/NONE=216
+  SMALL_POWERS         FAILED/NONE=215 RATE_UNREPRESENTABLE/NEWTON=1
+excluded
+  ANALYTIC_BOUNDS      TERMINAL/TERMINAL=216
+  ANALYTIC_DERIVATIVE  TERMINAL/TERMINAL=216
+  HISTORICAL           TERMINAL/TERMINAL=216
+  INCREMENTAL          TERMINAL/TERMINAL=216
+  NEWTON_FIRST         TERMINAL/TERMINAL=216
+  OPTIMIZED            TERMINAL/TERMINAL=216
+  PHI_DIRECT           TERMINAL/TERMINAL=216
+  PRIMITIVE_ARRAYS     TERMINAL/TERMINAL=216
+  SMALL_POWERS         TERMINAL/TERMINAL=216
+extreme-negative
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=216
+  ANALYTIC_DERIVATIVE  MINUS_ONE_FALLBACK/MINUS_ONE=216
+  HISTORICAL           MINUS_ONE_FALLBACK/MINUS_ONE=216
+  INCREMENTAL          FAILED/NONE=216
+  NEWTON_FIRST         CONVERGED/BRENT=216
+  OPTIMIZED            CONVERGED/BRENT=216
+  PHI_DIRECT           FAILED/NONE=216
+  PRIMITIVE_ARRAYS     MINUS_ONE_FALLBACK/MINUS_ONE=216
+  SMALL_POWERS         FAILED/NONE=216
+extreme-positive
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=216
+  ANALYTIC_DERIVATIVE  CONVERGED/NEWTON=157 FAILED/NONE=59
+  HISTORICAL           CONVERGED/NEWTON=138 FAILED/NONE=78
+  INCREMENTAL          CONVERGED/NEWTON=216
+  NEWTON_FIRST         CONVERGED/NEWTON=216
+  OPTIMIZED            CONVERGED/BRENT=1 CONVERGED/NEWTON=215
+  PHI_DIRECT           CONVERGED/NEWTON=216
+  PRIMITIVE_ARRAYS     CONVERGED/NEWTON=138 FAILED/NONE=78
+  SMALL_POWERS         CONVERGED/NEWTON=216
+jcurve
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=216
+  ANALYTIC_DERIVATIVE  CONVERGED/BRENT=216
+  HISTORICAL           CONVERGED/BRENT=216
+  INCREMENTAL          CONVERGED/BRENT=216
+  NEWTON_FIRST         CONVERGED/NEWTON=216
+  OPTIMIZED            CONVERGED/NEWTON=216
+  PHI_DIRECT           CONVERGED/BRENT=216
+  PRIMITIVE_ARRAYS     CONVERGED/BRENT=216
+  SMALL_POWERS         CONVERGED/BRENT=216
+signflips
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=170 CONVERGED/NEWTON=30 RATE_UNREPRESENTABLE/BRENT=16
+  ANALYTIC_DERIVATIVE  CONVERGED/BRENT=195 CONVERGED/NEWTON=14 FAILED/NONE=4 MINUS_ONE_FALLBACK/MINUS_ONE=3
+  HISTORICAL           CONVERGED/BRENT=195 CONVERGED/NEWTON=14 FAILED/NONE=4 MINUS_ONE_FALLBACK/MINUS_ONE=3
+  INCREMENTAL          CONVERGED/BRENT=195 CONVERGED/NEWTON=21
+  NEWTON_FIRST         CONVERGED/BRENT=6 CONVERGED/NEWTON=210
+  OPTIMIZED            CONVERGED/BRENT=6 CONVERGED/NEWTON=210
+  PHI_DIRECT           CONVERGED/BRENT=195 CONVERGED/NEWTON=21
+  PRIMITIVE_ARRAYS     CONVERGED/BRENT=195 CONVERGED/NEWTON=14 FAILED/NONE=4 MINUS_ONE_FALLBACK/MINUS_ONE=3
+  SMALL_POWERS         CONVERGED/BRENT=195 CONVERGED/NEWTON=21
+standard
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=216
+  ANALYTIC_DERIVATIVE  CONVERGED/BRENT=216
+  HISTORICAL           CONVERGED/BRENT=216
+  INCREMENTAL          CONVERGED/BRENT=216
+  NEWTON_FIRST         CONVERGED/NEWTON=216
+  OPTIMIZED            CONVERGED/NEWTON=216
+  PHI_DIRECT           CONVERGED/BRENT=216
+  PRIMITIVE_ARRAYS     CONVERGED/BRENT=216
+  SMALL_POWERS         CONVERGED/BRENT=216
+wide
+  ANALYTIC_BOUNDS      CONVERGED/BRENT=216
+  ANALYTIC_DERIVATIVE  CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+  HISTORICAL           CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+  INCREMENTAL          CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+  NEWTON_FIRST         CONVERGED/NEWTON=216
+  OPTIMIZED            CONVERGED/NEWTON=216
+  PHI_DIRECT           CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+  PRIMITIVE_ARRAYS     CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+  SMALL_POWERS         CONVERGED/BRENT=189 CONVERGED/NEWTON=27
+max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.6410080988480363E-13}
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.481 s -- in org.example.irr.StressTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[WARNING] Tests run: 122, Failures: 0, Errors: 0, Skipped: 1
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ irr-core ---
+[INFO] Building jar: /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/target/irr-core-1.0.0.jar
+[INFO] 
+[INFO] ---------------------< org.example:irr-benchmarks >---------------------
+[INFO] Building irr-benchmarks 1.0.0                                      [3/4]
+[INFO]   from projects/irr-java/benchmarks/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ irr-benchmarks ---
+[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target
+[INFO] 
+[INFO] --- spotless:2.43.0:check (format-check) @ irr-benchmarks ---
+[INFO] Index file does not exist. Fallback to an empty index
+[INFO] Spotless.Java is keeping 6 files clean - 0 needs changes to be clean, 6 were already clean, 0 were skipped because caching determined they were already clean
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ irr-benchmarks ---
+[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ irr-benchmarks ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ irr-benchmarks ---
+[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ irr-benchmarks ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ irr-benchmarks ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.example.irr.bench.StudyTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.744 s -- in org.example.irr.bench.StudyTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ irr-benchmarks ---
+[INFO] Building jar: /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0.jar
+[INFO] 
+[INFO] --- shade:3.6.0:shade (default) @ irr-benchmarks ---
+[INFO] Including org.example:irr-core:jar:1.0.0 in the shaded jar.
+[INFO] Including org.apache.commons:commons-math3:jar:3.6.1 in the shaded jar.
+[INFO] Including org.openjdk.jmh:jmh-core:jar:1.37 in the shaded jar.
+[INFO] Including net.sf.jopt-simple:jopt-simple:jar:5.0.4 in the shaded jar.
+[WARNING] commons-math3-3.6.1.jar, irr-benchmarks-1.0.0.jar, irr-core-1.0.0.jar, jmh-core-1.37.jar, jopt-simple-5.0.4.jar define 1 overlapping resource: 
+[WARNING]   - META-INF/MANIFEST.MF
+[WARNING] maven-shade-plugin has detected that some files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the file is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] Replacing /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/benchmarks.jar with /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0-shaded.jar
+[INFO] 
+[INFO] ----------< org.example.portfolio:msc-application-materials >-----------
+[INFO] Building MSc application materials 1.0.0                           [4/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ msc-application-materials ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for MSc application materials 1.0.0:
+[INFO] 
+[INFO] irr-java ........................................... SUCCESS [  0.445 s]
+[INFO] irr-core ........................................... SUCCESS [ 13.080 s]
+[INFO] irr-benchmarks ..................................... SUCCESS [  2.445 s]
+[INFO] MSc application materials .......................... SUCCESS [  0.002 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  16.061 s
+[INFO] Finished at: 2026-11-23T00:44:36Z
+[INFO] ------------------------------------------------------------------------
