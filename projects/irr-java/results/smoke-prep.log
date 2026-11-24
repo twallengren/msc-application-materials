@@ -1,6 +1,6 @@
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -13,22 +13,22 @@
 
 # Run progress: 0.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 2884.644 ns/op
-Iteration   1: 1331.336 ns/op
-                 gc.alloc.rate:      1239.398 MB/sec
-                 gc.alloc.rate.norm: 1734.869 B/op
+# Warmup Iteration   1: 2946.605 ns/op
+Iteration   1: 1380.498 ns/op
+                 gc.alloc.rate:      1198.322 MB/sec
+                 gc.alloc.rate.norm: 1739.006 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.PrepBench.prepare":
-  1331.336 ns/op
+  1380.498 ns/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate":
-  1239.398 MB/sec
+  1198.322 MB/sec
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate.norm":
-  1734.869 B/op
+  1739.006 B/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
   ≈ 0 counts
@@ -36,7 +36,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -49,29 +49,29 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
 
 # Run progress: 50.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 407.835 ns/op
-Iteration   1: 334.908 ns/op
-                 gc.alloc.rate:      1386.993 MB/sec
-                 gc.alloc.rate.norm: 488.021 B/op
+# Warmup Iteration   1: 412.876 ns/op
+Iteration   1: 372.112 ns/op
+                 gc.alloc.rate:      1248.241 MB/sec
+                 gc.alloc.rate.norm: 488.025 B/op
                  gc.count:           1.000 counts
-                 gc.time:            3.000 ms
+                 gc.time:            2.000 ms
 
 
 
 Result "org.example.irr.bench.PrepBench.prepare":
-  334.908 ns/op
+  372.112 ns/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate":
-  1386.993 MB/sec
+  1248.241 MB/sec
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.alloc.rate.norm":
-  488.021 B/op
+  488.025 B/op
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.count":
   1.000 counts
 
 Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
-  3.000 ms
+  2.000 ms
 
 
 # Run complete. Total time: 00:00:01
@@ -89,14 +89,14 @@ different JVMs are already problematic, the performance difference caused by dif
 modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
 
 Benchmark                             (configuration)  (frequency)  (preparation)  (seed)  Mode  Cnt     Score   Error   Units
-PrepBench.prepare                                 n16        DAILY     HISTORICAL      42  avgt       1331.336           ns/op
-PrepBench.prepare:gc.alloc.rate                   n16        DAILY     HISTORICAL      42  avgt       1239.398          MB/sec
-PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY     HISTORICAL      42  avgt       1734.869            B/op
+PrepBench.prepare                                 n16        DAILY     HISTORICAL      42  avgt       1380.498           ns/op
+PrepBench.prepare:gc.alloc.rate                   n16        DAILY     HISTORICAL      42  avgt       1198.322          MB/sec
+PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY     HISTORICAL      42  avgt       1739.006            B/op
 PrepBench.prepare:gc.count                        n16        DAILY     HISTORICAL      42  avgt            ≈ 0          counts
-PrepBench.prepare                                 n16        DAILY         DIGEST      42  avgt        334.908           ns/op
-PrepBench.prepare:gc.alloc.rate                   n16        DAILY         DIGEST      42  avgt       1386.993          MB/sec
-PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY         DIGEST      42  avgt        488.021            B/op
+PrepBench.prepare                                 n16        DAILY         DIGEST      42  avgt        372.112           ns/op
+PrepBench.prepare:gc.alloc.rate                   n16        DAILY         DIGEST      42  avgt       1248.241          MB/sec
+PrepBench.prepare:gc.alloc.rate.norm              n16        DAILY         DIGEST      42  avgt        488.025            B/op
 PrepBench.prepare:gc.count                        n16        DAILY         DIGEST      42  avgt          1.000          counts
-PrepBench.prepare:gc.time                         n16        DAILY         DIGEST      42  avgt          3.000              ms
+PrepBench.prepare:gc.time                         n16        DAILY         DIGEST      42  avgt          2.000              ms
 
 Benchmark result is saved to results/smoke-prep.json

@@ -1,5 +1,4 @@
-% Author's statement. This file is yours to write; report.tex includes it as Section 1.
-% Replace each \todo{...} prompt with your own text and delete the prompt.
+% Author's statement. This file is yours; report.tex includes it as Section 1.
 % Keep the confidentiality rules: no employer or product names, no colleague names,
 % no ticket numbers, no internal identifiers, no dates that identify the original work.
 \providecommand{\todo}[1]{\textcolor{red!60!black}{\itshape [To write: #1]}}
@@ -7,35 +6,24 @@
 \section{Motivation and contribution}\label{sec:author}
 
 \subsection{Why this problem}
-\todo{Two or three sentences. Where does a period IRR get computed in practice, how many
-solves per run or per day made speed matter, and what went wrong or was too slow before.
-Say why the rate is per period and not annualized.}
+The period IRR is one of the most heavily used calculations in the system I work on. When that system was profiled, IRR was among the largest costs, and it could not be reduced by storing partial results. Net present value is additive: the NPV function of a portfolio is the sum of the NPV functions of its positions, so it can be assembled from stored pieces. The rate is not. It is the root of that sum, and no combination of the pieces' rates gives it. I therefore looked for ways to make the solve itself cheaper. The rate here is per period because that is what the solver computes; annualizing is a separate closed-form step applied afterwards.
 
 \subsection{What I did}
-\todo{State plainly which ideas and decisions in the optimized solver were yours: for
-example the logarithmic coordinate, the gap recurrence, the reverse path, the analytic
-bounds, the Pad\'e guess, the Newton-first plans. For each, one sentence on how you arrived
-at it or what alternative you rejected. Mention what was hardest and anything you got wrong
-first.}
+My role is product manager, not engineer. I kept a small coding environment of my own and tested ideas there as they came.
+
+My first idea was wrong. Since NPV is additive, I tried to split the evaluation across machines and combine partial results. Working it through showed that combining them needs more multiplications than the plain sum, and that the iteration still has to revisit every term at every step, so nothing is gained.
+
+The ideas that worked came in this order. The logarithmic coordinate was first: it removes the singularity at $-100\%$ and replaces \code{pow} with the cheaper \code{exp}. Next I noticed that a change of variable only rescales time. Annualizing is one such change; choosing one day as the unit is another, and it makes every exponent an integer. Every discount factor is then an integer power of the single number $e^{-\phi/D}$, so one \code{exp} call serves the whole schedule, and each factor is the previous one multiplied by a small power. This suited a real constraint: each solve runs on one thread, with no practical way to parallelize inside it. I put Newton before Brent because it converges faster near a root.
+
+The reverse path for negative $\phi$, the written-out small powers, and the analytic bounds with the existence analysis were also mine. I used an AI assistant during that work and no longer remember the origin of every refinement; as far as I recall, the Pad\'e guess was the assistant's suggestion. I tested each piece before keeping it.
+
+The hardest part was knowing when to stop. There is always another refinement, and at some point the organization needs to move on.
 
 \subsection{What this study adds to the original work}
-\todo{The original work stopped at stage L8. Stages L9 to L11, the gap-order experiment and
-the thread-scaling measurement were added while preparing this report. Say in your own
-words which of these you proposed (the power table and the ungated Pad\'e guess were your
-suggestions) and what you learned from the ones that surprised you.}
+The original work stopped at stage L8. Rebuilding it one stage at a time, with measurements per stage and per class of input, exposed two weaknesses I had not seen: irregular gaps and far-negative roots. An AI-assisted review of the first draft proposed a power table for the first and running Brent first for the second. I took the table and extended it to every schedule that is not daily. I rejected Brent first, because the solver cannot tell from the cashflows that a root is far away, and proposed instead to trust the Pad\'e guess whatever the search direction. The measurements then showed that my proposal fixed the sign-change case but not the far-negative roots: the guess was not the cause. The assistant proposed the log-form step (L11), which I reviewed and kept. The gap-order experiment and the thread-scaling measurement were also the assistant's proposals, made to replace an explanation I had accepted without evidence and to add a parallel measurement. The lesson I take from this is that two explanations I would have written down as fact, mine about the guess and the earlier one about branches, needed an experiment, and one of them was false.
 
 \subsection{Related work}
-\todo{Cite what you actually read or relied on, and say whether the analytic bounds and the
-Pad\'e guess are known results or your own derivation as far as you know. Candidates to look
-up and cite only if you have checked them: the standard treatment of multiple IRR roots and
-sign changes; root bounds for sums of exponentials; Newton and Brent convergence; other
-open-source IRR/XIRR implementations and how they bracket.}
+I did not work from the literature, and this report has no survey. Brent's method is used as published \cite{brent}. The analytic bounds and the Pad\'e guess were derived for this problem; I have not checked whether they appear elsewhere, and I make no claim that they are new. I am not aware of an open IRR implementation that combines these techniques, but I have not searched systematically, and proprietary solvers cannot be inspected. Section~\ref{sec:libraries} times this solver against two open-source implementations.
 
 \subsection{Use of AI assistance}
-\todo{Disclose how AI tools were used, in line with the programme's policy. A factual
-starting point you can edit: the original optimization work is the author's; this
-repository's reconstruction, benchmark harness, analysis scripts and report text were
-produced with an AI coding assistant under the author's direction and review; the
-log-form Newton step (stage L11) was proposed by the assistant after the author's ungated
-guess was shown not to fix far-negative roots; all measurements were run on the author's
-machine and every number is regenerated from retained raw output.}
+AI tools were used heavily, and I consider directing and checking them part of the work. The core optimizations of the original work are mine, with the exception named above. This repository's reconstruction of both solvers, the benchmark harness, the analysis scripts and most of the report text were produced with an AI coding assistant under my direction. I decided what to build, rejected proposals I judged wrong, and required every claim to rest on a retained measurement. All measurements were run on my machine, and every number in the report is regenerated from the retained raw output.

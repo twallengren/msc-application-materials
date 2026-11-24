@@ -16,13 +16,15 @@ Every full configuration uses three forks, five one-second warmups, five one-sec
 | `overall-seeds.json` | solve | 6 | The same three stages, `standard`, two further seeds. |
 | `overall-size.json` | solve | 6 | The same three stages, `standard`, n = 16 and 4,096. |
 | `scaling-t1.json` … `scaling-t16.json` | throughput | 4 each | Historical and extended, `standard` and `wide`, on 1, 2, 4, 8 and 16 threads; solves per second. |
+| `library-daily.json`, `library-irregular.json` | solve | 24, 12 | L0, L11 (dated; prepared on daily) against `org.decampo:xirr` and Apache POI `Irr`, `standard` and `wide`, normalized and raw amounts. Measured in a separate run (`scripts/study.sh library`) with its own jar; see its metadata. |
+| `library-diagnostics.csv` | solve | 2,304 rows | Untimed outcomes of the library group: status, phi, residual, distance from the L11 root, XIRR iteration count. |
 | `diagnostics.csv` | all | 10,752 rows | Untimed per-input outcomes for every timed solver configuration: status, path, evaluation counts, phi, rate, independent residual. |
-| `smoke-kernel.json`, `smoke-prep.json`, `smoke-ladder.json`, `smoke-scaling.json` | – | – | Shortened executability checks; no timing claims. |
+| `smoke-kernel.json`, `smoke-prep.json`, `smoke-ladder.json`, `smoke-scaling.json`, `smoke-library-*.json` | – | – | Shortened executability checks; no timing claims. |
 | `summary.json`, `evidence-check.txt` | – | – | Derived headline numbers and the output of `verify_evidence.py`. |
-| `build.log`, `demo.txt` | – | – | Repository-root Maven build with all 158 tests, and demonstration output. |
+| `build.log`, `demo.txt` | – | – | Repository-root Maven build with all 168 tests, and demonstration output. |
 | `tex-environment.txt`, `report-build.log` | – | – | TeX toolchain and the PDF build log. |
 
-Each `.json` has a `.log` (JMH console output) and a `.metadata.json` beside it.
+Each `.json` has a `.log` (JMH console output) and a `.metadata.json` beside it. In the retained files the home directory is written as `~` and the repository root as `<repo>`; nothing else in the raw output was edited.
 
 ## Reading the results
 

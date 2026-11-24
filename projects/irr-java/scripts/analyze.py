@@ -24,8 +24,11 @@ FULL_FILES={'kernel-size':5*5,           # 5 daily sizes x 5 calls
             'ladder-schedule':3*12,      # 3 schedules x 12 stages, standard, prepared
             'overall-dated':7*3,         # 7 families x 3 ends, dated
             'overall-seeds':2*3,         # 2 seeds x 3 ends, standard, prepared
-            'overall-size':2*3}          # 2 sizes x 3 ends, standard, prepared
-SMOKE_FILES={'smoke-kernel':12,'smoke-prep':2,'smoke-ladder':7*12*2}
+            'overall-size':2*3,          # 2 sizes x 3 ends, standard, prepared
+            'library-daily':2*2*6,       # 2 families x 2 amounts x 6 solvers
+            'library-irregular':2*2*3}   # 2 families x 2 amounts x HISTORICAL, EXTENDED, XIRR
+SMOKE_FILES={'smoke-kernel':12,'smoke-prep':2,'smoke-ladder':7*12*2,'smoke-library-daily':2*2*6,'smoke-library-irregular':2*2*3}
+OPTIONAL_IN_SMOKE=('smoke-library-daily','smoke-library-irregular')  # a smoke run may predate the library group
 # Thread-scaling files hold throughput (ops/s), read separately: 2 families x 2 ends per thread count.
 THREADS=[2] if '--smoke' in sys.argv else [1,2,4,8,16]
 SCALING_FILES={t:('smoke-scaling' if '--smoke' in sys.argv else f'scaling-t{t}') for t in THREADS}
@@ -74,7 +77,9 @@ HUE='#176b87'
 rows=[]
 for name,count in (SMOKE_FILES if SMOKE else FULL_FILES).items():
     path=ROOT/'results'/f'{name}.json'
-    if not path.exists():raise SystemExit(f'Missing {path}')
+    if not path.exists():
+        if SMOKE and name in OPTIONAL_IN_SMOKE:continue
+        raise SystemExit(f'Missing {path}')
     kept=[]
     for item in json.loads(path.read_text()):
         method='.'.join(item['benchmark'].split('.')[-2:])
@@ -118,6 +123,23 @@ def is_root(c):return c['status'] in ROOT_STATUS
 def roots(cs):return sum(is_root(c) for c in cs)
 def mean(cs,k):return sum(int(c[k]) for c in cs)/len(cs)
 def all_roots(r):return roots(rows_for(r))==64
+
+# Library outcomes (LibraryDiagnostics.java): n256, seed 42, 64 inputs per (amounts, family, schedule, solver).
+LIB_SOLVERS=['HISTORICAL','EXTENDED','EXTENDED_PREPARED','XIRR','POI_IRR','POI_IRR_ZERO_GUESS']
+LIB_AGREE=1e-5  # a root agrees when |phi - phi_EXTENDED| <= 1e-5
+libdiag=defaultdict(list)
+LIB_DIAG=ROOT/'results/library-diagnostics.csv'
+if LIB_DIAG.exists() or not SMOKE:
+    with LIB_DIAG.open() as f:
+        for r in csv.DictReader(f):libdiag[(r['amounts'],r['family'],r['frequency'],r['solver'])].append(r)
+def lib_cases(amounts,family,frequency,solver):
+    cs=libdiag.get((amounts,family,frequency,solver),[])
+    if len(cs)!=64:raise SystemExit(f'Missing library diagnostics {(amounts,family,frequency,solver)}')
+    return cs
+def lib_returned(*key):return sum(c['status']=='ROOT' for c in lib_cases(*key))
+def lib_agreeing(*key):return sum(c['status']=='ROOT' and float(c['phi_diff_extended'])<=LIB_AGREE for c in lib_cases(*key))
+def lib_max_dphi(*key):return max((float(c['phi_diff_extended']) for c in lib_cases(*key) if c['status']=='ROOT'),default=math.nan)
+def lib_iterations(*key):return [int(c['iterations']) for c in lib_cases(*key) if c['iterations']!='']
 
 # ---------- formatting helpers ----------
 def decimals(x):
@@ -312,6 +334,39 @@ for t in THREADS:
 head=(' & '+' & '.join(rf'\multicolumn{{2}}{{c}}{{{label}}}' for _,_,label in SERIES)+r' \\'+'\n'+r'\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}'+'\n'
       'Threads & '+' & '.join([r'$10^3$/s & $\times$']*4))
 table('scaling.tex','r'*9,head,body)
+# ---------- 8c. library comparison: our solvers against org.decampo:xirr and Apache POI Irr ----------
+def libkey(amounts,family,frequency,solver):
+    return dict(configuration=BASE,seed='42',amounts=amounts,family=family,frequency=frequency,solver=solver)
+def libr(*key):return row('LibraryBench.solve',**libkey(*key))
+lib_ratios=[];lib_counts=[]  # ratios only where both sides have 64 agreeing roots; counts per cell
+if have('LibraryBench.solve',**libkey('NORMALIZED','standard','DAILY','EXTENDED')):
+    body=[];obody=[]
+    for amounts in ('NORMALIZED','RAW'):
+        for family in ('standard','wide'):
+            for f,label in SCHEDULES:
+                if f not in ('DAILY','IRREGULAR'):continue
+                cell=f'{amounts.capitalize()}, {fam(family)}, {label.lower()}';tag=amounts.capitalize()+CAMEL[family]+label
+                cells=[];agree=[];ret=[];r={}
+                for solver in LIB_SOLVERS:
+                    key=(amounts,family,f,solver)
+                    if have('LibraryBench.solve',**libkey(*key)):
+                        r[solver]=libr(*key);cells.append(tm(r[solver]));agree.append(str(lib_agreeing(*key)));ret.append(str(lib_returned(*key)))
+                    else:cells.append('---');agree.append('---');ret.append('---')
+                body.append(f"{cell} & "+' & '.join(cells)+' & '+'/'.join(agree))
+                xk=(amounts,family,f,'XIRR');its=lib_iterations(*xk)
+                obody.append(f"{cell} & "+'/'.join(ret)+f" & {sci(lib_max_dphi(*xk))} & {sum(its)/len(its):.1f} & {max(its)}")
+                lib_counts+=[(f'LibraryXirrReturned{tag}',lib_returned(*xk),f'XIRR roots returned of 64, {cell}'),
+                             (f'LibraryXirrAgreeing{tag}',lib_agreeing(*xk),f'XIRR roots within {LIB_AGREE:g} of EXTENDED in phi, of 64, {cell}'),
+                             (f'LibraryXirrIterationsMax{tag}',max(its),f'maximum XIRR Newton iterations, {cell}'),
+                             (f'LibraryXirrIterationsMean{tag}',round(sum(its)/len(its),1),f'mean XIRR Newton iterations, {cell}')]
+                full=lambda solver:solver in r and lib_agreeing(amounts,family,f,solver)==64
+                for solver,den,name in (('XIRR','EXTENDED','XirrExtended'),('POI_IRR_ZERO_GUESS','EXTENDED','PoiZeroExtended'),('POI_IRR_ZERO_GUESS','EXTENDED_PREPARED','PoiZeroPrepared')):
+                    if full(solver) and full(den):
+                        lib_ratios.append((f'Library{name}{tag}',r[solver],r[den],f'library time ratio {solver}/{den}, {cell} (64/64 agreeing roots both sides)'))
+    table('library.tex','lrrrrrrr',r'Amounts, class, schedule & Historical ($\mu$s) & Extended, dated ($\mu$s) & Extended, prepared ($\mu$s) & XIRR ($\mu$s) & POI IRR ($\mu$s) & POI IRR, guess 0 ($\mu$s) & Agreeing roots/64 (same order)',body)
+    table('library-outcomes.tex','lrrrr',r'Amounts, class, schedule & Roots returned/64 (solver order of the times table) & XIRR max $|\Delta\phi|$ & XIRR mean iterations & XIRR max iterations',obody)
+elif not SMOKE:raise SystemExit('Missing library records')
+
 # ---------- 9. figures ----------
 shades=['#0b3a4a',HUE,'#3f93ad','#5fa3ba','#86b8c9']
 fig,ax=plt.subplots(figsize=(6.7,3.0))
@@ -393,6 +448,8 @@ for stage,tag in (('HISTORICAL','Historical'),('OPTIMIZED','Optimized'),(LAST,'E
     cs=rows_for(lad('prepared','standard',stage))
     macro(f'MeanValuesStandard{tag}',mean(cs,'values'),f'mean value-only evaluations per solve, {stage}, standard',1)
     macro(f'MeanDerivativesStandard{tag}',mean(cs,'derivatives'),f'mean value-plus-derivative evaluations per solve, {stage}, standard',1)
+for name,a,b,meaning in lib_ratios:macro_ratio(name,a,b,meaning)
+for name,v,meaning in lib_counts:macro(name,v,meaning,1)
 macro('AllocAutodiff',kern('OLD_AUTODIFF')['bytes'],f'B per evaluation, OLD_AUTODIFF, daily {BASE}',1)
 macro('AllocIncrementalBoth',kern('PHI_INCREMENTAL_BOTH')['bytes'],f'B per evaluation, PHI_INCREMENTAL_BOTH, daily {BASE}',1)
 macro('JmhRecords',len(rows),'number of JMH records read')

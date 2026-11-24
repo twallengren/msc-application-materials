@@ -1,6 +1,6 @@
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -154,7 +154,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -308,7 +308,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -462,7 +462,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -616,7 +616,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -770,7 +770,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -924,7 +924,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each
@@ -1078,7 +1078,7 @@ Secondary result "org.example.irr.bench.PrepBench.prepare:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 5 iterations, 1 s each

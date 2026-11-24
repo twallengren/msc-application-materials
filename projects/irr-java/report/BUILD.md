@@ -1,8 +1,8 @@
 # Report build record
 
-**Verified: 14 A4 pages**, compiled with `latexmk -pdf` and BibTeX, then rendered and inspected on 23 November 2026. The final build has no undefined references, missing citations or overfull boxes.
+**Verified: 15 A4 pages**, compiled with `latexmk -pdf` and BibTeX, then rendered and inspected on 23 November 2026. The final build has no undefined references, missing citations or overfull boxes.
 
-The report covers the two solver designs, three extensions, the twelve-stage ladder, and measurements in three layers (one NPV evaluation, preparation, complete solve) with a gap-order experiment, thread scaling and an accuracy comparison. It uses 262 full benchmark configurations and 10,752 diagnostic rows. The author's section (`author-statement.tex`) still holds placeholder prompts; the page count will change when it is written, and the limit asserted by `render_report.py` is 15.
+The report covers the two solver designs, three extensions, the twelve-stage ladder, and measurements in three layers (one NPV evaluation, preparation, complete solve) with a gap-order experiment, thread scaling, an accuracy comparison and a comparison with two open-source libraries. It uses 298 full benchmark configurations, 10,752 diagnostic rows and 2,304 library outcome rows. The author's section is `author-statement.tex`; the limit asserted by `render_report.py` is 15.
 
 ## Toolchain
 

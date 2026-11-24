@@ -5,7 +5,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"
@@ -243,7 +243,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"
@@ -487,7 +487,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"
@@ -731,7 +731,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"
@@ -969,7 +969,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"
@@ -1213,7 +1213,7 @@
         "mode" : "avgt",
         "threads" : 1,
         "forks" : 3,
-        "jvm" : "/Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
+        "jvm" : "~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java",
         "jvmArgs" : [
             "-Xms256m",
             "-Xmx512m"

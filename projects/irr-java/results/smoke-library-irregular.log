@@ -1,0 +1,532 @@
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = HISTORICAL)
+
+# Run progress: 0.00% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 6083.347 ns/op
+Iteration   1: 3398.150 ns/op
+                 gc.alloc.rate:      543.963 MB/sec
+                 gc.alloc.rate.norm: 1942.391 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  3398.150 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  543.963 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1942.391 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = EXTENDED)
+
+# Run progress: 8.33% complete, ETA 00:00:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 999.704 ns/op
+Iteration   1: 898.670 ns/op
+                 gc.alloc.rate:      1063.052 MB/sec
+                 gc.alloc.rate.norm: 1003.810 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  898.670 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  1063.052 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1003.810 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = XIRR)
+
+# Run progress: 16.67% complete, ETA 00:00:05
+# Fork: 1 of 1
+# Warmup Iteration   1: 6227.465 ns/op
+Iteration   1: 4199.228 ns/op
+                 gc.alloc.rate:      709.375 MB/sec
+                 gc.alloc.rate.norm: 3130.160 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  4199.228 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  709.375 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  3130.160 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = HISTORICAL)
+
+# Run progress: 25.00% complete, ETA 00:00:05
+# Fork: 1 of 1
+# Warmup Iteration   1: 17445.140 ns/op
+Iteration   1: 8653.727 ns/op
+                 gc.alloc.rate:      666.754 MB/sec
+                 gc.alloc.rate.norm: 6063.849 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  8653.727 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  666.754 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  6063.849 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = EXTENDED)
+
+# Run progress: 33.33% complete, ETA 00:00:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 1098.968 ns/op
+Iteration   1: 1073.328 ns/op
+                 gc.alloc.rate:      920.302 MB/sec
+                 gc.alloc.rate.norm: 1037.822 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  1073.328 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  920.302 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1037.822 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = XIRR)
+
+# Run progress: 41.67% complete, ETA 00:00:03
+# Fork: 1 of 1
+# Warmup Iteration   1: 7144.832 ns/op
+Iteration   1: 4750.803 ns/op
+                 gc.alloc.rate:      698.419 MB/sec
+                 gc.alloc.rate.norm: 3486.062 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  4750.803 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  698.419 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  3486.062 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = HISTORICAL)
+
+# Run progress: 50.00% complete, ETA 00:00:03
+# Fork: 1 of 1
+# Warmup Iteration   1: 6171.020 ns/op
+Iteration   1: 3323.578 ns/op
+                 gc.alloc.rate:      555.857 MB/sec
+                 gc.alloc.rate.norm: 1941.862 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  3323.578 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  555.857 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1941.862 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = EXTENDED)
+
+# Run progress: 58.33% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 981.584 ns/op
+Iteration   1: 936.434 ns/op
+                 gc.alloc.rate:      1020.200 MB/sec
+                 gc.alloc.rate.norm: 1003.812 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  936.434 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  1020.200 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1003.812 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = IRREGULAR, seed = 42, solver = XIRR)
+
+# Run progress: 66.67% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 6547.803 ns/op
+Iteration   1: 4170.899 ns/op
+                 gc.alloc.rate:      730.732 MB/sec
+                 gc.alloc.rate.norm: 3203.160 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  4170.899 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  730.732 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  3203.160 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = HISTORICAL)
+
+# Run progress: 75.00% complete, ETA 00:00:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 18289.863 ns/op
+Iteration   1: 8516.978 ns/op
+                 gc.alloc.rate:      632.342 MB/sec
+                 gc.alloc.rate.norm: 5660.410 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  8516.978 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  632.342 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  5660.410 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = EXTENDED)
+
+# Run progress: 83.33% complete, ETA 00:00:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 1073.887 ns/op
+Iteration   1: 1055.446 ns/op
+                 gc.alloc.rate:      936.031 MB/sec
+                 gc.alloc.rate.norm: 1037.819 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  1055.446 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  936.031 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1037.819 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = IRREGULAR, seed = 42, solver = XIRR)
+
+# Run progress: 91.67% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 7696.174 ns/op
+Iteration   1: 4940.866 ns/op
+                 gc.alloc.rate:      701.281 MB/sec
+                 gc.alloc.rate.norm: 3641.202 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  4940.866 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  701.281 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  3641.202 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# Run complete. Total time: 00:00:06
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                               (amounts)  (configuration)  (family)  (frequency)  (seed)    (solver)  Mode  Cnt     Score   Error   Units
+LibraryBench.solve                     NORMALIZED              n16  standard    IRREGULAR      42  HISTORICAL  avgt       3398.150           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard    IRREGULAR      42  HISTORICAL  avgt        543.963          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard    IRREGULAR      42  HISTORICAL  avgt       1942.391            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard    IRREGULAR      42  HISTORICAL  avgt          1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16  standard    IRREGULAR      42  HISTORICAL  avgt          3.000              ms
+LibraryBench.solve                     NORMALIZED              n16  standard    IRREGULAR      42    EXTENDED  avgt        898.670           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard    IRREGULAR      42    EXTENDED  avgt       1063.052          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard    IRREGULAR      42    EXTENDED  avgt       1003.810            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard    IRREGULAR      42    EXTENDED  avgt          1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16  standard    IRREGULAR      42    EXTENDED  avgt          2.000              ms
+LibraryBench.solve                     NORMALIZED              n16  standard    IRREGULAR      42        XIRR  avgt       4199.228           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard    IRREGULAR      42        XIRR  avgt        709.375          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard    IRREGULAR      42        XIRR  avgt       3130.160            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard    IRREGULAR      42        XIRR  avgt            ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16      wide    IRREGULAR      42  HISTORICAL  avgt       8653.727           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide    IRREGULAR      42  HISTORICAL  avgt        666.754          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide    IRREGULAR      42  HISTORICAL  avgt       6063.849            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide    IRREGULAR      42  HISTORICAL  avgt          1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16      wide    IRREGULAR      42  HISTORICAL  avgt          3.000              ms
+LibraryBench.solve                     NORMALIZED              n16      wide    IRREGULAR      42    EXTENDED  avgt       1073.328           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide    IRREGULAR      42    EXTENDED  avgt        920.302          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide    IRREGULAR      42    EXTENDED  avgt       1037.822            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide    IRREGULAR      42    EXTENDED  avgt            ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16      wide    IRREGULAR      42        XIRR  avgt       4750.803           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide    IRREGULAR      42        XIRR  avgt        698.419          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide    IRREGULAR      42        XIRR  avgt       3486.062            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide    IRREGULAR      42        XIRR  avgt            ≈ 0          counts
+LibraryBench.solve                            RAW              n16  standard    IRREGULAR      42  HISTORICAL  avgt       3323.578           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard    IRREGULAR      42  HISTORICAL  avgt        555.857          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard    IRREGULAR      42  HISTORICAL  avgt       1941.862            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard    IRREGULAR      42  HISTORICAL  avgt          1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16  standard    IRREGULAR      42  HISTORICAL  avgt          3.000              ms
+LibraryBench.solve                            RAW              n16  standard    IRREGULAR      42    EXTENDED  avgt        936.434           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard    IRREGULAR      42    EXTENDED  avgt       1020.200          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard    IRREGULAR      42    EXTENDED  avgt       1003.812            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard    IRREGULAR      42    EXTENDED  avgt          1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16  standard    IRREGULAR      42    EXTENDED  avgt          2.000              ms
+LibraryBench.solve                            RAW              n16  standard    IRREGULAR      42        XIRR  avgt       4170.899           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard    IRREGULAR      42        XIRR  avgt        730.732          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard    IRREGULAR      42        XIRR  avgt       3203.160            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard    IRREGULAR      42        XIRR  avgt            ≈ 0          counts
+LibraryBench.solve                            RAW              n16      wide    IRREGULAR      42  HISTORICAL  avgt       8516.978           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide    IRREGULAR      42  HISTORICAL  avgt        632.342          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide    IRREGULAR      42  HISTORICAL  avgt       5660.410            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide    IRREGULAR      42  HISTORICAL  avgt          1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16      wide    IRREGULAR      42  HISTORICAL  avgt          3.000              ms
+LibraryBench.solve                            RAW              n16      wide    IRREGULAR      42    EXTENDED  avgt       1055.446           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide    IRREGULAR      42    EXTENDED  avgt        936.031          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide    IRREGULAR      42    EXTENDED  avgt       1037.819            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide    IRREGULAR      42    EXTENDED  avgt          1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16      wide    IRREGULAR      42    EXTENDED  avgt          2.000              ms
+LibraryBench.solve                            RAW              n16      wide    IRREGULAR      42        XIRR  avgt       4940.866           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide    IRREGULAR      42        XIRR  avgt        701.281          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide    IRREGULAR      42        XIRR  avgt       3641.202            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide    IRREGULAR      42        XIRR  avgt            ≈ 0          counts
+
+Benchmark result is saved to results/smoke-library-irregular.json

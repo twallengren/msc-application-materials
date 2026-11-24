@@ -1,6 +1,6 @@
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms1g -Xmx1g
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -13,22 +13,22 @@
 
 # Run progress: 0.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 615190.276 ops/s
-Iteration   1: 1064946.582 ops/s
-                 gc.alloc.rate:      186.411 MB/sec
-                 gc.alloc.rate.norm: 184.071 B/op
+# Warmup Iteration   1: 659500.276 ops/s
+Iteration   1: 1063239.201 ops/s
+                 gc.alloc.rate:      186.060 MB/sec
+                 gc.alloc.rate.norm: 184.073 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.ScalingBench.solve":
-  1064946.582 ops/s
+  1063239.201 ops/s
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate":
-  186.411 MB/sec
+  186.060 MB/sec
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate.norm":
-  184.071 B/op
+  184.073 B/op
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.count":
   ≈ 0 counts
@@ -36,7 +36,7 @@ Secondary result "org.example.irr.bench.ScalingBench.solve:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms1g -Xmx1g
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -49,9 +49,9 @@ Secondary result "org.example.irr.bench.ScalingBench.solve:gc.count":
 
 # Run progress: 25.00% complete, ETA 00:00:01
 # Fork: 1 of 1
-# Warmup Iteration   1: 5643274.426 ops/s
-Iteration   1: 9829292.533 ops/s
-                 gc.alloc.rate:      1121.885 MB/sec
+# Warmup Iteration   1: 5055529.141 ops/s
+Iteration   1: 10037268.843 ops/s
+                 gc.alloc.rate:      1145.134 MB/sec
                  gc.alloc.rate.norm: 120.008 B/op
                  gc.count:           1.000 counts
                  gc.time:            2.000 ms
@@ -59,10 +59,10 @@ Iteration   1: 9829292.533 ops/s
 
 
 Result "org.example.irr.bench.ScalingBench.solve":
-  9829292.533 ops/s
+  10037268.843 ops/s
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate":
-  1121.885 MB/sec
+  1145.134 MB/sec
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate.norm":
   120.008 B/op
@@ -76,7 +76,7 @@ Secondary result "org.example.irr.bench.ScalingBench.solve:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms1g -Xmx1g
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -89,34 +89,34 @@ Secondary result "org.example.irr.bench.ScalingBench.solve:gc.time":
 
 # Run progress: 50.00% complete, ETA 00:00:01
 # Fork: 1 of 1
-# Warmup Iteration   1: 142138.301 ops/s
-Iteration   1: 440150.595 ops/s
-                 gc.alloc.rate:      1190.053 MB/sec
-                 gc.alloc.rate.norm: 2852.076 B/op
+# Warmup Iteration   1: 125586.107 ops/s
+Iteration   1: 446707.404 ops/s
+                 gc.alloc.rate:      1095.723 MB/sec
+                 gc.alloc.rate.norm: 2584.656 B/op
                  gc.count:           1.000 counts
-                 gc.time:            3.000 ms
+                 gc.time:            2.000 ms
 
 
 
 Result "org.example.irr.bench.ScalingBench.solve":
-  440150.595 ops/s
+  446707.404 ops/s
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate":
-  1190.053 MB/sec
+  1095.723 MB/sec
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate.norm":
-  2852.076 B/op
+  2584.656 B/op
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.count":
   1.000 counts
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.time":
-  3.000 ms
+  2.000 ms
 
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms1g -Xmx1g
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -129,9 +129,9 @@ Secondary result "org.example.irr.bench.ScalingBench.solve:gc.time":
 
 # Run progress: 75.00% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 4474742.156 ops/s
-Iteration   1: 8638283.189 ops/s
-                 gc.alloc.rate:      985.779 MB/sec
+# Warmup Iteration   1: 4276114.724 ops/s
+Iteration   1: 8637846.128 ops/s
+                 gc.alloc.rate:      985.981 MB/sec
                  gc.alloc.rate.norm: 120.009 B/op
                  gc.count:           1.000 counts
                  gc.time:            2.000 ms
@@ -139,10 +139,10 @@ Iteration   1: 8638283.189 ops/s
 
 
 Result "org.example.irr.bench.ScalingBench.solve":
-  8638283.189 ops/s
+  8637846.128 ops/s
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate":
-  985.779 MB/sec
+  985.981 MB/sec
 
 Secondary result "org.example.irr.bench.ScalingBench.solve:gc.alloc.rate.norm":
   120.009 B/op
@@ -168,25 +168,25 @@ works, and factor in a small probability of new VM bugs. Additionally, while com
 different JVMs are already problematic, the performance difference caused by different Blackhole
 modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
 
-Benchmark                              (configuration)  (family)  (frequency)  (seed)     (stage)   Mode  Cnt        Score   Error   Units
-ScalingBench.solve                                 n16  standard        DAILY      42  HISTORICAL  thrpt       1064946.582           ops/s
-ScalingBench.solve:gc.alloc.rate                   n16  standard        DAILY      42  HISTORICAL  thrpt           186.411          MB/sec
-ScalingBench.solve:gc.alloc.rate.norm              n16  standard        DAILY      42  HISTORICAL  thrpt           184.071            B/op
-ScalingBench.solve:gc.count                        n16  standard        DAILY      42  HISTORICAL  thrpt               ≈ 0          counts
-ScalingBench.solve                                 n16  standard        DAILY      42  LOG_NEWTON  thrpt       9829292.533           ops/s
-ScalingBench.solve:gc.alloc.rate                   n16  standard        DAILY      42  LOG_NEWTON  thrpt          1121.885          MB/sec
-ScalingBench.solve:gc.alloc.rate.norm              n16  standard        DAILY      42  LOG_NEWTON  thrpt           120.008            B/op
-ScalingBench.solve:gc.count                        n16  standard        DAILY      42  LOG_NEWTON  thrpt             1.000          counts
-ScalingBench.solve:gc.time                         n16  standard        DAILY      42  LOG_NEWTON  thrpt             2.000              ms
-ScalingBench.solve                                 n16      wide        DAILY      42  HISTORICAL  thrpt        440150.595           ops/s
-ScalingBench.solve:gc.alloc.rate                   n16      wide        DAILY      42  HISTORICAL  thrpt          1190.053          MB/sec
-ScalingBench.solve:gc.alloc.rate.norm              n16      wide        DAILY      42  HISTORICAL  thrpt          2852.076            B/op
-ScalingBench.solve:gc.count                        n16      wide        DAILY      42  HISTORICAL  thrpt             1.000          counts
-ScalingBench.solve:gc.time                         n16      wide        DAILY      42  HISTORICAL  thrpt             3.000              ms
-ScalingBench.solve                                 n16      wide        DAILY      42  LOG_NEWTON  thrpt       8638283.189           ops/s
-ScalingBench.solve:gc.alloc.rate                   n16      wide        DAILY      42  LOG_NEWTON  thrpt           985.779          MB/sec
-ScalingBench.solve:gc.alloc.rate.norm              n16      wide        DAILY      42  LOG_NEWTON  thrpt           120.009            B/op
-ScalingBench.solve:gc.count                        n16      wide        DAILY      42  LOG_NEWTON  thrpt             1.000          counts
-ScalingBench.solve:gc.time                         n16      wide        DAILY      42  LOG_NEWTON  thrpt             2.000              ms
+Benchmark                              (configuration)  (family)  (frequency)  (seed)     (stage)   Mode  Cnt         Score   Error   Units
+ScalingBench.solve                                 n16  standard        DAILY      42  HISTORICAL  thrpt        1063239.201           ops/s
+ScalingBench.solve:gc.alloc.rate                   n16  standard        DAILY      42  HISTORICAL  thrpt            186.060          MB/sec
+ScalingBench.solve:gc.alloc.rate.norm              n16  standard        DAILY      42  HISTORICAL  thrpt            184.073            B/op
+ScalingBench.solve:gc.count                        n16  standard        DAILY      42  HISTORICAL  thrpt                ≈ 0          counts
+ScalingBench.solve                                 n16  standard        DAILY      42  LOG_NEWTON  thrpt       10037268.843           ops/s
+ScalingBench.solve:gc.alloc.rate                   n16  standard        DAILY      42  LOG_NEWTON  thrpt           1145.134          MB/sec
+ScalingBench.solve:gc.alloc.rate.norm              n16  standard        DAILY      42  LOG_NEWTON  thrpt            120.008            B/op
+ScalingBench.solve:gc.count                        n16  standard        DAILY      42  LOG_NEWTON  thrpt              1.000          counts
+ScalingBench.solve:gc.time                         n16  standard        DAILY      42  LOG_NEWTON  thrpt              2.000              ms
+ScalingBench.solve                                 n16      wide        DAILY      42  HISTORICAL  thrpt         446707.404           ops/s
+ScalingBench.solve:gc.alloc.rate                   n16      wide        DAILY      42  HISTORICAL  thrpt           1095.723          MB/sec
+ScalingBench.solve:gc.alloc.rate.norm              n16      wide        DAILY      42  HISTORICAL  thrpt           2584.656            B/op
+ScalingBench.solve:gc.count                        n16      wide        DAILY      42  HISTORICAL  thrpt              1.000          counts
+ScalingBench.solve:gc.time                         n16      wide        DAILY      42  HISTORICAL  thrpt              2.000              ms
+ScalingBench.solve                                 n16      wide        DAILY      42  LOG_NEWTON  thrpt        8637846.128           ops/s
+ScalingBench.solve:gc.alloc.rate                   n16      wide        DAILY      42  LOG_NEWTON  thrpt            985.981          MB/sec
+ScalingBench.solve:gc.alloc.rate.norm              n16      wide        DAILY      42  LOG_NEWTON  thrpt            120.009            B/op
+ScalingBench.solve:gc.count                        n16      wide        DAILY      42  LOG_NEWTON  thrpt              1.000          counts
+ScalingBench.solve:gc.time                         n16      wide        DAILY      42  LOG_NEWTON  thrpt              2.000              ms
 
 Benchmark result is saved to results/smoke-scaling.json

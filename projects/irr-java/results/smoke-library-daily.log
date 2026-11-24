@@ -1,0 +1,1035 @@
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = HISTORICAL)
+
+# Run progress: 0.00% complete, ETA 00:00:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 5981.844 ns/op
+Iteration   1: 3294.518 ns/op
+                 gc.alloc.rate:      562.346 MB/sec
+                 gc.alloc.rate.norm: 1947.603 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  3294.518 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  562.346 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1947.603 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = EXTENDED)
+
+# Run progress: 4.17% complete, ETA 00:00:13
+# Fork: 1 of 1
+# Warmup Iteration   1: 693.804 ns/op
+Iteration   1: 670.637 ns/op
+                 gc.alloc.rate:      862.448 MB/sec
+                 gc.alloc.rate.norm: 608.044 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  670.637 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  862.448 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  608.044 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = EXTENDED_PREPARED)
+
+# Run progress: 8.33% complete, ETA 00:00:12
+# Fork: 1 of 1
+# Warmup Iteration   1: 260.669 ns/op
+Iteration   1: 195.362 ns/op
+                 gc.alloc.rate:      584.707 MB/sec
+                 gc.alloc.rate.norm: 120.013 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  195.362 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  584.707 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  120.013 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = XIRR)
+
+# Run progress: 12.50% complete, ETA 00:00:11
+# Fork: 1 of 1
+# Warmup Iteration   1: 90992.256 ns/op
+Iteration   1: 44983.522 ns/op
+                 gc.alloc.rate:      622.349 MB/sec
+                 gc.alloc.rate.norm: 29416.174 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  44983.522 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  622.349 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  29416.174 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = POI_IRR)
+
+# Run progress: 16.67% complete, ETA 00:00:11
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:07.683548Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+782.065 ns/op
+Iteration   1: 312.131 ns/op
+                 gc.alloc.rate:      0.065 MB/sec
+                 gc.alloc.rate.norm: 0.021 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  312.131 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.065 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.021 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = POI_IRR_ZERO_GUESS)
+
+# Run progress: 20.83% complete, ETA 00:00:10
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:08.196904Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+486.617 ns/op
+Iteration   1: 187.748 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
+                 gc.alloc.rate.norm: 0.012 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  187.748 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.063 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.012 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = HISTORICAL)
+
+# Run progress: 25.00% complete, ETA 00:00:09
+# Fork: 1 of 1
+# Warmup Iteration   1: 15125.393 ns/op
+Iteration   1: 6896.235 ns/op
+                 gc.alloc.rate:      644.220 MB/sec
+                 gc.alloc.rate.norm: 4669.404 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  6896.235 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  644.220 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  4669.404 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = EXTENDED)
+
+# Run progress: 29.17% complete, ETA 00:00:09
+# Fork: 1 of 1
+# Warmup Iteration   1: 780.415 ns/op
+Iteration   1: 700.117 ns/op
+                 gc.alloc.rate:      826.374 MB/sec
+                 gc.alloc.rate.norm: 608.048 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  700.117 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  826.374 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  608.048 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = EXTENDED_PREPARED)
+
+# Run progress: 33.33% complete, ETA 00:00:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 309.172 ns/op
+Iteration   1: 235.089 ns/op
+                 gc.alloc.rate:      485.732 MB/sec
+                 gc.alloc.rate.norm: 120.016 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  235.089 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  485.732 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  120.016 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = XIRR)
+
+# Run progress: 37.50% complete, ETA 00:00:08
+# Fork: 1 of 1
+# Warmup Iteration   1: 190251.967 ns/op
+Iteration   1: 105051.864 ns/op
+                 gc.alloc.rate:      607.447 MB/sec
+                 gc.alloc.rate.norm: 67067.922 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  105051.864 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  607.447 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  67067.922 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = POI_IRR)
+
+# Run progress: 41.67% complete, ETA 00:00:07
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:10.871989Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+1165.767 ns/op
+Iteration   1: 467.893 ns/op
+                 gc.alloc.rate:      1.590 MB/sec
+                 gc.alloc.rate.norm: 0.782 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  467.893 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  1.590 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.782 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = NORMALIZED, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = POI_IRR_ZERO_GUESS)
+
+# Run progress: 45.83% complete, ETA 00:00:07
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:11.406910Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+723.130 ns/op
+Iteration   1: 314.889 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
+                 gc.alloc.rate.norm: 0.021 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  314.889 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.063 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.021 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = HISTORICAL)
+
+# Run progress: 50.00% complete, ETA 00:00:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 5985.387 ns/op
+Iteration   1: 3153.022 ns/op
+                 gc.alloc.rate:      583.910 MB/sec
+                 gc.alloc.rate.norm: 1935.011 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  3153.022 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  583.910 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  1935.011 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = EXTENDED)
+
+# Run progress: 54.17% complete, ETA 00:00:05
+# Fork: 1 of 1
+# Warmup Iteration   1: 696.338 ns/op
+Iteration   1: 674.725 ns/op
+                 gc.alloc.rate:      857.424 MB/sec
+                 gc.alloc.rate.norm: 608.044 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  674.725 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  857.424 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  608.044 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = EXTENDED_PREPARED)
+
+# Run progress: 58.33% complete, ETA 00:00:05
+# Fork: 1 of 1
+# Warmup Iteration   1: 262.954 ns/op
+Iteration   1: 192.009 ns/op
+                 gc.alloc.rate:      594.894 MB/sec
+                 gc.alloc.rate.norm: 120.013 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  192.009 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  594.894 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  120.013 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = XIRR)
+
+# Run progress: 62.50% complete, ETA 00:00:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 79129.882 ns/op
+Iteration   1: 46101.342 ns/op
+                 gc.alloc.rate:      609.193 MB/sec
+                 gc.alloc.rate.norm: 29507.490 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  46101.342 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  609.193 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  29507.490 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = POI_IRR)
+
+# Run progress: 66.67% complete, ETA 00:00:04
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:14.110938Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+773.789 ns/op
+Iteration   1: 316.752 ns/op
+                 gc.alloc.rate:      0.065 MB/sec
+                 gc.alloc.rate.norm: 0.022 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  316.752 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.065 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.022 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = standard, frequency = DAILY, seed = 42, solver = POI_IRR_ZERO_GUESS)
+
+# Run progress: 70.83% complete, ETA 00:00:03
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:14.631975Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+484.294 ns/op
+Iteration   1: 185.742 ns/op
+                 gc.alloc.rate:      0.065 MB/sec
+                 gc.alloc.rate.norm: 0.013 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  185.742 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.065 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.013 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = HISTORICAL)
+
+# Run progress: 75.00% complete, ETA 00:00:03
+# Fork: 1 of 1
+# Warmup Iteration   1: 14692.169 ns/op
+Iteration   1: 6784.458 ns/op
+                 gc.alloc.rate:      653.712 MB/sec
+                 gc.alloc.rate.norm: 4661.359 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            3.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  6784.458 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  653.712 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  4661.359 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  3.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = EXTENDED)
+
+# Run progress: 79.17% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 760.719 ns/op
+Iteration   1: 719.500 ns/op
+                 gc.alloc.rate:      804.032 MB/sec
+                 gc.alloc.rate.norm: 608.047 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  719.500 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  804.032 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  608.047 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = EXTENDED_PREPARED)
+
+# Run progress: 83.33% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 308.151 ns/op
+Iteration   1: 233.897 ns/op
+                 gc.alloc.rate:      488.330 MB/sec
+                 gc.alloc.rate.norm: 120.016 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  233.897 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  488.330 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  120.016 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = XIRR)
+
+# Run progress: 87.50% complete, ETA 00:00:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 189710.422 ns/op
+Iteration   1: 104516.149 ns/op
+                 gc.alloc.rate:      611.199 MB/sec
+                 gc.alloc.rate.norm: 67113.516 B/op
+                 gc.count:           1.000 counts
+                 gc.time:            2.000 ms
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  104516.149 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  611.199 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  67113.516 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  1.000 counts
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.time":
+  2.000 ms
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = POI_IRR)
+
+# Run progress: 91.67% complete, ETA 00:00:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:17.319982Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+1261.498 ns/op
+Iteration   1: 461.714 ns/op
+                 gc.alloc.rate:      1.610 MB/sec
+                 gc.alloc.rate.norm: 0.781 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  461.714 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  1.610 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.781 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM options: -Xms256m -Xmx512m
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 1 iterations, 100 ms each
+# Measurement: 1 iterations, 100 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.example.irr.bench.LibraryBench.solve
+# Parameters: (amounts = RAW, configuration = n16, family = wide, frequency = DAILY, seed = 42, solver = POI_IRR_ZERO_GUESS)
+
+# Run progress: 95.83% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 2026-11-23T19:58:17.837951Z org.example.irr.bench.LibraryBench.solve-jmh-worker-1 ERROR Log4j API could not find a logging provider.
+622.895 ns/op
+Iteration   1: 256.601 ns/op
+                 gc.alloc.rate:      0.064 MB/sec
+                 gc.alloc.rate.norm: 0.017 B/op
+                 gc.count:           ≈ 0 counts
+
+
+
+Result "org.example.irr.bench.LibraryBench.solve":
+  256.601 ns/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate":
+  0.064 MB/sec
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.alloc.rate.norm":
+  0.017 B/op
+
+Secondary result "org.example.irr.bench.LibraryBench.solve:gc.count":
+  ≈ 0 counts
+
+
+# Run complete. Total time: 00:00:12
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                               (amounts)  (configuration)  (family)  (frequency)  (seed)            (solver)  Mode  Cnt       Score   Error   Units
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42          HISTORICAL  avgt         3294.518           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42          HISTORICAL  avgt          562.346          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42          HISTORICAL  avgt         1947.603            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42          HISTORICAL  avgt            1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16  standard        DAILY      42          HISTORICAL  avgt            3.000              ms
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42            EXTENDED  avgt          670.637           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42            EXTENDED  avgt          862.448          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42            EXTENDED  avgt          608.044            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42            EXTENDED  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          195.362           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          584.707          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          120.013            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42                XIRR  avgt        44983.522           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42                XIRR  avgt          622.349          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42                XIRR  avgt        29416.174            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42                XIRR  avgt            1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16  standard        DAILY      42                XIRR  avgt            2.000              ms
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42             POI_IRR  avgt          312.131           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42             POI_IRR  avgt            0.065          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42             POI_IRR  avgt            0.021            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42             POI_IRR  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt          187.748           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.063          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.012            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42          HISTORICAL  avgt         6896.235           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42          HISTORICAL  avgt          644.220          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42          HISTORICAL  avgt         4669.404            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42          HISTORICAL  avgt            1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16      wide        DAILY      42          HISTORICAL  avgt            3.000              ms
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42            EXTENDED  avgt          700.117           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42            EXTENDED  avgt          826.374          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42            EXTENDED  avgt          608.048            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42            EXTENDED  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          235.089           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          485.732          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          120.016            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt            1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt            2.000              ms
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42                XIRR  avgt       105051.864           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42                XIRR  avgt          607.447          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42                XIRR  avgt        67067.922            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42                XIRR  avgt            1.000          counts
+LibraryBench.solve:gc.time             NORMALIZED              n16      wide        DAILY      42                XIRR  avgt            2.000              ms
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42             POI_IRR  avgt          467.893           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42             POI_IRR  avgt            1.590          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42             POI_IRR  avgt            0.782            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42             POI_IRR  avgt              ≈ 0          counts
+LibraryBench.solve                     NORMALIZED              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt          314.889           ns/op
+LibraryBench.solve:gc.alloc.rate       NORMALIZED              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.063          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm  NORMALIZED              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.021            B/op
+LibraryBench.solve:gc.count            NORMALIZED              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16  standard        DAILY      42          HISTORICAL  avgt         3153.022           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42          HISTORICAL  avgt          583.910          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42          HISTORICAL  avgt         1935.011            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42          HISTORICAL  avgt            1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16  standard        DAILY      42          HISTORICAL  avgt            3.000              ms
+LibraryBench.solve                            RAW              n16  standard        DAILY      42            EXTENDED  avgt          674.725           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42            EXTENDED  avgt          857.424          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42            EXTENDED  avgt          608.044            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42            EXTENDED  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          192.009           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          594.894          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt          120.013            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42   EXTENDED_PREPARED  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16  standard        DAILY      42                XIRR  avgt        46101.342           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42                XIRR  avgt          609.193          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42                XIRR  avgt        29507.490            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42                XIRR  avgt            1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16  standard        DAILY      42                XIRR  avgt            2.000              ms
+LibraryBench.solve                            RAW              n16  standard        DAILY      42             POI_IRR  avgt          316.752           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42             POI_IRR  avgt            0.065          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42             POI_IRR  avgt            0.022            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42             POI_IRR  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt          185.742           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.065          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.013            B/op
+LibraryBench.solve:gc.count                   RAW              n16  standard        DAILY      42  POI_IRR_ZERO_GUESS  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16      wide        DAILY      42          HISTORICAL  avgt         6784.458           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42          HISTORICAL  avgt          653.712          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42          HISTORICAL  avgt         4661.359            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42          HISTORICAL  avgt            1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16      wide        DAILY      42          HISTORICAL  avgt            3.000              ms
+LibraryBench.solve                            RAW              n16      wide        DAILY      42            EXTENDED  avgt          719.500           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42            EXTENDED  avgt          804.032          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42            EXTENDED  avgt          608.047            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42            EXTENDED  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          233.897           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          488.330          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt          120.016            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt            1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16      wide        DAILY      42   EXTENDED_PREPARED  avgt            2.000              ms
+LibraryBench.solve                            RAW              n16      wide        DAILY      42                XIRR  avgt       104516.149           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42                XIRR  avgt          611.199          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42                XIRR  avgt        67113.516            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42                XIRR  avgt            1.000          counts
+LibraryBench.solve:gc.time                    RAW              n16      wide        DAILY      42                XIRR  avgt            2.000              ms
+LibraryBench.solve                            RAW              n16      wide        DAILY      42             POI_IRR  avgt          461.714           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42             POI_IRR  avgt            1.610          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42             POI_IRR  avgt            0.781            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42             POI_IRR  avgt              ≈ 0          counts
+LibraryBench.solve                            RAW              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt          256.601           ns/op
+LibraryBench.solve:gc.alloc.rate              RAW              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.064          MB/sec
+LibraryBench.solve:gc.alloc.rate.norm         RAW              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt            0.017            B/op
+LibraryBench.solve:gc.count                   RAW              n16      wide        DAILY      42  POI_IRR_ZERO_GUESS  avgt              ≈ 0          counts
+
+Benchmark result is saved to results/smoke-library-daily.json

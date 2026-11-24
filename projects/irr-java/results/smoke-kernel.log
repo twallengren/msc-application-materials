@@ -1,6 +1,6 @@
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -13,22 +13,22 @@
 
 # Run progress: 0.00% complete, ETA 00:00:02
 # Fork: 1 of 1
-# Warmup Iteration   1: 299.200 ns/op
-Iteration   1: 283.277 ns/op
-                 gc.alloc.rate:      0.060 MB/sec
-                 gc.alloc.rate.norm: 0.018 B/op
+# Warmup Iteration   1: 306.425 ns/op
+Iteration   1: 288.232 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
+                 gc.alloc.rate.norm: 0.019 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  283.277 ns/op
+  288.232 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  0.060 MB/sec
+  0.063 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
-  0.018 B/op
+  0.019 B/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
   ≈ 0 counts
@@ -36,7 +36,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -49,22 +49,22 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 8.33% complete, ETA 00:00:06
 # Fork: 1 of 1
-# Warmup Iteration   1: 4229.067 ns/op
-Iteration   1: 3871.695 ns/op
-                 gc.alloc.rate:      831.607 MB/sec
-                 gc.alloc.rate.norm: 3384.247 B/op
+# Warmup Iteration   1: 4320.753 ns/op
+Iteration   1: 3906.387 ns/op
+                 gc.alloc.rate:      824.034 MB/sec
+                 gc.alloc.rate.norm: 3384.259 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  3871.695 ns/op
+  3906.387 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  831.607 MB/sec
+  824.034 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
-  3384.247 B/op
+  3384.259 B/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
   ≈ 0 counts
@@ -72,7 +72,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -85,22 +85,22 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 16.67% complete, ETA 00:00:05
 # Fork: 1 of 1
-# Warmup Iteration   1: 257.606 ns/op
-Iteration   1: 252.962 ns/op
-                 gc.alloc.rate:      0.060 MB/sec
-                 gc.alloc.rate.norm: 0.016 B/op
+# Warmup Iteration   1: 262.102 ns/op
+Iteration   1: 253.902 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
+                 gc.alloc.rate.norm: 0.017 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  252.962 ns/op
+  253.902 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  0.060 MB/sec
+  0.063 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
-  0.016 B/op
+  0.017 B/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
   ≈ 0 counts
@@ -108,7 +108,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -121,9 +121,9 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 25.00% complete, ETA 00:00:04
 # Fork: 1 of 1
-# Warmup Iteration   1: 291.829 ns/op
-Iteration   1: 283.011 ns/op
-                 gc.alloc.rate:      107.680 MB/sec
+# Warmup Iteration   1: 293.275 ns/op
+Iteration   1: 284.820 ns/op
+                 gc.alloc.rate:      106.979 MB/sec
                  gc.alloc.rate.norm: 32.019 B/op
                  gc.count:           1.000 counts
                  gc.time:            2.000 ms
@@ -131,10 +131,10 @@ Iteration   1: 283.011 ns/op
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  283.011 ns/op
+  284.820 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  107.680 MB/sec
+  106.979 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   32.019 B/op
@@ -148,7 +148,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.time":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -161,22 +161,22 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.time":
 
 # Run progress: 33.33% complete, ETA 00:00:04
 # Fork: 1 of 1
-# Warmup Iteration   1: 118.606 ns/op
-Iteration   1: 113.016 ns/op
-                 gc.alloc.rate:      0.060 MB/sec
-                 gc.alloc.rate.norm: 0.007 B/op
+# Warmup Iteration   1: 119.464 ns/op
+Iteration   1: 115.869 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
+                 gc.alloc.rate.norm: 0.008 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  113.016 ns/op
+  115.869 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  0.060 MB/sec
+  0.063 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
-  0.007 B/op
+  0.008 B/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
   ≈ 0 counts
@@ -184,7 +184,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -197,22 +197,22 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 41.67% complete, ETA 00:00:03
 # Fork: 1 of 1
-# Warmup Iteration   1: 143.123 ns/op
-Iteration   1: 128.964 ns/op
-                 gc.alloc.rate:      236.207 MB/sec
-                 gc.alloc.rate.norm: 32.008 B/op
+# Warmup Iteration   1: 144.028 ns/op
+Iteration   1: 130.766 ns/op
+                 gc.alloc.rate:      232.951 MB/sec
+                 gc.alloc.rate.norm: 32.009 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  128.964 ns/op
+  130.766 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  236.207 MB/sec
+  232.951 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
-  32.008 B/op
+  32.009 B/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
   ≈ 0 counts
@@ -220,7 +220,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -233,19 +233,19 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 50.00% complete, ETA 00:00:03
 # Fork: 1 of 1
-# Warmup Iteration   1: 36.755 ns/op
-Iteration   1: 33.811 ns/op
-                 gc.alloc.rate:      0.062 MB/sec
+# Warmup Iteration   1: 37.105 ns/op
+Iteration   1: 34.288 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
                  gc.alloc.rate.norm: 0.002 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  33.811 ns/op
+  34.288 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  0.062 MB/sec
+  0.063 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   0.002 B/op
@@ -256,7 +256,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -269,8 +269,8 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 58.33% complete, ETA 00:00:02
 # Fork: 1 of 1
-# Warmup Iteration   1: 28.687 ns/op
-Iteration   1: 26.147 ns/op
+# Warmup Iteration   1: 29.012 ns/op
+Iteration   1: 26.271 ns/op
                  gc.alloc.rate:      0.064 MB/sec
                  gc.alloc.rate.norm: 0.002 B/op
                  gc.count:           ≈ 0 counts
@@ -278,7 +278,7 @@ Iteration   1: 26.147 ns/op
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  26.147 ns/op
+  26.271 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
   0.064 MB/sec
@@ -292,7 +292,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -305,19 +305,19 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 66.67% complete, ETA 00:00:02
 # Fork: 1 of 1
-# Warmup Iteration   1: 42.382 ns/op
-Iteration   1: 43.794 ns/op
-                 gc.alloc.rate:      695.485 MB/sec
+# Warmup Iteration   1: 43.790 ns/op
+Iteration   1: 43.778 ns/op
+                 gc.alloc.rate:      695.822 MB/sec
                  gc.alloc.rate.norm: 32.003 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  43.794 ns/op
+  43.778 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  695.485 MB/sec
+  695.822 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   32.003 B/op
@@ -328,7 +328,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -341,19 +341,19 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 75.00% complete, ETA 00:00:01
 # Fork: 1 of 1
-# Warmup Iteration   1: 33.199 ns/op
-Iteration   1: 29.789 ns/op
-                 gc.alloc.rate:      0.064 MB/sec
+# Warmup Iteration   1: 33.725 ns/op
+Iteration   1: 30.321 ns/op
+                 gc.alloc.rate:      0.063 MB/sec
                  gc.alloc.rate.norm: 0.002 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  29.789 ns/op
+  30.321 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  0.064 MB/sec
+  0.063 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   0.002 B/op
@@ -364,7 +364,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -377,19 +377,19 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 83.33% complete, ETA 00:00:01
 # Fork: 1 of 1
-# Warmup Iteration   1: 47.828 ns/op
-Iteration   1: 47.572 ns/op
-                 gc.alloc.rate:      640.192 MB/sec
+# Warmup Iteration   1: 50.159 ns/op
+Iteration   1: 47.670 ns/op
+                 gc.alloc.rate:      638.862 MB/sec
                  gc.alloc.rate.norm: 32.003 B/op
                  gc.count:           ≈ 0 counts
 
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  47.572 ns/op
+  47.670 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  640.192 MB/sec
+  638.862 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   32.003 B/op
@@ -400,7 +400,7 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # JMH version: 1.37
 # VM version: JDK 21.0.9, OpenJDK 64-Bit Server VM, 21.0.9+10-LTS
-# VM invoker: /Users/tw/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
+# VM invoker: ~/Library/Java/JavaVirtualMachines/temurin-21.0.9/Contents/Home/bin/java
 # VM options: -Xms256m -Xmx512m
 # Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
 # Warmup: 1 iterations, 100 ms each
@@ -413,9 +413,9 @@ Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.count":
 
 # Run progress: 91.67% complete, ETA 00:00:00
 # Fork: 1 of 1
-# Warmup Iteration   1: 73.646 ns/op
-Iteration   1: 64.169 ns/op
-                 gc.alloc.rate:      474.502 MB/sec
+# Warmup Iteration   1: 75.483 ns/op
+Iteration   1: 65.234 ns/op
+                 gc.alloc.rate:      466.920 MB/sec
                  gc.alloc.rate.norm: 32.004 B/op
                  gc.count:           1.000 counts
                  gc.time:            2.000 ms
@@ -423,10 +423,10 @@ Iteration   1: 64.169 ns/op
 
 
 Result "org.example.irr.bench.KernelBench.evaluate":
-  64.169 ns/op
+  65.234 ns/op
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate":
-  474.502 MB/sec
+  466.920 MB/sec
 
 Secondary result "org.example.irr.bench.KernelBench.evaluate:gc.alloc.rate.norm":
   32.004 B/op
@@ -453,53 +453,53 @@ different JVMs are already problematic, the performance difference caused by dif
 modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
 
 Benchmark                                               (call)  (configuration)  (frequency)  (seed)  Mode  Cnt     Score   Error   Units
-KernelBench.evaluate                             OLD_POW_VALUE              n16        DAILY      42  avgt        283.277           ns/op
-KernelBench.evaluate:gc.alloc.rate               OLD_POW_VALUE              n16        DAILY      42  avgt          0.060          MB/sec
-KernelBench.evaluate:gc.alloc.rate.norm          OLD_POW_VALUE              n16        DAILY      42  avgt          0.018            B/op
+KernelBench.evaluate                             OLD_POW_VALUE              n16        DAILY      42  avgt        288.232           ns/op
+KernelBench.evaluate:gc.alloc.rate               OLD_POW_VALUE              n16        DAILY      42  avgt          0.063          MB/sec
+KernelBench.evaluate:gc.alloc.rate.norm          OLD_POW_VALUE              n16        DAILY      42  avgt          0.019            B/op
 KernelBench.evaluate:gc.count                    OLD_POW_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                              OLD_AUTODIFF              n16        DAILY      42  avgt       3871.695           ns/op
-KernelBench.evaluate:gc.alloc.rate                OLD_AUTODIFF              n16        DAILY      42  avgt        831.607          MB/sec
-KernelBench.evaluate:gc.alloc.rate.norm           OLD_AUTODIFF              n16        DAILY      42  avgt       3384.247            B/op
+KernelBench.evaluate                              OLD_AUTODIFF              n16        DAILY      42  avgt       3906.387           ns/op
+KernelBench.evaluate:gc.alloc.rate                OLD_AUTODIFF              n16        DAILY      42  avgt        824.034          MB/sec
+KernelBench.evaluate:gc.alloc.rate.norm           OLD_AUTODIFF              n16        DAILY      42  avgt       3384.259            B/op
 KernelBench.evaluate:gc.count                     OLD_AUTODIFF              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                           ARRAY_POW_VALUE              n16        DAILY      42  avgt        252.962           ns/op
-KernelBench.evaluate:gc.alloc.rate             ARRAY_POW_VALUE              n16        DAILY      42  avgt          0.060          MB/sec
-KernelBench.evaluate:gc.alloc.rate.norm        ARRAY_POW_VALUE              n16        DAILY      42  avgt          0.016            B/op
+KernelBench.evaluate                           ARRAY_POW_VALUE              n16        DAILY      42  avgt        253.902           ns/op
+KernelBench.evaluate:gc.alloc.rate             ARRAY_POW_VALUE              n16        DAILY      42  avgt          0.063          MB/sec
+KernelBench.evaluate:gc.alloc.rate.norm        ARRAY_POW_VALUE              n16        DAILY      42  avgt          0.017            B/op
 KernelBench.evaluate:gc.count                  ARRAY_POW_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                       ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt        283.011           ns/op
-KernelBench.evaluate:gc.alloc.rate         ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt        107.680          MB/sec
+KernelBench.evaluate                       ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt        284.820           ns/op
+KernelBench.evaluate:gc.alloc.rate         ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt        106.979          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm    ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt         32.019            B/op
 KernelBench.evaluate:gc.count              ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt          1.000          counts
 KernelBench.evaluate:gc.time               ARRAY_ANALYTIC_BOTH              n16        DAILY      42  avgt          2.000              ms
-KernelBench.evaluate                          PHI_DIRECT_VALUE              n16        DAILY      42  avgt        113.016           ns/op
-KernelBench.evaluate:gc.alloc.rate            PHI_DIRECT_VALUE              n16        DAILY      42  avgt          0.060          MB/sec
-KernelBench.evaluate:gc.alloc.rate.norm       PHI_DIRECT_VALUE              n16        DAILY      42  avgt          0.007            B/op
+KernelBench.evaluate                          PHI_DIRECT_VALUE              n16        DAILY      42  avgt        115.869           ns/op
+KernelBench.evaluate:gc.alloc.rate            PHI_DIRECT_VALUE              n16        DAILY      42  avgt          0.063          MB/sec
+KernelBench.evaluate:gc.alloc.rate.norm       PHI_DIRECT_VALUE              n16        DAILY      42  avgt          0.008            B/op
 KernelBench.evaluate:gc.count                 PHI_DIRECT_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                           PHI_DIRECT_BOTH              n16        DAILY      42  avgt        128.964           ns/op
-KernelBench.evaluate:gc.alloc.rate             PHI_DIRECT_BOTH              n16        DAILY      42  avgt        236.207          MB/sec
-KernelBench.evaluate:gc.alloc.rate.norm        PHI_DIRECT_BOTH              n16        DAILY      42  avgt         32.008            B/op
+KernelBench.evaluate                           PHI_DIRECT_BOTH              n16        DAILY      42  avgt        130.766           ns/op
+KernelBench.evaluate:gc.alloc.rate             PHI_DIRECT_BOTH              n16        DAILY      42  avgt        232.951          MB/sec
+KernelBench.evaluate:gc.alloc.rate.norm        PHI_DIRECT_BOTH              n16        DAILY      42  avgt         32.009            B/op
 KernelBench.evaluate:gc.count                  PHI_DIRECT_BOTH              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                         PHI_GENERIC_VALUE              n16        DAILY      42  avgt         33.811           ns/op
-KernelBench.evaluate:gc.alloc.rate           PHI_GENERIC_VALUE              n16        DAILY      42  avgt          0.062          MB/sec
+KernelBench.evaluate                         PHI_GENERIC_VALUE              n16        DAILY      42  avgt         34.288           ns/op
+KernelBench.evaluate:gc.alloc.rate           PHI_GENERIC_VALUE              n16        DAILY      42  avgt          0.063          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm      PHI_GENERIC_VALUE              n16        DAILY      42  avgt          0.002            B/op
 KernelBench.evaluate:gc.count                PHI_GENERIC_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                     PHI_INCREMENTAL_VALUE              n16        DAILY      42  avgt         26.147           ns/op
+KernelBench.evaluate                     PHI_INCREMENTAL_VALUE              n16        DAILY      42  avgt         26.271           ns/op
 KernelBench.evaluate:gc.alloc.rate       PHI_INCREMENTAL_VALUE              n16        DAILY      42  avgt          0.064          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm  PHI_INCREMENTAL_VALUE              n16        DAILY      42  avgt          0.002            B/op
 KernelBench.evaluate:gc.count            PHI_INCREMENTAL_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                      PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt         43.794           ns/op
-KernelBench.evaluate:gc.alloc.rate        PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt        695.485          MB/sec
+KernelBench.evaluate                      PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt         43.778           ns/op
+KernelBench.evaluate:gc.alloc.rate        PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt        695.822          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm   PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt         32.003            B/op
 KernelBench.evaluate:gc.count             PHI_INCREMENTAL_BOTH              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                           PHI_TABLE_VALUE              n16        DAILY      42  avgt         29.789           ns/op
-KernelBench.evaluate:gc.alloc.rate             PHI_TABLE_VALUE              n16        DAILY      42  avgt          0.064          MB/sec
+KernelBench.evaluate                           PHI_TABLE_VALUE              n16        DAILY      42  avgt         30.321           ns/op
+KernelBench.evaluate:gc.alloc.rate             PHI_TABLE_VALUE              n16        DAILY      42  avgt          0.063          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm        PHI_TABLE_VALUE              n16        DAILY      42  avgt          0.002            B/op
 KernelBench.evaluate:gc.count                  PHI_TABLE_VALUE              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                            PHI_TABLE_BOTH              n16        DAILY      42  avgt         47.572           ns/op
-KernelBench.evaluate:gc.alloc.rate              PHI_TABLE_BOTH              n16        DAILY      42  avgt        640.192          MB/sec
+KernelBench.evaluate                            PHI_TABLE_BOTH              n16        DAILY      42  avgt         47.670           ns/op
+KernelBench.evaluate:gc.alloc.rate              PHI_TABLE_BOTH              n16        DAILY      42  avgt        638.862          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm         PHI_TABLE_BOTH              n16        DAILY      42  avgt         32.003            B/op
 KernelBench.evaluate:gc.count                   PHI_TABLE_BOTH              n16        DAILY      42  avgt            ≈ 0          counts
-KernelBench.evaluate                             PHI_TABLE_LOG              n16        DAILY      42  avgt         64.169           ns/op
-KernelBench.evaluate:gc.alloc.rate               PHI_TABLE_LOG              n16        DAILY      42  avgt        474.502          MB/sec
+KernelBench.evaluate                             PHI_TABLE_LOG              n16        DAILY      42  avgt         65.234           ns/op
+KernelBench.evaluate:gc.alloc.rate               PHI_TABLE_LOG              n16        DAILY      42  avgt        466.920          MB/sec
 KernelBench.evaluate:gc.alloc.rate.norm          PHI_TABLE_LOG              n16        DAILY      42  avgt         32.004            B/op
 KernelBench.evaluate:gc.count                    PHI_TABLE_LOG              n16        DAILY      42  avgt          1.000          counts
 KernelBench.evaluate:gc.time                     PHI_TABLE_LOG              n16        DAILY      42  avgt          2.000              ms

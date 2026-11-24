@@ -92,6 +92,11 @@ Two weaknesses of the optimized design were measured, explained and then address
 - **Far-negative roots.** Newton's first step overshoots by orders of magnitude and uses all 30 iterations before Brent runs. The log-form step detects the overshoot from the analytic bound and converges in about five evaluations.
 - **Threads.** Independent solves on 16 hardware threads reach 11.7 million per second for the extended solver (13.1× one thread) and 0.36 million for the historical one (8.8×).
 
+Against two open-source libraries (normalized amounts, default settings):
+
+- `org.decampo:xirr` takes 41–69 µs; the extended solver is 7.9× to 11.9× faster on dated input. On raw amounts spanning 1e-6 to 1e6 its absolute tolerance makes 2 of 64 irregular inputs per class fail after 10,000 iterations.
+- Apache POI `Irr` (daily schedule only, prebuilt array) takes 39–96 µs with its default guess and 2.9 µs from a zero guess. That is faster than the extended solver on dated input (5.1 µs, of which 3.9 µs is the digest) and 2.7× slower than the extended solver on prepared input (1.1 µs).
+
 ## Input classes
 
 Generator v3, `Synthetic.corpusCase`; schedules are daily, weekly, calendar-monthly and irregular (gaps of 1–40 days), plus a fixed 37-day gap and the irregular gaps sorted ascending for the gap-order experiment.
@@ -108,17 +113,17 @@ Generator v3, `Synthetic.corpusCase`; schedules are daily, weekly, calendar-mont
 
 ## Tests
 
-158 tests from 81 test methods (one disabled, recording a known limitation): the historical cascade step by step, every stage on every class, schedule and size (`StressTest`), old-versus-new parity (`ParityTest`), and an independent 60-digit residual check of returned roots. An early stage failing on a hard class is a recorded outcome.
+168 tests from 91 test methods (one disabled, recording a known limitation): the historical cascade step by step, every stage on every class, schedule and size (`StressTest`), old-versus-new parity (`ParityTest`), and an independent 60-digit residual check of returned roots. An early stage failing on a hard class is a recorded outcome.
 
 ## Reproduce the study
 
 ```sh
 ./mvnw -B clean verify
 scripts/study.sh smoke    # every benchmark, stage and class; no speed claims
-scripts/study.sh full     # about two hours; run with nothing else using the CPU
+scripts/study.sh full     # about two and a half hours; run with nothing else using the CPU
 ```
 
-The full study has 262 configurations: `KernelBench` (one NPV evaluation, including the gap-order experiment), `PrepBench` (preparation), `LadderBench` (twelve stages on seven classes, prepared; L0, L8 and L11 dated; schedules, seeds and sizes) and `ScalingBench` (throughput on 1 to 16 threads). Settings: 3 forks, 5 × 1 s warmup, 5 × 1 s measurement, `-prof gc`, 64 inputs per invocation. The script waits for a load average below 3 before each group and runs from a private copy of the jar. `LadderDiagnostics` then writes untimed per-input outcomes to `results/diagnostics.csv`.
+The full study has 298 configurations: `KernelBench` (one NPV evaluation, including the gap-order experiment), `PrepBench` (preparation), `LadderBench` (twelve stages on seven classes, prepared; L0, L8 and L11 dated; schedules, seeds and sizes) `ScalingBench` (throughput on 1 to 16 threads) and `LibraryBench` (L0 and L11 against `org.decampo:xirr` 1.2 and Apache POI 6.0.0 `Irr`; `scripts/study.sh library` runs this group alone). Settings: 3 forks, 5 × 1 s warmup, 5 × 1 s measurement, `-prof gc`, 64 inputs per invocation. The script waits for a load average below 3 before each group and runs from a private copy of the jar. `LadderDiagnostics` then writes untimed per-input outcomes to `results/diagnostics.csv`.
 
 ```sh
 python3 -m venv .venv

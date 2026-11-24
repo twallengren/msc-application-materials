@@ -3,7 +3,9 @@
 #   kernel   one NPV evaluation, no solving
 #   prep     preparation only
 #   solve    complete solves at every ladder stage, per input class
-# and a thread-scaling group (independent solves on 1 to 16 threads).
+# a thread-scaling group (independent solves on 1 to 16 threads), and a library comparison:
+#   library  our solvers against org.decampo:xirr and Apache POI Irr (daily, then irregular schedules).
+# "study.sh library" runs only the library group and its untimed outcome pass.
 # Each group waits for an idle machine and records the load average. Named outputs are replaced.
 set -eu
 cd "$(dirname "$0")/.."
@@ -37,6 +39,18 @@ PY
 base='-p configuration=n256 -p frequency=DAILY -p seed=42'
 ends='-p stage=HISTORICAL,OPTIMIZED,LOG_NEWTON'
 four='-p frequency=DAILY,WEEKLY,MONTHLY,IRREGULAR'
+# The library group: POI takes equally spaced periods, so it runs on the daily schedule only.
+# Arguments: file prefix, then JMH options shared by both invocations.
+library_runs() {
+ prefix=$1; shift
+ lib='-p configuration=n256 -p seed=42 -p family=standard,wide -p amounts=NORMALIZED,RAW'
+ [ "$prefix" = smoke- ] && lib='-p configuration=n16 -p seed=42 -p family=standard,wide -p amounts=NORMALIZED,RAW'
+ run ${prefix}library-daily '.*LibraryBench.solve' $lib -p frequency=DAILY -p solver=HISTORICAL,EXTENDED,EXTENDED_PREPARED,XIRR,POI_IRR,POI_IRR_ZERO_GUESS "$@"
+ run ${prefix}library-irregular '.*LibraryBench.solve' $lib -p frequency=IRREGULAR -p solver=HISTORICAL,EXTENDED,XIRR "$@"
+}
+library_diagnostics() {
+ java -Xmx512m -cp "$jar" org.example.irr.bench.LibraryDiagnostics > results/library-diagnostics.csv
+}
 case "$mode" in
  smoke)
   quick='-p configuration=n16 -p frequency=DAILY -p seed=42 -f 1 -wi 1 -i 1 -w 100ms -r 100ms'
@@ -44,7 +58,9 @@ case "$mode" in
   run smoke-prep '.*PrepBench.prepare' $quick
   run smoke-ladder '.*LadderBench.*' $quick
   run smoke-scaling '.*ScalingBench.solve' $quick -t 2
+  library_runs smoke- -f 1 -wi 1 -i 1 -w 100ms -r 100ms
   java -Xmx512m -cp "$jar" org.example.irr.bench.LadderDiagnostics > results/diagnostics.csv
+  library_diagnostics
   ;;
  full)
   # Layer 1: kernel by size (daily) and by schedule (256 flows).
@@ -65,8 +81,15 @@ case "$mode" in
   for threads in 1 2 4 8 16; do
    run scaling-t$threads '.*ScalingBench.solve' $base -t $threads
   done
+  # Our solvers against two open-source libraries on identical inputs.
+  library_runs ''
   # Untimed outcomes last, so they never compete with a timed run.
   java -Xmx512m -cp "$jar" org.example.irr.bench.LadderDiagnostics > results/diagnostics.csv
+  library_diagnostics
   ;;
- *) printf '%s\n' 'Usage: study.sh smoke|full' >&2; exit 2;;
+ library)
+  library_runs ''
+  library_diagnostics
+  ;;
+ *) printf '%s\n' 'Usage: study.sh smoke|full|library' >&2; exit 2;;
 esac

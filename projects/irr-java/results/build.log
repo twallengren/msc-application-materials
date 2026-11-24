@@ -12,7 +12,7 @@
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.4.0:clean (default-clean) @ irr-java ---
-[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/target
+[INFO] Deleting <repo>/projects/irr-java/target
 [INFO] 
 [INFO] --- spotless:2.43.0:check (format-check) @ irr-java ---
 [INFO] Index file does not exist. Fallback to an empty index
@@ -23,21 +23,21 @@
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.4.0:clean (default-clean) @ irr-core ---
-[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/target
+[INFO] Deleting <repo>/projects/irr-java/core/target
 [INFO] 
 [INFO] --- spotless:2.43.0:check (format-check) @ irr-core ---
 [INFO] Index file does not exist. Fallback to an empty index
 [INFO] Spotless.Java is keeping 18 files clean - 0 needs changes to be clean, 18 were already clean, 0 were skipped because caching determined they were already clean
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ irr-core ---
-[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/src/main/resources
+[INFO] skip non existing resourceDirectory <repo>/projects/irr-java/core/src/main/resources
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ irr-core ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 13 source files with javac [debug release 21] to target/classes
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ irr-core ---
-[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/src/test/resources
+[INFO] skip non existing resourceDirectory <repo>/projects/irr-java/core/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ irr-core ---
 [INFO] Recompiling the module because of changed dependency.
@@ -50,7 +50,7 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running org.example.irr.IrrTest
-[WARNING] Tests run: 116, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.670 s -- in org.example.irr.IrrTest
+[WARNING] Tests run: 116, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.707 s -- in org.example.irr.IrrTest
 [INFO] Running org.example.irr.historical.HistoricalIrrTest
 [INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in org.example.irr.historical.HistoricalIrrTest
 [INFO] Running org.example.irr.ParityTest
@@ -65,7 +65,7 @@ jcurve                        2304               0               0              
 signflips                     2106             145               0              53               0              20
 standard                      2304               0               0               0               0               0
 wide                          2304               0               0               0               0               0
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.840 s -- in org.example.irr.ParityTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.106 s -- in org.example.irr.ParityTest
 [INFO] Running org.example.irr.StressTest
 
 Stress outcomes by family and stage (status/path=count)
@@ -174,7 +174,7 @@ wide
   SMALL_POWERS         CONVERGED/BRENT=283 CONVERGED/NEWTON=41
   TRUSTED_GUESS        CONVERGED/NEWTON=324
 max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-13}
-[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.60 s -- in org.example.irr.StressTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.13 s -- in org.example.irr.StressTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -182,7 +182,7 @@ max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-1
 [INFO] 
 [INFO] 
 [INFO] --- jar:3.4.2:jar (default-jar) @ irr-core ---
-[INFO] Building jar: /Users/tw/Repositories/msc-application-materials/projects/irr-java/core/target/irr-core-1.0.0.jar
+[INFO] Building jar: <repo>/projects/irr-java/core/target/irr-core-1.0.0.jar
 [INFO] 
 [INFO] ---------------------< org.example:irr-benchmarks >---------------------
 [INFO] Building irr-benchmarks 1.0.0                                      [3/3]
@@ -190,18 +190,18 @@ max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-1
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.4.0:clean (default-clean) @ irr-benchmarks ---
-[INFO] Deleting /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target
+[INFO] Deleting <repo>/projects/irr-java/benchmarks/target
 [INFO] 
 [INFO] --- spotless:2.43.0:check (format-check) @ irr-benchmarks ---
 [INFO] Index file does not exist. Fallback to an empty index
-[INFO] Spotless.Java is keeping 7 files clean - 0 needs changes to be clean, 7 were already clean, 0 were skipped because caching determined they were already clean
+[INFO] Spotless.Java is keeping 11 files clean - 0 needs changes to be clean, 11 were already clean, 0 were skipped because caching determined they were already clean
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ irr-benchmarks ---
-[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/src/main/resources
+[INFO] skip non existing resourceDirectory <repo>/projects/irr-java/benchmarks/src/main/resources
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ irr-benchmarks ---
 [INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 6 source files with javac [debug release 21] to target/classes
+[INFO] Compiling 9 source files with javac [debug release 21] to target/classes
 [INFO] Annotation processing is enabled because one or more processors were found
   on the class path. A future release of javac may disable annotation processing
   unless at least one processor is specified by name (-processor), or a search
@@ -211,11 +211,11 @@ max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-1
   Use -proc:none to disable annotation processing.
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ irr-benchmarks ---
-[INFO] skip non existing resourceDirectory /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/src/test/resources
+[INFO] skip non existing resourceDirectory <repo>/projects/irr-java/benchmarks/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ irr-benchmarks ---
 [INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
 [INFO] Annotation processing is enabled because one or more processors were found
   on the class path. A future release of javac may disable annotation processing
   unless at least one processor is specified by name (-processor), or a search
@@ -230,23 +230,45 @@ max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-1
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
+[INFO] Running org.example.irr.bench.LibraryTest
+2026-11-23T20:22:26.855539Z main ERROR Log4j API could not find a logging provider.
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.901 s -- in org.example.irr.bench.LibraryTest
 [INFO] Running org.example.irr.bench.StudyTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.756 s -- in org.example.irr.bench.StudyTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.648 s -- in org.example.irr.bench.StudyTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] 
 [INFO] --- jar:3.4.2:jar (default-jar) @ irr-benchmarks ---
-[INFO] Building jar: /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0.jar
+[INFO] Building jar: <repo>/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0.jar
 [INFO] 
 [INFO] --- shade:3.6.0:shade (default) @ irr-benchmarks ---
 [INFO] Including org.example:irr-core:jar:1.0.0 in the shaded jar.
 [INFO] Including org.apache.commons:commons-math3:jar:3.6.1 in the shaded jar.
 [INFO] Including org.openjdk.jmh:jmh-core:jar:1.37 in the shaded jar.
 [INFO] Including net.sf.jopt-simple:jopt-simple:jar:5.0.4 in the shaded jar.
-[WARNING] commons-math3-3.6.1.jar, irr-benchmarks-1.0.0.jar, irr-core-1.0.0.jar, jmh-core-1.37.jar, jopt-simple-5.0.4.jar define 1 overlapping resource: 
+[INFO] Including org.decampo:xirr:jar:1.2 in the shaded jar.
+[INFO] Including org.apache.poi:poi:jar:6.0.0 in the shaded jar.
+[INFO] Including commons-codec:commons-codec:jar:1.23.0 in the shaded jar.
+[INFO] Including org.apache.commons:commons-collections4:jar:4.6.0 in the shaded jar.
+[INFO] Including commons-io:commons-io:jar:2.22.0 in the shaded jar.
+[INFO] Including com.zaxxer:SparseBitSet:jar:1.3 in the shaded jar.
+[INFO] Including org.apache.logging.log4j:log4j-api:jar:2.26.1 in the shaded jar.
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] commons-codec-1.23.0.jar, commons-collections4-4.6.0.jar, commons-io-2.22.0.jar define 1 overlapping classes: 
+[WARNING]   - META-INF.versions.9.module-info
+[WARNING] log4j-api-2.26.1.jar, poi-6.0.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/LICENSE
+[WARNING]   - META-INF/NOTICE
+[WARNING] commons-codec-1.23.0.jar, commons-collections4-4.6.0.jar, commons-io-2.22.0.jar, commons-math3-3.6.1.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/LICENSE.txt
+[WARNING]   - META-INF/NOTICE.txt
+[WARNING] jmh-core-1.37.jar, xirr-1.2.jar define 1 overlapping resource: 
+[WARNING]   - LICENSE
+[WARNING] SparseBitSet-1.3.jar, commons-codec-1.23.0.jar, commons-collections4-4.6.0.jar, commons-io-2.22.0.jar, commons-math3-3.6.1.jar, irr-benchmarks-1.0.0.jar, irr-core-1.0.0.jar, jmh-core-1.37.jar, jopt-simple-5.0.4.jar, log4j-api-2.26.1.jar, poi-6.0.0.jar, xirr-1.2.jar define 1 overlapping resource: 
 [WARNING]   - META-INF/MANIFEST.MF
 [WARNING] maven-shade-plugin has detected that some files are
 [WARNING] present in two or more JARs. When this happens, only one
@@ -255,16 +277,16 @@ max residual: {BRENT/X_BRENT=2.4335339776199815E-6, NEWTON=1.9919540124516804E-1
 [WARNING] otherwise try to manually exclude artifacts based on
 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
-[INFO] Replacing /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/benchmarks.jar with /Users/tw/Repositories/msc-application-materials/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0-shaded.jar
+[INFO] Replacing <repo>/projects/irr-java/benchmarks/target/benchmarks.jar with <repo>/projects/irr-java/benchmarks/target/irr-benchmarks-1.0.0-shaded.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary for irr-java 1.0.0:
 [INFO] 
-[INFO] irr-java ........................................... SUCCESS [  0.474 s]
-[INFO] irr-core ........................................... SUCCESS [ 17.807 s]
-[INFO] irr-benchmarks ..................................... SUCCESS [  2.428 s]
+[INFO] irr-java ........................................... SUCCESS [  0.479 s]
+[INFO] irr-core ........................................... SUCCESS [ 17.709 s]
+[INFO] irr-benchmarks ..................................... SUCCESS [  5.043 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  20.800 s
-[INFO] Finished at: 2026-11-23T13:48:35Z
+[INFO] Total time:  23.321 s
+[INFO] Finished at: 2026-11-23T20:22:28Z
 [INFO] ------------------------------------------------------------------------
