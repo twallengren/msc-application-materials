@@ -1,10 +1,10 @@
 # MSc application materials
 
-Technical case studies and supporting evidence for an MSc application.
+Technical case studies supporting an MSc application. The landing page is at **https://twallengren.github.io/msc-application-materials/** (source in [`docs/`](docs/index.html)).
 
-- **[Java IRR case study](projects/irr-java/README.md):** a Java 21 numerical library, correctness tests, reproducible JMH experiments, and a LaTeX report.
-- **Home network:** planned case study; future work.
-- **Concordia (tentative):** possible case study; scope and evidence remain to be established.
+- **[Understanding IRR performance in Java](projects/irr-java/README.md):** two period-IRR solvers in Java 21 and the twelve cumulative changes between and beyond them, with correctness tests, retained JMH measurements and a [15-page report](projects/irr-java/report/report.pdf).
+
+Further case studies will be added as they are completed.
 
 ## Open in IntelliJ IDEA
 

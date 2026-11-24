@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical Portfolio</title>
+<meta name="description" content="Technical case studies supporting an MSc application: code, tests, retained measurements and a written report for each.">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --text: #1d1d1b;
+    --muted: #5c5b57;
+    --border: #e2e0da;
+    --accent: #2f5d8a;
+    --accent-soft: #e8eff6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615;
+      --surface: #1f1f1d;
+      --text: #ecebe6;
+      --muted: #a3a29c;
+      --border: #34332f;
+      --accent: #8db5dd;
+      --accent-soft: #23303c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 16px 72px; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 12px; letter-spacing: -0.01em; }
+  h2 { font-size: 1.3rem; line-height: 1.3; margin: 0 0 4px; }
+  h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 24px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lede { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+  a { color: var(--accent); }
+  .project {
+    margin-top: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 28px 20px;
+  }
+  .subtitle { color: var(--muted); margin-bottom: 16px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; padding: 0; list-style: none; }
+  .links a {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .links a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.93rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 7px 8px 7px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); }
+  td.num, th.num { text-align: right; padding-right: 0; white-space: nowrap; }
+  ul.facts { padding-left: 20px; margin: 0 0 12px; }
+  ul.facts li { margin-bottom: 6px; }
+  code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, monospace; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 0.88rem; }
+  @media (max-width: 520px) {
+    main { padding-top: 32px; }
+    .project { padding: 20px 16px 12px; }
+    h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Technical portfolio</h1>
+  <p class="lede">Case studies supporting an MSc application. Each one has its source code, tests, the raw output of every measurement, and a written report whose numbers are regenerated from that output.</p>
+
+  <section class="project" id="irr">
+    <h2>Understanding IRR performance in Java</h2>
+    <p class="subtitle">From a historical solver to an optimized one, one change at a time</p>
+
+    <p>Internal rate of return is the root of a sum of discounted cashflows. This study rebuilds two period-IRR solvers in Java 21: a historical one (boxed pairs, one <code>Math.pow</code> per cashflow, Brent's method with a Newton fallback) and an optimized one (primitive arrays, a logarithmic coordinate with a multiplicative recurrence, analytic bounds that prove whether a root exists, Newton first from a rational guess). Twelve cumulative stages connect and extend them, and each stage is timed with JMH on seven classes of input.</p>
+
+    <h3>Results</h3>
+    <table>
+      <thead><tr><th>Measurement (256 daily flows unless stated)</th><th class="num">Historical</th><th class="num">Extended</th><th class="num">Ratio</th></tr></thead>
+      <tbody>
+        <tr><td>One NPV value and derivative, 365 flows</td><td class="num">55.7 µs</td><td class="num">0.46 µs</td><td class="num">121×</td></tr>
+        <tr><td>Solve, prepared input</td><td class="num">26.4 µs</td><td class="num">1.11 µs</td><td class="num">23.8×</td></tr>
+        <tr><td>Solve, wide range of roots</td><td class="num">70.2 µs</td><td class="num">1.44 µs</td><td class="num">48.6×</td></tr>
+        <tr><td>Solve, irregular gaps</td><td class="num">26.1 µs</td><td class="num">1.23 µs</td><td class="num">21.2×</td></tr>
+      </tbody>
+    </table>
+    <ul class="facts">
+      <li>Where the root lies outside the historical search bracket, the historical solver returns 48 of 64 roots above it and none below it. The optimized solver returns all of them.</li>
+      <li>The measurements exposed two weaknesses of the optimized design. An experiment that reorders the same gaps attributes about two thirds of the irregular-gap cost to unpredictable branches; a branch-free power table removes it. A logarithmic form of the Newton step cuts far-negative roots from 43 evaluations to 5.</li>
+      <li>On 16 hardware threads the extended solver reaches 11.7 million solves per second. It is 8 to 12 times faster than an open-source XIRR library on dated input, and Apache POI's periodic IRR, given a good guess, is faster when dates must be digested.</li>
+    </ul>
+
+    <ul class="links">
+      <li><a href="https://github.com/twallengren/msc-application-materials/blob/main/projects/irr-java/report/report.pdf">Report (PDF, 15 pages)</a></li>
+      <li><a href="https://github.com/twallengren/msc-application-materials/tree/main/projects/irr-java">Code and README</a></li>
+      <li><a href="https://github.com/twallengren/msc-application-materials/tree/main/projects/irr-java/results">Raw measurements</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    More case studies will be added as they are completed. Everything here is in the <a href="https://github.com/twallengren/msc-application-materials">repository</a>.
+  </footer>
+</main>
+</body>
+</html>
