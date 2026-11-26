@@ -30,12 +30,12 @@ This study rebuilds two period-IRR solvers and measures the path between them. T
 One NPV evaluation of 365 daily flows is $\KernelPowIncrYear\times$ faster for the value and $\KernelAutodiffIncrYear\times$ faster for the value with its derivative. Preparation is $\PrepRatioDaily\times$ faster. A complete solve of standard flows on prepared input is $\SpeedupPreparedStandard\times$ faster, and $\SpeedupDatedStandard\times$ faster when preparation is timed too. Where the root lies outside the historical bracket the result is a change of outcome: the historical solver returns \RootsHistoricalExtremePositive{} of 64 roots above the bracket and \RootsHistoricalExtremeNegative{} below it, and the optimized solver returns all 64 in both cases. The optimized solver as designed has two measured weaknesses. On irregular gaps its recurrence is slower than direct exponentials and the solve speedup falls to $\SpeedupIrregularOptimized\times$; an experiment that reorders the same gaps attributes about two thirds of that cost to unpredictable branches, and a branch-free power table restores $\SpeedupIrregularExtended\times$. On far-negative roots Newton wastes 30 iterations; a logarithmic form of the equation cuts \MeanEvaluationsExtremeNegativeOptimized{} evaluations to \MeanEvaluationsExtremeNegativeExtended. On 8 cores and 16 hardware threads the extended solver reaches \ThroughputExtendedStandardMax{} million solves per second, $\ScalingExtendedStandardSixteen\times$ its single-thread rate. Against two open-source libraries, it is 8 to 12 times faster than a dated XIRR implementation; Apache POI's periodic IRR, given a good guess and a prebuilt array, is faster than the extended solver when dates must be digested and $\LibraryPoiZeroPreparedNormalizedStandardDaily\times$ slower when they are prepared.
 \end{abstract}
 
-\section*{Headline: historical, optimized and extended}
+\section*{Headline}
 \begin{center}
 \small
-\resizebox{\linewidth}{!}{\input{generated/overall.tex}}
+\input{generated/headline.tex}
 \end{center}
-Times are per input, mean $\pm$ JMH 99.9\% half-width, 64 identical inputs for every solver, 256 daily flows unless stated. ``Prepared'' times the search on a prepared input; ``dated'' also times preparation from \code{LocalDate} flows. L8 is the optimized solver as originally designed and L11 adds the three extensions of Section~\ref{sec:extensions}. A speedup is printed only when both solvers return a root for all 64 inputs; brackets are envelopes from the confidence bounds.
+Mean time to find the rate of one set of 256 cashflows, each row averaged over 64 different inputs. \emph{Historical} is the solver as it was, \emph{optimized} the redesign, and \emph{extended} the redesign with three later fixes. Except in the second row, the cashflows are already in array form; the second row also times reading them from calendar dates. Where a solver did not return a rate for every input, the cell says what it returned instead. Sections~\ref{sec:historical} to \ref{sec:ladder} define the solvers and the intermediate stages, Section~\ref{sec:inputs} the inputs, and Table~\ref{tab:overall} gives every configuration with confidence intervals.
 
 \input{author-statement}
 
@@ -168,7 +168,7 @@ $h$ has exactly the roots of $F$. For two flows it is linear in $\phi$, so one N
 \end{description}
 
 \section{Inputs, correctness and measurement}
-\subsection{Input classes}
+\subsection{Input classes}\label{sec:inputs}
 Results are reported per class because the changes act on different classes. All classes come from one seeded generator; nothing is generated inside a timed method.
 
 \begin{center}\small
@@ -292,7 +292,14 @@ IRR is usually computed for many independent inputs, so throughput on all cores 
 \end{center}
 Throughput is in thousands of solves per second and $\times$ is relative to one thread. The extended solver scales linearly to four threads and reaches $\ScalingExtendedStandardEight\times$ (standard) and $\ScalingExtendedWideEight\times$ (wide) on the eight cores. The second hardware thread per core adds a further $1.7\times$, for \ThroughputExtendedStandardMax{} million standard solves per second. The historical solver scales less well: $\ScalingHistoricalStandardEight\times$ and $\ScalingHistoricalWideEight\times$ on eight cores, and only $1.3\times$ more from the second hardware threads. Its wide-class solves allocate 53\,kB each, which is 7.4\,GB/s on 16 threads against 1.0\,GB/s for the extended solver, but the standard class allocates almost nothing and scales no better, so allocation is not the whole explanation; the cause was not investigated further. The consequence is that the gap widens with parallelism: the standard-class ratio of 22 on one thread is 33 on 16. Scaling was measured for daily schedules and two classes only, and no vectorized (SIMD) kernel was attempted; the recurrence carries a dependency from each flow to the next, which the table form shortens to one multiplication but does not remove.
 
-\subsection{Preparation included}
+\subsection{All configurations and preparation}
+\begin{table}[htbp]
+\centering
+\small
+\resizebox{\linewidth}{!}{\input{generated/overall.tex}}
+\caption{Historical, optimized (L8) and extended (L11) solvers in every configuration measured: mean $\pm$ JMH 99.9\% half-width per input, 256 daily flows unless stated. ``Prepared'' times the search on a prepared input; ``dated'' also times preparation from \code{LocalDate} flows. A speedup is printed only when both solvers return a root for all 64 inputs; brackets are envelopes from the confidence bounds.}
+\label{tab:overall}
+\end{table}
 With dated input the standard speedup is $\SpeedupDatedStandard\times$ rather than $\SpeedupPreparedStandard\times$. The difference between dated and prepared solves is 8.0 of 34.4\,$\mu$s for the historical solver and 3.9 of 5.0\,$\mu$s for the optimized one: after the search has been reduced to about 1\,$\mu$s, the digest is the larger part of the work, and it is the next thing to optimize for callers that solve each input once. The extensions do not touch it. One dated result is unexplained: the wide class is 5\% slower at L11 than at L8 on dated input, although the two are equal on prepared input.
 
 \subsection{Accuracy}\label{sec:accuracy}

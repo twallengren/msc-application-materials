@@ -1,0 +1,12 @@
+\begin{tabular}{lrrr}
+\toprule
+Input & Historical & Optimized & Extended \\
+\midrule
+Typical: one investment, then returns & 26.4 $\mu$s & 1.12 $\mu$s & 1.11 $\mu$s \\
+The same, timed from dated cashflows & 34.4 $\mu$s & 5.04 $\mu$s & 5.04 $\mu$s \\
+Irregular payment dates & 26.1 $\mu$s & 9.86 $\mu$s & 1.23 $\mu$s \\
+Rate above the historical search range & 48 of 64 roots, 2.5 ms & 3.18 $\mu$s & 3.18 $\mu$s \\
+Rate close to $-$100\% & $-$100\% fallback, 2.6 ms & 16.0 $\mu$s & 2.69 $\mu$s \\
+No rate exists & failed, 2.7 ms & no solution, 17 ns & no solution, 17 ns \\
+\bottomrule
+\end{tabular}

@@ -284,6 +284,30 @@ for cfg in ('n16','n4096'):
     if cfg!=BASE:opt(f'Prepared, standard, {cfg}','prepared','standard',configuration=cfg)
 table('overall.tex','lrrrrrr',r'Configuration & Historical ($\mu$s) & Optimized L8 ($\mu$s) & Extended L11 ($\mu$s) & H/L8 [envelope] & H/L11 [envelope] & Roots H/L8/L11',body)
 
+# ---------- 7b. headline: a few configurations in plain words, mean times only ----------
+def short(r):
+    ns=r['ns']
+    us=ns/1e3;d=0 if us>=100 else 1 if us>=10 else 2  # three significant figures
+    return f'{ns/1e6:.1f} ms' if ns>=1e6 else f'{ns:.0f} ns' if ns<100 else f'{us:.{d}f} $\\mu$s'
+def head_cell(r):
+    cs=rows_for(r);n=roots(cs)
+    if n==64:return short(r)
+    if n==0:return f'{phrase(cs)}, {short(r)}'
+    return f'{n} of 64 roots, {short(r)}'
+HEADLINE=[('Typical: one investment, then returns','prepared','standard',{}),
+          ('The same, timed from dated cashflows','dated','standard',{}),
+          ('Irregular payment dates','prepared','standard',{'frequency':'IRREGULAR'}),
+          ('Rate above the historical search range','prepared','extreme-positive',{}),
+          ('Rate close to $-$100\\%','prepared','extreme-negative',{}),
+          ('No rate exists','prepared','dominance',{})]
+body=[]
+for label,method,family,over in HEADLINE:
+    if not have('LadderBench.'+method,**{**base,**over},family=family,stage='HISTORICAL'):
+        if SMOKE:continue
+        raise SystemExit(f'Missing headline row {label}')
+    body.append(label+' & '+' & '.join(head_cell(lad(method,family,s,**over)) for s in ('HISTORICAL','OPTIMIZED',LAST)))
+table('headline.tex','lrrr',r'Input & Historical & Optimized & Extended',body)
+
 # ---------- 8. accuracy: historical against each of the two optimized ends ----------
 def agree(h,o):
     ph,po=float(h['phi']),float(o['phi'])
