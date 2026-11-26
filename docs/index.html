@@ -66,6 +66,20 @@
   ul.facts { padding-left: 20px; margin: 0 0 12px; }
   ul.facts li { margin-bottom: 6px; }
   code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .status {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .status.done { color: var(--accent); border-color: var(--accent); }
+  .project.planned { background: transparent; border-style: dashed; }
+  .project.planned .subtitle { margin-bottom: 12px; }
   footer { margin-top: 48px; color: var(--muted); font-size: 0.88rem; }
   @media (max-width: 520px) {
     main { padding-top: 32px; }
@@ -80,6 +94,7 @@
   <p class="lede">Case studies supporting an MSc application. Each one has its source code, tests, the raw output of every measurement, and a written report whose numbers are regenerated from that output.</p>
 
   <section class="project" id="irr">
+    <span class="status done">Complete</span>
     <h2>Understanding IRR performance in Java</h2>
     <p class="subtitle">From a historical solver to an optimized one, one change at a time</p>
 
@@ -106,6 +121,26 @@
       <li><a href="https://github.com/twallengren/msc-application-materials/tree/main/projects/irr-java">Code and README</a></li>
       <li><a href="https://github.com/twallengren/msc-application-materials/tree/main/projects/irr-java/results">Raw measurements</a></li>
     </ul>
+  </section>
+
+  <!-- Placeholder. Source repository is private; keep household details
+       (location, addresses, host and network names, ISP) off this page. -->
+  <section class="project planned" id="home-lab">
+    <span class="status">In preparation</span>
+    <h2>A resilient home lab on a small cluster</h2>
+    <p class="subtitle">Turning an undocumented home network into one that survives losing a machine</p>
+    <p>A household network and its services (filtering DNS with recursive resolution, Wi-Fi management, metrics and dashboards) run on a three-node Raspberry Pi Kubernetes cluster. The first cluster was meant to keep services up when a node failed, but it did not: an inspection showed that its services and their storage were tied to single machines. It was rebuilt with a replicated control plane and three-way replicated storage, and every service was then tested by shutting down each production node in turn and checking that it recovered.</p>
+    <p>The case study will cover that rebuild, the failure tests and their retained evidence, and an open problem: intermittent network partitions on the nodes, where the current fix contains the symptom without proving the diagnosis.</p>
+  </section>
+
+  <!-- Placeholder. Source repository is private and the protocol is not
+       externally reviewed; do not describe it as secure. -->
+  <section class="project planned" id="concordia">
+    <span class="status">In preparation</span>
+    <h2>Concordia: governed anonymity for group votes</h2>
+    <p class="subtitle">An experimental protocol for anonymous voting with a threshold reveal</p>
+    <p>Members of a group prove they belong to it without revealing who they are, cast one ballot each, and results stay hidden until the vote closes. Identity can be revealed only through a pre-agreed ceremony in which two of three trustees cooperate, not by a database query. Accepted ballots go into a public hash-chained log that anyone can recount after the vote closes. The cryptographic core is written in Rust and compiled to WebAssembly for the browser; a Telegram bot and a one-page browser demo are the two ways in.</p>
+    <p>The protocol is experimental and has not been externally reviewed. The case study will state its known weaknesses alongside what it does.</p>
   </section>
 
   <footer>
